@@ -184,7 +184,7 @@ Every script seeds NumPy's generator with the constant `SEED` at the top of the 
 
 One file per script in `experiments/`. The lines before the first blank line record how the output was made: the command, the commit of the code and whether the code had uncommitted changes, the Python and package versions, the platform, the thread count, the start time in UTC, the run time in seconds and the exit code. The rest is the output.
 
-Package versions are pinned in `requirements.txt`. Results of `qaoa_limits.py` at depth 3 change in the fourth digit with the thread count, because its optimiser stops after 40 iterations.
+Package versions are pinned in `requirements.txt`. The saved results were made with one thread. The depth 3 figures of `qaoa_limits.py` depend on the thread count, because its optimiser stops after 40 iterations and the last bits of a sum depend on how it is split: with 14 repairs the chance of the best plan is 7.2 times random at one thread and 7.5 at two (growth per added repair x1.105 and x1.111), and the best of 100 shots at one urgency level is 0.0856 hours at one and two threads and 0.0854 at the machine's default.
 
 ## qollab/main.py
 

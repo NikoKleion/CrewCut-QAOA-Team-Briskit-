@@ -53,10 +53,11 @@ def study(label, n, parents, instances, samples, depths, rng):
 
 
 def main(feeder_instances=20, tree_instances=3):
-    rng = np.random.default_rng(SEED)
     feeder = upstream_parents()
-    study("IEEE 13 node feeder", 12, lambda g: feeder, feeder_instances, (150, 300), (1, 2, 3), rng)
-    study("random trees", 18, lambda g: random_tree_parents(g, 18), tree_instances, (500, 1500), (1, 2), rng)
+    study("IEEE 13 node feeder", 12, lambda g: feeder, feeder_instances, (150, 300), (1, 2, 3),
+          np.random.default_rng(SEED))
+    study("random trees", 18, lambda g: random_tree_parents(g, 18), tree_instances, (500, 1500), (1, 2),
+          np.random.default_rng(SEED))
 
 
 if __name__ == "__main__":
