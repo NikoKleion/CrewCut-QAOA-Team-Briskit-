@@ -1,4 +1,5 @@
 import sys
+import tempfile
 from pathlib import Path
 
 import numpy as np
@@ -97,6 +98,28 @@ def trace_follows_scoring_order(run):
     return expected, got, got == expected
 
 
+def equal_rows_leave_the_file_alone(write_rows):
+    rows = benchmark.run("check", [tiny_instance(count=2)], {"m": random_plans}, [1, 2], [0, 1], "checks")
+    with tempfile.TemporaryDirectory() as folder:
+        path = Path(folder) / "rows.csv"
+        write_rows(rows, path)
+        first = path.read_bytes()
+        write_rows([{**row, "seconds": row["seconds"] + 1.0} for row in rows], path)
+        retimed = path.read_bytes()
+        write_rows([{**row, "value": row["value"] + 1.0} for row in rows], path)
+        changed = path.read_bytes()
+    got = ("unchanged" if retimed == first else "rewritten", "rewritten" if changed != first else "unchanged")
+    return ("unchanged", "rewritten"), got, got == ("unchanged", "rewritten")
+
+
+def write_always(rows, path):
+    import csv
+    with open(path, "w", newline="", encoding="utf-8") as file:
+        writer = csv.DictWriter(file, fieldnames=benchmark.COLUMNS)
+        writer.writeheader()
+        writer.writerows(rows)
+
+
 class CountsRows(benchmark.Counted):
     def __init__(self, instance):
         super().__init__(instance)
@@ -166,6 +189,7 @@ CASES = [
     (prefix_route_equals_budget_route, random_plans, reversed_sampler, "a sampler whose order depends on the budget"),
     (value_counts_every_scored_plan, benchmark.run, run_valuing_returned_plans_only, "the value taken from the returned plans only"),
     (trace_follows_scoring_order, benchmark.run, run_with_the_record_reversed, "a record kept in reverse order"),
+    (equal_rows_leave_the_file_alone, benchmark.write_rows, write_always, "a writer that always rewrites"),
 ]
 
 

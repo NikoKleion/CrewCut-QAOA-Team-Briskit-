@@ -126,10 +126,20 @@ def changes_only(rows):
 
 
 def write_rows(rows, path):
+    timed = COLUMNS.index("seconds")
+    lines = [[str(row[column]) for column in COLUMNS] for row in rows]
+    untimed = lambda table: [line[:timed] + line[timed + 1:] for line in table]
+    try:
+        with open(path, newline="", encoding="utf-8") as file:
+            saved = list(csv.reader(file))[1:]
+    except FileNotFoundError:
+        saved = None
+    if saved is not None and untimed(saved) == untimed(lines):
+        return
     with open(path, "w", newline="", encoding="utf-8") as file:
-        writer = csv.DictWriter(file, fieldnames=COLUMNS)
-        writer.writeheader()
-        writer.writerows(rows)
+        writer = csv.writer(file)
+        writer.writerow(COLUMNS)
+        writer.writerows(lines)
 
 
 def read_rows(path):
