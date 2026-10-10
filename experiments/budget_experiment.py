@@ -55,13 +55,13 @@ def report(title, rows, methods):
     runs = summary.by_run(rows)
     print(title)
     print("regret at a total number of evaluations: median (lower to upper quartile), mean, in percent")
-    print(f"   {'method':30s}" + "".join(f"{total:>26d}" for total in TOTALS))
+    print(f"   {'method':30s}" + "".join(f"{total:>34d}" for total in TOTALS))
     for method in methods:
         cells = []
         for total in TOTALS:
             s = summary.regret_summary(runs, method, total)
-            cells.append(f"{'none':>26s}" if s is None else
-                         f"{100 * s['median']:6.2f} ({100 * s['lower']:5.2f} to {100 * s['upper']:5.2f}) {100 * s['mean']:5.2f}")
+            cells.append(f"{'none':>34s}" if s is None else
+                         f"{100 * s['median']:9.2f} ({100 * s['lower']:5.2f} to {100 * s['upper']:6.2f}) {100 * s['mean']:6.2f}")
         print(f"   {method:30s}" + "".join(cells))
     print("instances that reach a regret target within the run, and average runtime in evaluations")
     print(f"   {'method':30s}" + "".join(f"{f'regret <= {100 * target:g}%':>24s}" for target in TARGETS))
