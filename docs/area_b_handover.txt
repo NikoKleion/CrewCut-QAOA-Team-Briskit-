@@ -1,0 +1,197 @@
+AREA B HANDOVER: FLOW NETWORKS (B1-B4, B6)
+Author: Johnathan. Code review findings are referred to as R1 to R9.
+
+
+FOR JITHESH: AREA B HANDOVER (B1-B4, B6)
+
+How to run, from the repo root. Each script makes what it needs, so any order works.
+    python -m experiments.flow_instances
+    python -m experiments.flow_model_checks
+    python -m experiments.flow_value_tables
+    python -m experiments.flow_fitted_pair_cost
+
+
+B1: INSTANCE FORMAT (we own this jointly)
+
+1. Format. One JSON file per instance in data/flow/<family>_<damaged>_<seed>.json, plus handmade.json. Fields:
+   - name, family, seed, synthetic (always true)
+   - network.nodes: [[x, y], ...]. Positions are used only to place the damage disk.
+   - network.links: [[u, v, capacity], ...]. Links are undirected: flow can go either way, and both directions share one capacity.
+   - elements: the damaged links, as indices into network.links. These are the decisions.
+   - demands: [{source, sink, demand, tier, weight}, ...]. tier is 0, 1 or 2; weight is 4, 2 or 1.
+   - budget: see item 3.
+   - damage: {center, radius} of the damage disk.
+   Why: this is exactly what briskit/flow.py reads and writes.
+   Action: your JSON schema must match these names and shapes, or the 19 files won't validate. handmade.json has "seed": null and "damage": null, so both must allow null.
+
+2. Bit order. Bit i of a plan is 1 when elements[i] is restored. Plan index = sum of bit_i * 2^i, so element 0 is the least significant bit. This is identical to all_plans and plan_index in briskit/feeder.py, which flow.py uses.
+   Action: the "CHECK this against feeder.py" note in your schema is verified.
+
+3. budget changed from a number to a list (R6). It now holds the numbers of links to restore: [4, 6] for 12 damaged links, [5, 8] for 16, and [1] for the hand-made instance. B6 reads it.
+   Why: the old single number was stored but never read by any code. The review also noted that Niko's result row uses "budget" for something else (extra evaluations), which is confusing.
+   Action: change the schema to allow a list of integers. We should decide with Niko whether to rename this field, for example to restore_counts, to end the clash. I'll make the rename if we agree.
+
+4. Hand-made instance. 5 nodes.
+   - Links: 0-1 (capacity 4), 1-2 (3), 0-3 (2), 3-2 (2), 2-4 (5). Links 1-2 and 3-2 are damaged.
+   - Commodities: 0 to 2 with demand 4 and weight 2; 0 to 4 with demand 3 and weight 1.
+   Everything has to reach node 2 through a damaged link. Values:
+   - nothing restored: 0
+   - only 1-2: 6 (3 units to the heavier commodity, 3 x 2)
+   - only 3-2: 4 (2 x 2)
+   - both: 9 (4 x 2 + 1 x 1)
+   Action: B1 asks for this on paper, so please check it. flow_model_checks asserts these four values.
+
+
+B2: GENERATOR
+
+5. What it makes. 18 instances: three families x {12, 16} damaged links x seeds {0, 1, 2}, all with 16 nodes.
+   - Random geometric: nodes uniform in the unit square, linked within distance 0.35. Redrawn until connected.
+   - Ring with chords: a 16-node ring plus random chords, none removed (Newman-Watts).
+   - Hub and spoke: 3 fully linked hubs near the centre. Each other node links to its nearest hub, and 75% also link to their second-nearest hub. Hub-to-hub links have capacity 20.
+   - Other links: whole-number capacities from 5 to 15. Every network has at least 1.5 times as many links as damaged links.
+   - Damage disk: a random centre is drawn, and the 12 or 16 links whose midpoints are nearest to it are damaged.
+   - Demands: 6 to 8 commodities between random node pairs, demand 2 to 8, cycling through tiers weighted 4, 2 and 1.
+   - Seeding: each instance has its own generator seeded from [20261010, family, damaged, seed], so any single instance regenerates identically.
+   Why: the plan (section 2.4) fixes the families, counts and disk, but not these numbers. They are project choices, all listed in SOURCES.md.
+   Action: say if you want any of them changed before B5, B7 and B8 run on them.
+
+6. Redraw rule. If the damage doesn't lower the served value at all, the disk and demands are redrawn.
+   Why: random_geometric_16_0 came out with a completely flat value table, which is useless for fitting and for comparing methods.
+
+7. Decision needed: idle damaged links (R7). These are damaged links whose restoration never changes the value. flow_value_tables now counts them:
+   - hub_and_spoke_16_2: 11 of 16
+   - random_geometric_16_2: 11 of 16
+   - hub_and_spoke_12_0: 5 of 12
+   - random_geometric_16_0: 4 of 16
+   - ring with chords: 0 or 1 in every instance
+   Why it matters: restoring 8 of 16 when 11 links do nothing is nearly trivial. Those instances make every method, quantum or classical, look good, and they blur the single-link versus pair-fit comparison.
+   Options:
+   (a) Keep the instances and report the idle count alongside the results.
+   (b) Redraw until at most about 3 damaged links are idle. This is my suggestion.
+   (c) Damage only links that carry flow in the undamaged network.
+   Action: we should pick one before you build B5, B7 and B8. Options (b) and (c) regenerate every instance and table, which takes about 4 minutes.
+
+
+B3: FLOW SCORING MODEL
+
+8. Model. FlowProgram(instance) builds a multi-commodity flow linear program, and .value(plan) solves it with SciPy linprog using HiGHS.
+   - Variables: for each commodity and link, a flow in each direction (at least 0). For each commodity, the amount served, from 0 up to its demand.
+   - Conservation: at the source, outflow minus inflow equals the amount served. At the sink it is the reverse. At every other node, flow balances.
+   - Capacity: the flow on a link, summed over commodities and both directions, is at most capacity x availability. Availability is 0 for a damaged link that isn't restored, and 1 otherwise.
+   - Objective: maximise the sum of weight x served.
+   - Speed: matrices are built once per instance, and only the capacity right-hand side changes per plan. One program takes about 2-4 ms.
+   Action: use FlowProgram directly if you need single scores in B7. I removed the old served_value helper (R9), because it rebuilt the whole program on every call.
+
+9. Checks (flow_model_checks):
+   - restoring every link gives the undamaged value
+   - on 200 random plan pairs per instance, adding links never lowers the value
+   - the hand-made instance gives 0, 6, 4 and 9
+   The time of one program goes to results/flow/program_time.csv, not the printed output.
+   Why: Niko's run_experiments.py --check compares printed output exactly, and timings differ on every run.
+
+
+B4: VALUE TABLES (your input for B5, B7, B8)
+
+10. How to get one:
+        from briskit.flow import stored_instance, stored_value_table
+        instance = stored_instance("ring_with_chords_12_0")
+        table, seconds = stored_value_table(instance)
+    - table[i] is the value of plan i, in the feeder's plan order.
+    - There are 4,096 plans for 12 damaged links and 65,536 for 16.
+    - seconds is how long the table took to compute.
+
+11. Stale-cache protection (R1).
+    - stored_instance regenerates the instance and rewrites the JSON file if it differs.
+    - Each table is stored in results/flow/tables/<name>.npz with a SHA-256 fingerprint of its instance, and is recomputed if the fingerprint doesn't match.
+    - Tables are now .npz instead of .npy.
+    Why: before this, a cached file was reused just because it existed. If a generator constant changed, the results would describe instances that no longer exist, and nothing would warn us.
+    Action: always get instances and tables through these two functions, never by loading the files directly.
+
+12. Safe concurrent writes (R2). Every file is written to a temporary name and then swapped in whole with os.replace.
+    Why: with run_experiments.py --jobs 2 or more, two scripts can write the same file at once, and a reader could get half a JSON file or a truncated array.
+
+13. Process limit (R3).
+    - Tables use every core by default.
+    - Setting the environment variable FLOW_PROCESSES (e.g. to 4) caps the number of processes.
+    - Tables of 64 plans or fewer skip the process pool.
+    Why: uncapped pools overload the machine when scripts run in parallel, and starting a pool cost about 1.4 s even for the 4-plan hand-made instance.
+    Cost: the first build of all tables takes about 4 minutes on 32 cores, and longer with fewer. After that, reuse takes about 1 s.
+
+14. One save function (R8). flow_value_tables now goes through stored_value_table, so it no longer duplicates the save code or recomputes every table on each run. It also re-checks monotonicity on every plan and every link, and writes times and idle counts to results/flow/value_tables.csv.
+
+
+B6: FITTED PAIR COSTS (pattern to copy for B7)
+
+15. Problem. For each instance and each restore count in its budget, only plans with exactly that many links count. Two models are fitted with ridge regression (Niko's selection_features and ridge_coefficients): single-link terms only (the control), and single plus pair terms.
+    - E3: the fit uses every allowed plan.
+    - E4: the fit uses 10, 20, 40, 80, 160 or 320 random plans, with 10 draws each. Both models use the same sample in each draw.
+
+16. Seeding (R4). Each problem has its own generator: default_rng([SEED, *problem_name.encode()]).
+    Why: there used to be one generator for everything, so adding or reordering an instance changed the samples of every later instance. Niko's commit 75dd8a8 fixed the same thing in fitted_pair_cost.py.
+    Action: do the same in B7.
+
+17. Zero optimum (R5). If no plan of a given size serves any demand, that problem is skipped and named in the output.
+    Why: regret divides by the optimum, so the means would silently become NaN. It doesn't happen on the current instances, though ring_with_chords_12_0, ring_with_chords_16_2 and hub_and_spoke_16_0 serve nothing before repair.
+    Action: add the same guard in B7.
+
+18. Result rows use Niko's new format. See the section for Niko below.
+    Action: copy this shape for B7.
+
+
+DOCS
+
+19. syllabus.md has an entry for each new file, in Niko's format. SOURCES.md lists each source that was opened, what was taken from it, and every constant that has no source. The new code has short comments giving the source of each constant, or "project choice, no source".
+
+
+------------------------------------------------------------------------
+
+FOR NIKO: RESULT ROWS, RUNNER, SHARED FILES
+
+1. How B6 fills the new result row (results/flow/fitted_pair_cost.csv). Columns: experiment, instance, method, budget, seed, value, regret, returned, evaluations, seconds, script.
+   - experiment: E3 when the fit uses every allowed plan, E4 when it uses a sample.
+   - instance: the instance name plus the restore count, e.g. ring_with_chords_12_0_restore4.
+   - method: e.g. "single and pair terms, fit on 40 plans" or "single-link terms, fit on all plans".
+   - budget 0: the fitting sample only. value is the best plan in the sample, returned is blank, evaluations is the sample size, and seconds is 0.
+   - budget 1: the sample plus the plan the fit picks. returned is that plan's value, value is the better of that plan and the sample's best, evaluations is the number of distinct plans scored, and seconds is the time to fit and pick.
+   - seed: the draw number, 0-9.
+   - regret: 1 - value / optimum, where the optimum is the best plan of that size.
+   Action: please check this against summary.py. In particular, check that it accepts the restore count in the instance name, seed meaning the draw, and returned blank at budget 0.
+
+2. E3 rows always show 0 regret. When the fit uses every allowed plan, every plan is scored, so value is the optimum.
+   Why: the meaningful number for E3 is returned, the plan the fit's own optimum lands on.
+   Action: make sure summary.py uses returned for E3, so it doesn't report E3 as "0% regret".
+
+3. "budget" means two things (R6). In the instance JSON it is the links to restore; in result rows it is the extra evaluations.
+   Action: agree with Jithesh on renaming the instance field, for example to restore_counts. I'll make the rename.
+
+4. Seeding follows your 75dd8a8 pattern (R4). Each problem gets default_rng([SEED, *problem_name.encode()]).
+   Why: adding or reordering instances no longer changes the samples of other instances, and the name-based seed doesn't depend on list position.
+
+5. Compatibility with run_experiments.py (R1, R2, R8).
+   - Any order: each flow script regenerates the instances it needs and recomputes stale tables. This matters because the runner goes alphabetically, which puts flow_fitted_pair_cost first.
+   - Repeatable output: printed output is identical across runs, because timings go only to CSV. Checked by running each script twice and comparing.
+   - Safe in parallel: files are swapped in whole, so --jobs 2 or more can't produce half-written reads.
+
+6. Runner cost (R3).
+   - The first flow_value_tables run takes about 4 minutes on 32 cores, using every core.
+   - --threads doesn't reach it, because it uses processes, not numerical threads.
+   - FLOW_PROCESSES caps it. FLOW_PROCESSES=1 runs strictly serial, which takes roughly 30 minutes the first time.
+   Action: you might have run_experiments.py set FLOW_PROCESSES from --threads. That's a one-line change in your file, so I haven't touched it.
+
+7. Runner crash without Qiskit. run_experiments.py crashes on a machine without Qiskit: version("qiskit") raises PackageNotFoundError.
+   Action: catch that error and print "not installed", or document pip install -r requirements.txt as a required first step.
+
+8. Missing files. briskit/summary.py and experiments/budget_experiment.py aren't on GitHub. origin/main ends at "Add fitted pair cost result".
+   Action: please push them. B7 copies budget_experiment.py.
+
+9. B6 depends on your code. It calls selection_features and ridge_coefficients from briskit/pair_cost.py, with the default ridge strength of 1e-3.
+   Action: tell us if you change either one, because the B6 numbers will change.
+
+10. Shared files.
+    - syllabus.md: five new entries in your format (briskit/flow.py and the four experiments/flow_*.py scripts). Nothing of yours was edited.
+    - SOURCES.md: new; the running source list for area B.
+    - .gitignore: adds results/flow/tables/. The tables are about 6 MB and can be regenerated.
+    Action: expect a small merge in syllabus.md.
+
+11. Comment exception. The new flow files carry short comments on constants and unusual lines, giving a source or "project choice, no source". This breaks the team's no-comments rule, on purpose, for these files only.
+    Action: say if you'd rather move them into syllabus.md.

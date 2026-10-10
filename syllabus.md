@@ -201,3 +201,43 @@ Runs `main.py` on a laptop by supplying Qiskit's `BasicSimulator`, or an IBM fak
 Qollab, Python Qiskit projects, https://qollab.xyz/learn/docs/python-qiskit-projects
 
 Qiskit `BasicSimulator`, https://quantum.cloud.ibm.com/docs/api/qiskit/qiskit.providers.basic_provider.BasicSimulator
+
+## briskit/flow.py
+
+Flow networks. Stores an instance as JSON (network with node positions and link capacities, the damaged links as `elements`, commodities with source, sink, demand, priority tier and weight, `budget` as the numbers of links to restore, damage disk). Generates three families on 16 nodes (random geometric, ring with chords, hub and spoke), damages the links whose midpoints lie nearest a random centre, and draws 6 to 8 commodities in three priority tiers. Scores a plan with a multi-commodity flow linear program: each link carries flow in both directions up to its capacity, or none if it is damaged and not restored, and the program maximises the priority-weighted demand served. The value table runs that program on every plan, in the plan order of `briskit/feeder.py`, in parallel; the environment variable `FLOW_PROCESSES` caps the number of processes. Every flow script regenerates the instances it needs and rewrites a stored file that differs, and reuses a stored value table only when it carries the fingerprint of the current instance, so `run_experiments.py` can run them in any order. Files are written to a temporary name and then swapped in whole, so a script running at the same time never reads half a file.
+
+Hand-made instance: links 0-1 (capacity 4), 1-2 (3), 0-3 (2), 3-2 (2), 2-4 (5); links 1-2 and 3-2 damaged; commodity 0 to 2 with demand 4 and weight 2, commodity 0 to 4 with demand 3 and weight 1. Both commodities must enter node 2 through a damaged link. Nothing restored: 0. Only 1-2: 3 units into node 2, all to the heavier commodity, 3 x 2 = 6. Only 3-2: 2 units, 2 x 2 = 4. Both: 5 units, 4 to the first commodity and 1 to the second, 4 x 2 + 1 x 1 = 9.
+
+SciPy `linprog` with HiGHS, https://docs.scipy.org/doc/scipy/reference/generated/scipy.optimize.linprog.html
+
+Multi-commodity flow, https://en.wikipedia.org/wiki/Multi-commodity_flow_problem
+
+NetworkX random geometric graph (definition only; NetworkX is not used), https://networkx.org/documentation/stable/reference/generated/networkx.generators.geometric.random_geometric_graph.html
+
+NetworkX Newman-Watts-Strogatz graph (definition only), https://networkx.org/documentation/stable/reference/generated/networkx.generators.random_graphs.newman_watts_strogatz_graph.html
+
+Python `multiprocessing`, https://docs.python.org/3/library/multiprocessing.html
+
+Python `os.replace` (atomic on POSIX), https://docs.python.org/3/library/os.html#os.replace
+
+Every constant without a source is listed in `SOURCES.md`.
+
+## experiments/flow_instances.py
+
+Writes the hand-made instance and the 18 generated instances (three families, 12 and 16 damaged links, seeds 0 to 2) to `data/flow/`.
+
+## experiments/flow_model_checks.py
+
+Checks the flow program: the hand-made instance gives 0, 6, 4 and 9; restoring every damaged link gives the value of the undamaged network; for 200 random pairs of plans, adding links never lowers the value. Writes the time of one program to `results/flow/program_time.csv`, so the printed output is the same on every run.
+
+## experiments/flow_value_tables.py
+
+Exact value table of every flow instance (E1), stored in `results/flow/tables/<instance>.npz` with the instance fingerprint and the time it took, in the plan order of `briskit/feeder.py`; the times are copied to `results/flow/value_tables.csv`. Checks on each table that the last plan equals the undamaged value and that restoring any one more link never lowers the value, over every plan, and counts the idle links, damaged links whose restoration never changes the value.
+
+## experiments/flow_fitted_pair_cost.py
+
+On the flow tables, restore each number of damaged links in the instance's `budget`. Each instance and number restored has its own generator seeded from `SEED` and its name, so adding or removing an instance leaves the samples of the others unchanged. Fits a cost with single-link terms only (the control) and with single and pair terms, on all plans of the right size (E3) and on 10 to 320 random plans (E4); both fits use the same sample in each draw. Each fit gives two rows in `results/flow/fitted_pair_cost.csv`: budget 0, the fitting sample alone, and budget 1, the sample plus the plan the fit returns. `value` is the best plan scored in the run, `returned` the plan the fit returns, `evaluations` the distinct plans scored, `seconds` the time of the fit. The instance column carries the number restored, for example `ring_with_chords_12_0_restore4`, and `seed` is the draw. With all plans in the fit (E3) every plan is scored, so only `returned` is informative there. A number restored for which no plan serves any demand is skipped and named in the output, since regret divides by the optimum.
+
+Udekwe et al., Q-RESTORE, https://arxiv.org/abs/2501.11197
+
+Ridge fit: `briskit/pair_cost.py`.
