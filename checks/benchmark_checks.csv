@@ -13,3 +13,7 @@ rows_regenerate_alone,real,6 of 6 rows equal,6 of 6 rows equal,PASS,PASS,yes
 rows_regenerate_alone,broken: one random stream shared by all runs,6 of 6 rows equal,0 of 6 rows equal,FAIL,FAIL,yes
 prefix_route_equals_budget_route,real,20 of 20 rows equal,20 of 20 rows equal,PASS,PASS,yes
 prefix_route_equals_budget_route,broken: a sampler whose order depends on the budget,20 of 20 rows equal,5 of 20 rows equal,FAIL,FAIL,yes
+value_counts_every_scored_plan,real,"(15.0, 0.0, 1.0, 2)","(15.0, 0.0, 1.0, 2)",PASS,PASS,yes
+value_counts_every_scored_plan,broken: the value taken from the returned plans only,"(15.0, 0.0, 1.0, 2)","(1.0, 0.9333333333333333, 1.0, 2)",FAIL,FAIL,yes
+trace_follows_scoring_order,real,"[(0, 1, 2.0), (0, 2, 2.0), (0, 3, 8.0), (1, 4, 8.0), (2, 5, 15.0)]","[(0, 1, 2.0), (0, 2, 2.0), (0, 3, 8.0), (1, 4, 8.0), (2, 5, 15.0)]",PASS,PASS,yes
+trace_follows_scoring_order,broken: a record kept in reverse order,"[(0, 1, 2.0), (0, 2, 2.0), (0, 3, 8.0), (1, 4, 8.0), (2, 5, 15.0)]","[(0, 1, 8.0), (0, 2, 8.0), (0, 3, 8.0), (1, 4, 8.0), (2, 5, 15.0)]",FAIL,FAIL,yes

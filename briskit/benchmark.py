@@ -4,7 +4,8 @@ import zlib
 
 import numpy as np
 
-COLUMNS = ["experiment", "instance", "method", "budget", "seed", "value", "regret", "evaluations", "seconds", "script"]
+COLUMNS = ["experiment", "instance", "method", "budget", "seed", "value", "regret", "returned", "evaluations",
+           "seconds", "script"]
 
 
 def plan_indices(plans):
@@ -19,15 +20,17 @@ class Counted:
         self.sense = instance.sense
         self.count = instance.count
         self.data = instance.data
-        self.seen = set()
+        self.record = {}
         self._instance = instance
 
     def score(self, plans):
-        self.seen.update(int(index) for index in plan_indices(plans))
-        return self._instance.score(plans)
+        values = self._instance.score(plans)
+        for index, value in zip(plan_indices(plans), values):
+            self.record.setdefault(int(index), float(value))
+        return values
 
     def used(self):
-        return len(self.seen)
+        return len(self.record)
 
 
 def stream(seed, instance_name, method):
@@ -51,25 +54,26 @@ def accepted(plans, instance, budget):
 
 
 def best(values, sense):
-    if len(values) == 0:
+    values = list(values)
+    if not values:
         return float("nan")
-    return float(np.max(values) if sense == "max" else np.min(values))
+    return float(max(values) if sense == "max" else min(values))
 
 
 def regret(value, optimum, sense):
     return (optimum - value) / optimum if sense == "max" else (value - optimum) / optimum
 
 
-def run(experiment, instances, solvers, budgets, seeds, script, prefix_safe=()):
+def run(experiment, instances, solvers, budgets, seeds, script, prefix_safe=(), trace=False):
     budgets = sorted(budgets)
     rows = []
 
-    def record(instance, method, budget, seed, value, optimum, evaluations, seconds):
+    def record(instance, method, budget, seed, value, returned, optimum, evaluations, seconds):
         rows.append({"experiment": experiment, "instance": instance.name, "method": method, "budget": budget,
                      "seed": seed, "value": value, "regret": regret(value, optimum, instance.sense),
-                     "evaluations": evaluations, "seconds": seconds, "script": script})
+                     "returned": returned, "evaluations": evaluations, "seconds": seconds, "script": script})
 
-    def timed(solve, counted, budget, seed, instance, method):
+    def solved(solve, counted, budget, seed, instance, method):
         started = time.perf_counter()
         plans = accepted(solve(counted, budget, stream(seed, instance.name, method)), instance, budget)
         return plans, time.perf_counter() - started
@@ -80,19 +84,28 @@ def run(experiment, instances, solvers, budgets, seeds, script, prefix_safe=()):
             for seed in seeds:
                 if method in prefix_safe:
                     counted = Counted(instance)
-                    plans, seconds = timed(solve, counted, budgets[-1], seed, instance, method)
-                    searched = set(counted.seen)
-                    values = instance.score(plans) if len(plans) else np.zeros(0)
+                    plans, seconds = solved(solve, counted, budgets[-1], seed, instance, method)
+                    scored = list(counted.record.values())
+                    known = set(counted.record)
+                    values = [float(value) for value in instance.score(plans)] if len(plans) else []
                     indices = [int(index) for index in plan_indices(plans)] if len(plans) else []
+                    if trace:
+                        for t in range(1, len(scored) + 1):
+                            record(instance, method, 0, seed, best(scored[:t], instance.sense), float("nan"),
+                                   optimum, t, seconds)
                     for budget in budgets:
-                        record(instance, method, budget, seed, best(values[:budget], instance.sense), optimum,
-                               len(searched | set(indices[:budget])), seconds)
+                        if budget == 0 and trace and scored:
+                            continue
+                        record(instance, method, budget, seed, best(scored + values[:budget], instance.sense),
+                               best(values[:budget], instance.sense), optimum,
+                               len(known | set(indices[:budget])), seconds)
                 else:
                     for budget in budgets:
                         counted = Counted(instance)
-                        plans, seconds = timed(solve, counted, budget, seed, instance, method)
-                        values = counted.score(plans) if len(plans) else np.zeros(0)
-                        record(instance, method, budget, seed, best(values, instance.sense), optimum, counted.used(), seconds)
+                        plans, seconds = solved(solve, counted, budget, seed, instance, method)
+                        values = [float(value) for value in counted.score(plans)] if len(plans) else []
+                        record(instance, method, budget, seed, best(counted.record.values(), instance.sense),
+                               best(values, instance.sense), optimum, counted.used(), seconds)
     return rows
 
 
@@ -107,6 +120,8 @@ def read_rows(path):
     with open(path, newline="", encoding="utf-8") as file:
         rows = list(csv.DictReader(file))
     for row in rows:
-        row["budget"], row["seed"], row["evaluations"] = int(row["budget"]), int(row["seed"]), int(row["evaluations"])
-        row["value"], row["regret"], row["seconds"] = float(row["value"]), float(row["regret"]), float(row["seconds"])
+        for column in ("budget", "seed", "evaluations"):
+            row[column] = int(row[column])
+        for column in ("value", "regret", "returned", "seconds"):
+            row[column] = float(row[column])
     return rows

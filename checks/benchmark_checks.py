@@ -75,6 +75,28 @@ def prefix_route_equals_budget_route(solver):
     return f"{len(each)} of {len(each)} rows equal", f"{same} of {len(each)} rows equal", same == len(each)
 
 
+def value_counts_every_scored_plan(run):
+    def solve(instance, budget, rng):
+        instance.score([[1, 1, 1, 1]])
+        return np.array([[1, 0, 0, 0]])
+
+    row = run("check", [tiny_instance()], {"m": solve}, [1], [0], "checks")[0]
+    got = (row["value"], row["regret"], row["returned"], row["evaluations"])
+    return (15.0, 0.0, 1.0, 2), got, got == (15.0, 0.0, 1.0, 2)
+
+
+def trace_follows_scoring_order(run):
+    def solve(instance, budget, rng):
+        for plan in ([0, 1, 0, 0], [1, 0, 0, 0], [0, 0, 0, 1]):
+            instance.score([plan])
+        return np.array([[0, 0, 1, 0], [1, 1, 1, 1]])
+
+    rows = run("check", [tiny_instance()], {"m": solve}, [1, 2], [0], "checks", prefix_safe={"m"}, trace=True)
+    got = [(row["budget"], row["evaluations"], row["value"]) for row in rows]
+    expected = [(0, 1, 2.0), (0, 2, 2.0), (0, 3, 8.0), (1, 4, 8.0), (2, 5, 15.0)]
+    return expected, got, got == expected
+
+
 class CountsRows(benchmark.Counted):
     def __init__(self, instance):
         super().__init__(instance)
@@ -106,6 +128,30 @@ def run_on_one_shared_stream(*arguments, **options):
         benchmark.stream = original
 
 
+def run_valuing_returned_plans_only(*arguments, **options):
+    rows = benchmark.run(*arguments, **options)
+    for row in rows:
+        row["value"] = row["returned"]
+        row["regret"] = benchmark.regret(row["returned"], 15.0, "max")
+    return rows
+
+
+class ReversedRecord(benchmark.Counted):
+    def score(self, plans):
+        values = super().score(plans)
+        self.record = dict(reversed(list(self.record.items())))
+        return values
+
+
+def run_with_the_record_reversed(*arguments, **options):
+    original = benchmark.Counted
+    benchmark.Counted = ReversedRecord
+    try:
+        return benchmark.run(*arguments, **options)
+    finally:
+        benchmark.Counted = original
+
+
 def reversed_sampler(instance, budget, rng):
     return random_plans(instance, budget, rng)[::-1]
 
@@ -118,6 +164,8 @@ CASES = [
     (regret_matches_hand_arithmetic, benchmark.regret, regret_with_one_sign, "the same sign for both senses"),
     (rows_regenerate_alone, benchmark.run, run_on_one_shared_stream, "one random stream shared by all runs"),
     (prefix_route_equals_budget_route, random_plans, reversed_sampler, "a sampler whose order depends on the budget"),
+    (value_counts_every_scored_plan, benchmark.run, run_valuing_returned_plans_only, "the value taken from the returned plans only"),
+    (trace_follows_scoring_order, benchmark.run, run_with_the_record_reversed, "a record kept in reverse order"),
 ]
 
 

@@ -9,8 +9,10 @@ largest_weights_matches_argsort,real,20 of 20 plans equal,20 of 20 plans equal,P
 largest_weights_matches_argsort,broken: the smallest weights,20 of 20 plans equal,0 of 20 plans equal,FAIL,FAIL,yes
 fit_evaluations_are_counted,real,50 to 53 in every run,51 to 53,PASS,PASS,yes
 fit_evaluations_are_counted,broken: a fit that scores past the counter,50 to 53 in every run,3 to 3,FAIL,FAIL,yes
+budget_zero_gives_the_sample,real,"(2.2268044955669173, 50) with 50 plans scored","(2.2268044955669173, 50)",PASS,PASS,yes
+budget_zero_gives_the_sample,broken: a fit that scores past the counter,"(2.2268044955669173, 50) with 50 plans scored","(nan, 0)",FAIL,FAIL,yes
 feeder_figures_are_reproduced,real,"[83.9, 31.7, 67.0, 15.8]","[83.9, 31.7, 67.0, 15.8]",PASS,PASS,yes
-feeder_figures_are_reproduced,broken: smallest weights and worst gain,"[83.9, 31.7, 67.0, 15.8]","[97.5, 100.0, 93.1, 100.0]",FAIL,FAIL,yes
+feeder_figures_are_reproduced,broken: smallest weights and worst gain,"[83.9, 31.7, 67.0, 15.8]","[97.5, 48.8, 93.1, 32.7]",FAIL,FAIL,yes
 greedy_plan_follows_one_weight,real,"[[0, 5], [0, 1]]","[[0, 5], [0, 1]]",PASS,PASS,yes
 greedy_plan_follows_one_weight,broken: a solver that ignores the scores,"[[0, 5], [0, 1]]","[[0, 5], [0, 5]]",FAIL,FAIL,yes
 fitted_plan_follows_one_weight,real,"[[0, 5], [0, 1]]","[[0, 5], [0, 1]]",PASS,PASS,yes

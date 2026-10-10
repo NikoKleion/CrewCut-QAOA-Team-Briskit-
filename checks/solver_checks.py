@@ -8,7 +8,7 @@ import numpy as np
 from briskit import benchmark
 from briskit.baselines import greedy_marginal
 from briskit.feeder import plan_index, restoration_value, sample_instance, upstream_parents
-from briskit.instances import restoration
+from briskit.instances import Instance, restoration
 from briskit.qaoa import expected_best_of
 from briskit.solvers import allowed, best_first, fitted, greedy, largest_weights, qaoa, random_plans, thermal
 from checks.record import run_checks
@@ -65,6 +65,27 @@ def fit_evaluations_are_counted(factory, samples=50, budget=3):
     rows = benchmark.run("check", [instance], {"fitted": factory(samples)}, [budget], range(10), "checks")
     used = [row["evaluations"] for row in rows]
     return f"{samples} to {samples + budget} in every run", f"{min(used)} to {max(used)}", min(used) >= samples and max(used) <= samples + budget
+
+
+def budget_zero_gives_the_sample(factory, samples=50):
+    base = feeder_instance("a", 1, count=4)
+    seen = {}
+
+    def recording(plans):
+        values = base.score(plans)
+        for plan, value in zip(np.atleast_2d(plans), values):
+            seen[plan_index(plan)] = float(value)
+        return values
+
+    class Recorded(Instance):
+        def table(self):
+            return base.table()
+
+    instance = Recorded("a", base.size, base.sense, recording, base.count, base.data)
+    row = benchmark.run("check", [instance], {"fitted": factory(samples)}, [0], [0], "checks", prefix_safe={"fitted"})[0]
+    expected = (max(seen.values()) if seen else None, len(seen))
+    got = (row["value"], row["evaluations"])
+    return f"{expected} with {samples} plans scored", got, len(seen) == samples and got == expected
 
 
 def feeder_figures_are_reproduced(solvers):
@@ -185,6 +206,7 @@ CASES = [
     (greedy_evaluations_match_hand_count, greedy, greedy_that_scores_twice, "greedy that scores one plan more"),
     (largest_weights_matches_argsort, largest_weights, smallest_weights, "the smallest weights"),
     (fit_evaluations_are_counted, lambda samples: fitted(samples, best_first), fitted_past_the_counter, "a fit that scores past the counter"),
+    (budget_zero_gives_the_sample, lambda samples: fitted(samples, best_first), fitted_past_the_counter, "a fit that scores past the counter"),
     (feeder_figures_are_reproduced, (largest_weights, greedy), (smallest_weights, greedy_by_worst_gain), "smallest weights and worst gain"),
     (greedy_plan_follows_one_weight, greedy, fixed_plan, "a solver that ignores the scores"),
     (fitted_plan_follows_one_weight, fitted(66, best_first), fixed_plan, "a solver that ignores the scores"),

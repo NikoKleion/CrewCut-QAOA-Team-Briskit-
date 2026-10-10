@@ -70,9 +70,11 @@ The scoring rules are those of `briskit/feeder.py`, `briskit/scheduling.py` and 
 
 ## briskit/benchmark.py
 
-The benchmark harness. A solver is a function `solve(instance, budget, rng)` that returns at most `budget` plans; it gets the instance with a counter on its scoring model and never the value table. The harness refuses plans with the wrong count, scores what comes back, and returns one row per run: experiment, instance, method, budget, seed, value, regret, evaluations, seconds, script. `evaluations` is the number of distinct plans whose true value was obtained, by the solver and the harness together, and regret is the distance to the optimum of the value table divided by that optimum. Each run's random generator is seeded with the seed, the instance name and the method name, so a row can be made again from its own columns.
+The benchmark harness. A solver is a function `solve(instance, budget, rng)` that returns at most `budget` plans; it gets the instance with a counter on its scoring model and never the value table. The harness refuses plans with the wrong count and returns one row per run and budget: experiment, instance, method, budget, seed, value, regret, returned, evaluations, seconds, script. `value` is the best over every plan the run scored, the solver's own scoring included, `returned` the best of the returned plans alone, `evaluations` the number of distinct plans scored, and regret the distance from `value` to the optimum of the value table divided by that optimum. Each run's random generator is seeded with the seed, the instance name and the method name, so a row can be made again from its own columns. The count of distinct plans is right only for a scoring model without noise.
 
 Evaluations as the cost of a run, and time reported apart from it: Hansen et al., COCO: The Experimental Procedure, https://arxiv.org/abs/1603.08776
+
+Value of a run as the best plan scored so far: Hansen et al., COCO: Performance Assessment, section 2.1, https://arxiv.org/abs/1605.03560
 
 Seeding with a list of integers: NumPy `default_rng`, https://numpy.org/doc/stable/reference/random/generator.html
 
