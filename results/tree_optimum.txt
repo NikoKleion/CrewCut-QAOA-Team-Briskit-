@@ -1,0 +1,17 @@
+command: python -m experiments.tree_optimum
+code: fa6a25b (clean)
+python: 3.13.14
+packages: numpy 2.5.2  scipy 1.18.1  qiskit 2.5.2
+platform: Windows-11-10.0.26200-SP0, AMD64
+threads: 1
+started: 2026-10-10T23:18:55Z
+seconds: 1
+exit: 0
+
+IEEE 13 node feeder, 30 instances, exact tree method through the harness, one plan returned
+   restore 4 of 12: optimum on 30 of 30 instances, plans scored per run [1]
+   restore 6 of 12: optimum on 30 of 30 instances, plans scored per run [1]
+random tree of 2500 lines, no value table possible
+   restore  250: best value    200.944 of 1246.453, lines chosen 250, table entries 627500
+   restore 1250: best value    834.103 of 1246.453, lines chosen 1250, table entries 3127500
+   1362 repair hours of 13620: best value    276.875, lines chosen 420, hours used 1362
