@@ -112,6 +112,16 @@ RXX: https://quantum.cloud.ibm.com/docs/api/qiskit/qiskit.circuit.library.RXXGat
 
 One collective interaction of ions for number partitioning: Graß et al., https://arxiv.org/abs/1507.07863
 
+## briskit/cost_circuit.py
+
+Turns a fitted cost into a QAOA circuit. The cost has a constant, a term on each element and a term on each pair, on yes or no variables, in the order `fitted_merit` of `briskit/solvers.py` uses, and may carry a penalty on the number of elements chosen. `ising_terms` rewrites it with x = (1 - Z) / 2 as one coefficient per qubit and one per pair, `cost_scale` gives its standard deviation over all plans as the root of the sum of the squared coefficients, so no table of 2^n values is needed, and `cost_circuit` applies per layer RZ(2 gamma h_i / scale) on each qubit, RZZ(2 gamma J_ij / scale) on each pair and RX(2 beta) on each qubit. It differs from `qaoa_circuit` of `briskit/qaoa.py`, which takes pair terms only and a scale given from outside. The circuit reproduces the distribution the QAOA selector of `briskit/solvers.py` samples; it has been checked up to 12 qubits on Qiskit's state vector and has not been run on Qollab.
+
+RZ: https://quantum.cloud.ibm.com/docs/api/qiskit/qiskit.circuit.library.RZGate
+
+RZZ: https://quantum.cloud.ibm.com/docs/api/qiskit/qiskit.circuit.library.RZZGate
+
+QAOA: Farhi, Goldstone and Gutmann, https://arxiv.org/abs/1411.4028
+
 ## experiments/budget_experiment.py
 
 Runs every solver through the harness on 30 instances of two feeder decisions, restoring 6 of 12 lines and assigning 12 repairs to two crews. Methods that fit a pair cost score 150 random plans and then return up to 50 more; random plans run to the same total of 200. It writes the rows to `results/budget_experiment_restoration.csv` and `results/budget_experiment_crews.csv`, keeping a row only where a run's value changes, and prints regret at fixed totals and the average runtime to regret targets of 5%, 1% and 0.
@@ -266,9 +276,9 @@ Package versions are pinned in `requirements.txt`. The saved results were made w
 
 ## checks/
 
-`benchmark_checks.py`, `solver_checks.py`, `summary_checks.py`, `budget_checks.py`, `fit_checks.py`, `dispatch_checks.py` and `collective_checks.py` hold one named function per check, each taking the piece under test and returning what it expected, what it got and whether they agree. `record.py` runs every check twice, on the real code and on a broken version written beside it, and writes both outcomes to a `.csv` file next to the checks: a check counts only if it passes on the real code and fails on the broken one.
+`benchmark_checks.py`, `solver_checks.py`, `summary_checks.py`, `budget_checks.py`, `fit_checks.py`, `dispatch_checks.py`, `collective_checks.py` and `cost_circuit_checks.py` hold one named function per check, each taking the piece under test and returning what it expected, what it got and whether they agree. `record.py` runs every check twice, on the real code and on a broken version written beside it, and writes both outcomes to a `.csv` file next to the checks: a check counts only if it passes on the real code and fails on the broken one.
 
-`budget_checks.py` audits the saved rows of the budget experiment against the exact expectation for the best of a number of distinct random plans. `fit_checks.py` compares the fit with a second way of solving the same least squares problem and with the saved result of `experiments/feeder_fitted_models.py`. `dispatch_checks.py` compares the rho factors with a second listing of subtrees by bit masks, the dispatch with `priority_dispatch`, and both with Theorem 5 of Tan et al.: with rho factors as priorities the dispatch must equal the conversion algorithm on every one of 300 feeder instances. `collective_checks.py` compares a block with the matrix exponential of its definition, the block layers with the pair by pair layer by `Operator.equiv`, the whole circuit with the table simulator, and the XX form with the ZZ form.
+`budget_checks.py` audits the saved rows of the budget experiment against the exact expectation for the best of a number of distinct random plans. `fit_checks.py` compares the fit with a second way of solving the same least squares problem and with the saved result of `experiments/feeder_fitted_models.py`. `dispatch_checks.py` compares the rho factors with a second listing of subtrees by bit masks, the dispatch with `priority_dispatch`, and both with Theorem 5 of Tan et al.: with rho factors as priorities the dispatch must equal the conversion algorithm on every one of 300 feeder instances. `collective_checks.py` compares a block with the matrix exponential of its definition, the block layers with the pair by pair layer by `Operator.equiv`, the whole circuit with the table simulator, and the XX form with the ZZ form. `cost_circuit_checks.py` compares the rewritten terms with the cost table of the QAOA selector, the scale with the standard deviation of that table, and the circuit's probabilities with `qaoa_probabilities` at 8 and 12 qubits and depths 1 to 3, and with the distribution `train_qaoa` returns for a fit on the feeder.
 
     python -m checks.benchmark_checks
     python -m checks.solver_checks
@@ -277,6 +287,7 @@ Package versions are pinned in `requirements.txt`. The saved results were made w
     python -m checks.fit_checks
     python -m checks.dispatch_checks
     python -m checks.collective_checks
+    python -m checks.cost_circuit_checks
 
 Theorem 5: Tan et al., sections 5.3 to 5.5, https://arxiv.org/abs/1702.08382
 
