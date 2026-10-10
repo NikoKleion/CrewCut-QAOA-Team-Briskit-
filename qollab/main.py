@@ -4,11 +4,23 @@ from qiskit import QuantumCircuit, transpile
 URGENCY = [0.8722, 5.0, 0.0296, 0.2913, 0.7377, 0.1033, 0.3519, 0.2544, 0.339, 0.4554, 0.3582, 0.4066]
 HOURS = [1, 4, 6, 5, 7, 9, 7, 3, 2, 4, 4, 10]
 
-# gammas, then betas
+# share of pair terms kept, then depth: gammas, then betas
 ANGLES = {
-    1: [0.881586, -0.245265],
-    2: [-0.66792, -2.161198, 0.299712, 0.134016],
-    3: [0.592971, 1.445382, 2.12517, -0.361986, -0.18392, -0.12558],
+    100: {
+        1: [0.881586, -0.245265],
+        2: [-0.66792, -2.161198, 0.299712, 0.134016],
+        3: [0.592971, 1.445382, 2.12517, -0.361986, -0.18392, -0.12558],
+    },
+    50: {
+        1: [0.911572, -0.260962],
+        2: [0.699394, 2.108281, -0.314733, -0.163365],
+        3: [-0.590098, -1.434354, -2.029828, 0.378219, 0.203911, 0.141021],
+    },
+    25: {
+        1: [-1.007158, 0.321466],
+        2: [-0.797142, -1.698469, 0.383024, 0.239191],
+        3: [0.678894, 1.378866, 1.522507, -0.420582, -0.264119, -0.192449],
+    },
 }
 
 
@@ -73,14 +85,20 @@ def compile_for(circuit, device):
         return circuit, False
 
 
-def main(shots: int = 1000, depth: int = 2):
+def largest_pairs(pairs, keep):
+    ranked = sorted(pairs.items(), key=lambda item: -item[1])
+    return dict(ranked[: round(keep / 100 * len(ranked))])
+
+
+def main(shots: int = 2000, depth: int = 2, keep: int = 100):
     w, p = np.array(URGENCY), np.array(HOURS, dtype=float)
     n = len(w)
     pairs = pair_coefficients(w, p)
     cost = cost_table(w, p, pairs)
     best = cost.min()
+    kept = largest_pairs(pairs, keep)
 
-    circuit = qaoa_circuit(n, pairs, cost.std(), ANGLES[depth])
+    circuit = qaoa_circuit(n, kept, cost_table(w, p, kept).std(), ANGLES[keep][depth])
     compiled, ok = compile_for(circuit, backend)
     counts = backend.run(compiled, shots=shots).result().get_counts()
 
@@ -98,6 +116,7 @@ def main(shots: int = 1000, depth: int = 2):
     name = name() if callable(name) else name
     print(f"backend: {name}")
     print(f"repairs: {n}   plans: {cost.size}   depth: {depth}   shots: {int(weight.sum())}")
+    print(f"pair terms in the cost layer: {len(kept)} of {len(pairs)}")
     print(f"two-qubit gates as written: {two_qubit_count(circuit)}"
           f"   after compiling for this backend: {two_qubit_count(compiled) if ok else 'not compiled'}")
     print(f"best possible plan                 {best:9.3f}")

@@ -312,7 +312,7 @@ Theorem 5: Tan et al., sections 5.3 to 5.5, https://arxiv.org/abs/1702.08382
 
 ## qollab/main.py
 
-The file Qollab runs. Builds the QAOA circuit for one 12 repair instance with angles trained beforehand, compiles it for the `backend` Qollab supplies, sends one job, and scores the measured plans with the classical cost table.
+The file Qollab runs. Builds the QAOA circuit for one 12 repair instance with angles trained beforehand, compiles it for the `backend` Qollab supplies, sends one job, and scores the measured plans with the classical cost table. The `keep` setting (100, 50 or 25) is the percentage of pair terms left in the cost layer, largest first, with angles trained for each; scoring always uses the full cost.
 
 Qollab, Python Qiskit projects, https://qollab.xyz/learn/docs/python-qiskit-projects
 
