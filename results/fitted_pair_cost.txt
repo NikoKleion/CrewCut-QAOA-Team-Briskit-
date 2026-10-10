@@ -1,0 +1,85 @@
+command: python -m experiments.fitted_pair_cost
+code: 0a2b379 (clean)
+python: 3.13.14
+packages: numpy 2.5.2  scipy 1.18.1  qiskit 2.5.2
+platform: Windows-11-10.0.26200-SP0, AMD64
+threads: 1
+started: 2026-10-10T20:45:34Z
+seconds: 731
+exit: 0
+
+   IEEE 13 node feeder: instance 1 of 20
+   IEEE 13 node feeder: instance 2 of 20
+   IEEE 13 node feeder: instance 3 of 20
+   IEEE 13 node feeder: instance 4 of 20
+   IEEE 13 node feeder: instance 5 of 20
+   IEEE 13 node feeder: instance 6 of 20
+   IEEE 13 node feeder: instance 7 of 20
+   IEEE 13 node feeder: instance 8 of 20
+   IEEE 13 node feeder: instance 9 of 20
+   IEEE 13 node feeder: instance 10 of 20
+   IEEE 13 node feeder: instance 11 of 20
+   IEEE 13 node feeder: instance 12 of 20
+   IEEE 13 node feeder: instance 13 of 20
+   IEEE 13 node feeder: instance 14 of 20
+   IEEE 13 node feeder: instance 15 of 20
+   IEEE 13 node feeder: instance 16 of 20
+   IEEE 13 node feeder: instance 17 of 20
+   IEEE 13 node feeder: instance 18 of 20
+   IEEE 13 node feeder: instance 19 of 20
+   IEEE 13 node feeder: instance 20 of 20
+IEEE 13 node feeder, 12 repairs, 20 instances, mean percent above the best assignment
+   conversion algorithm                                               1.63%
+   bit-flip descent from the conversion algorithm                     0.87%
+   evaluations used by the descent                                      21
+   random plans, best of 100                                          0.59%
+   random plans, best of 1000                                         0.06%
+   closed-form pair cost, its best plan                              16.91%
+   pair cost fitted on 150 plans, its best plan                       2.05%
+   best of the 150 fitting plans                                      0.35%
+   pair cost fitted on 300 plans, its best plan                       1.32%
+   best of the 300 fitting plans                                      0.22%
+   QAOA depth 1, closed-form pair cost, best of 100                   0.31%
+   QAOA depth 1, closed-form pair cost, best of 1000                  0.02%
+   QAOA depth 2, closed-form pair cost, best of 100                   0.68%
+   QAOA depth 2, closed-form pair cost, best of 1000                  0.08%
+   QAOA depth 3, closed-form pair cost, best of 100                   1.05%
+   QAOA depth 3, closed-form pair cost, best of 1000                  0.20%
+   QAOA depth 1, pair cost fitted on 150 plans, best of 100           0.24%
+   QAOA depth 1, pair cost fitted on 150 plans, best of 1000          0.01%
+   QAOA depth 2, pair cost fitted on 150 plans, best of 100           0.16%
+   QAOA depth 2, pair cost fitted on 150 plans, best of 1000          0.01%
+   QAOA depth 3, pair cost fitted on 150 plans, best of 100           0.12%
+   QAOA depth 3, pair cost fitted on 150 plans, best of 1000          0.00%
+   QAOA depth 1, pair cost fitted on 300 plans, best of 100           0.25%
+   QAOA depth 1, pair cost fitted on 300 plans, best of 1000          0.01%
+   QAOA depth 2, pair cost fitted on 300 plans, best of 100           0.17%
+   QAOA depth 2, pair cost fitted on 300 plans, best of 1000          0.01%
+   QAOA depth 3, pair cost fitted on 300 plans, best of 100           0.13%
+   QAOA depth 3, pair cost fitted on 300 plans, best of 1000          0.00%
+   random trees: instance 1 of 3
+   random trees: instance 2 of 3
+   random trees: instance 3 of 3
+random trees, 18 repairs, 3 instances, mean percent above the best assignment
+   conversion algorithm                                               2.25%
+   bit-flip descent from the conversion algorithm                     0.96%
+   evaluations used by the descent                                      37
+   random plans, best of 100                                          1.57%
+   random plans, best of 1000                                         0.52%
+   closed-form pair cost, its best plan                              21.45%
+   pair cost fitted on 500 plans, its best plan                       2.50%
+   best of the 500 fitting plans                                      0.41%
+   pair cost fitted on 1500 plans, its best plan                      3.38%
+   best of the 1500 fitting plans                                     0.13%
+   QAOA depth 1, closed-form pair cost, best of 100                   1.23%
+   QAOA depth 1, closed-form pair cost, best of 1000                  0.37%
+   QAOA depth 2, closed-form pair cost, best of 100                   1.47%
+   QAOA depth 2, closed-form pair cost, best of 1000                  0.50%
+   QAOA depth 1, pair cost fitted on 500 plans, best of 100           1.06%
+   QAOA depth 1, pair cost fitted on 500 plans, best of 1000          0.29%
+   QAOA depth 2, pair cost fitted on 500 plans, best of 100           0.93%
+   QAOA depth 2, pair cost fitted on 500 plans, best of 1000          0.24%
+   QAOA depth 1, pair cost fitted on 1500 plans, best of 100          1.05%
+   QAOA depth 1, pair cost fitted on 1500 plans, best of 1000         0.28%
+   QAOA depth 2, pair cost fitted on 1500 plans, best of 100          0.91%
+   QAOA depth 2, pair cost fitted on 1500 plans, best of 1000         0.22%
