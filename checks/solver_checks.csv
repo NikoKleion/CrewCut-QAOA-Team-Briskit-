@@ -13,6 +13,8 @@ budget_zero_gives_the_sample,real,"(2.2268044955669173, 50) with 50 plans scored
 budget_zero_gives_the_sample,broken: a fit that scores past the counter,"(2.2268044955669173, 50) with 50 plans scored","(nan, 0)",FAIL,FAIL,yes
 feeder_figures_are_reproduced,real,"[83.9, 31.7, 67.0, 15.8]","[83.9, 31.7, 67.0, 15.8]",PASS,PASS,yes
 feeder_figures_are_reproduced,broken: smallest weights and worst gain,"[83.9, 31.7, 67.0, 15.8]","[97.5, 48.8, 93.1, 32.7]",FAIL,FAIL,yes
+conversion_figures_are_reproduced,real,"[1.65, 0.49, 12.1]","[1.65, 0.49, 12.1]",PASS,PASS,yes
+conversion_figures_are_reproduced,broken: the single crew order reversed,"[1.65, 0.49, 12.1]","[5.21, 3.07, 28.51]",FAIL,FAIL,yes
 greedy_plan_follows_one_weight,real,"[[0, 5], [0, 1]]","[[0, 5], [0, 1]]",PASS,PASS,yes
 greedy_plan_follows_one_weight,broken: a solver that ignores the scores,"[[0, 5], [0, 1]]","[[0, 5], [0, 5]]",FAIL,FAIL,yes
 fitted_plan_follows_one_weight,real,"[[0, 5], [0, 1]]","[[0, 5], [0, 1]]",PASS,PASS,yes

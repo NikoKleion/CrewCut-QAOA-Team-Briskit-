@@ -90,12 +90,12 @@ def run(experiment, instances, solvers, budgets, seeds, script, prefix_safe=(), 
                     values = [float(value) for value in instance.score(plans)] if len(plans) else []
                     indices = [int(index) for index in plan_indices(plans)] if len(plans) else []
                     if trace:
-                        for t in range(1, len(scored) + 1):
-                            record(instance, method, 0, seed, best(scored[:t], instance.sense), float("nan"),
-                                   optimum, t, seconds)
+                        leading = None
+                        for t, value in enumerate(scored, 1):
+                            if leading is None or best([leading, value], instance.sense) != leading:
+                                leading = best([value] if leading is None else [leading, value], instance.sense)
+                                record(instance, method, 0, seed, leading, float("nan"), optimum, t, seconds)
                     for budget in budgets:
-                        if budget == 0 and trace and scored:
-                            continue
                         record(instance, method, budget, seed, best(scored + values[:budget], instance.sense),
                                best(values[:budget], instance.sense), optimum,
                                len(known | set(indices[:budget])), seconds)
@@ -107,6 +107,22 @@ def run(experiment, instances, solvers, budgets, seeds, script, prefix_safe=(), 
                         record(instance, method, budget, seed, best(counted.record.values(), instance.sense),
                                best(values, instance.sense), optimum, counted.used(), seconds)
     return rows
+
+
+def changes_only(rows):
+    def same(a, b):
+        return a == b or (a != a and b != b)
+
+    runs = {}
+    for row in rows:
+        runs.setdefault((row["instance"], row["method"], row["seed"]), []).append(row)
+    kept = []
+    for group in runs.values():
+        for i, row in enumerate(group):
+            first_or_last = i == 0 or i == len(group) - 1
+            if first_or_last or not (same(row["value"], group[i - 1]["value"]) and same(row["returned"], group[i - 1]["returned"])):
+                kept.append(row)
+    return kept
 
 
 def write_rows(rows, path):

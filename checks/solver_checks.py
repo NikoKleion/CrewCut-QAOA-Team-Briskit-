@@ -8,9 +8,11 @@ import numpy as np
 from briskit import benchmark
 from briskit.baselines import greedy_marginal
 from briskit.feeder import plan_index, restoration_value, sample_instance, upstream_parents
-from briskit.instances import Instance, restoration
+from briskit.instances import Instance, crew_assignment, restoration
 from briskit.qaoa import expected_best_of
-from briskit.solvers import allowed, best_first, fitted, greedy, largest_weights, qaoa, random_plans, thermal
+from briskit.scheduling import list_schedule, single_crew_order
+from briskit.solvers import (allowed, best_first, conversion, fitted, greedy, largest_weights, qaoa, random_plans,
+                             thermal)
 from checks.record import run_checks
 
 ROOT = Path(__file__).resolve().parent.parent
@@ -105,6 +107,21 @@ def feeder_figures_are_reproduced(solvers):
     return saved, measured, saved == measured
 
 
+def conversion_figures_are_reproduced(solver):
+    text = (ROOT / "results" / "dispatch_rules.txt").read_text(encoding="utf-8")
+    line = next(row for row in text.splitlines() if row.strip().startswith("conversion algorithm"))
+    saved = [float(number) for number in re.findall(r"\+\s*(\d+\.\d+)%", line)]
+    rng = np.random.default_rng(20261010)
+    instances = []
+    for k in range(300):
+        weights, hours = sample_instance(rng, 12)
+        instances.append(crew_assignment(f"crews {k}", weights, hours, PARENT))
+    rows = benchmark.run("check", instances, {"conversion": solver}, [1], [0], "checks")
+    regrets = np.array([row["regret"] for row in rows])
+    measured = [float(round(100 * number, 2)) for number in (regrets.mean(), np.median(regrets), regrets.max())]
+    return saved, measured, saved == measured
+
+
 def plan_follows_one_weight(solver):
     weights = np.array([1.0, 0.1, 0.2, 0.3, 0.2, 0.9, 0.2, 0.2, 0.2, 0.2, 0.2, 0.2])
     raised = weights.copy()
@@ -194,6 +211,11 @@ def qaoa_on_the_negated_cost(depth):
     return lambda merit, rows, instance, budget, rng: inner(-merit, rows, instance, budget, rng)
 
 
+def conversion_in_reverse_order(instance, budget, rng):
+    weights, hours, parent = instance.data["weights"], instance.data["hours"], instance.data["parent"]
+    return list_schedule(single_crew_order(weights, hours, parent)[::-1], hours)[None, :]
+
+
 def fixed_plan(instance, budget, rng):
     plan = np.zeros(instance.size, dtype=np.int8)
     plan[[0, 5]] = 1
@@ -208,6 +230,7 @@ CASES = [
     (fit_evaluations_are_counted, lambda samples: fitted(samples, best_first), fitted_past_the_counter, "a fit that scores past the counter"),
     (budget_zero_gives_the_sample, lambda samples: fitted(samples, best_first), fitted_past_the_counter, "a fit that scores past the counter"),
     (feeder_figures_are_reproduced, (largest_weights, greedy), (smallest_weights, greedy_by_worst_gain), "smallest weights and worst gain"),
+    (conversion_figures_are_reproduced, conversion, conversion_in_reverse_order, "the single crew order reversed"),
     (greedy_plan_follows_one_weight, greedy, fixed_plan, "a solver that ignores the scores"),
     (fitted_plan_follows_one_weight, fitted(66, best_first), fixed_plan, "a solver that ignores the scores"),
     (thermal_mean_matches_direct_formula, thermal, thermal_with_the_sign_flipped, "the temperature sign flipped"),

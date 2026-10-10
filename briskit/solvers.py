@@ -4,6 +4,7 @@ from .baselines import thermal_distributions
 from .feeder import all_plans
 from .pair_cost import ridge_coefficients, selection_features
 from .qaoa import train_qaoa
+from .scheduling import list_schedule, single_crew_order, smith_order
 
 
 def allowed(instance):
@@ -35,6 +36,12 @@ def greedy(instance, budget, rng):
         merit = scores if instance.sense == "max" else -scores
         plan[free[np.flatnonzero(merit >= merit.max() - 1e-12)[0]]] = 1
     return plan[None, :]
+
+
+def conversion(instance, budget, rng):
+    weights, hours, parent = instance.data["weights"], instance.data["hours"], instance.data["parent"]
+    order = smith_order(weights, hours) if parent is None else single_crew_order(weights, hours, parent)
+    return list_schedule(order, hours)[None, :]
 
 
 def fitted_merit(coefficients, plans, sense):

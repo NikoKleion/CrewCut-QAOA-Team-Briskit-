@@ -70,7 +70,7 @@ The scoring rules are those of `briskit/feeder.py`, `briskit/scheduling.py` and 
 
 ## briskit/benchmark.py
 
-The benchmark harness. A solver is a function `solve(instance, budget, rng)` that returns at most `budget` plans; it gets the instance with a counter on its scoring model and never the value table. The harness refuses plans with the wrong count and returns one row per run and budget: experiment, instance, method, budget, seed, value, regret, returned, evaluations, seconds, script. `value` is the best over every plan the run scored, the solver's own scoring included, `returned` the best of the returned plans alone, `evaluations` the number of distinct plans scored, and regret the distance from `value` to the optimum of the value table divided by that optimum. Each run's random generator is seeded with the seed, the instance name and the method name, so a row can be made again from its own columns. The count of distinct plans is right only for a scoring model without noise.
+The benchmark harness. A solver is a function `solve(instance, budget, rng)` that returns at most `budget` plans; it gets the instance with a counter on its scoring model and never the value table. The harness refuses plans with the wrong count and returns one row per run and budget: experiment, instance, method, budget, seed, value, regret, returned, evaluations, seconds, script. `value` is the best over every plan the run scored, the solver's own scoring included, `returned` the best of the returned plans alone, `evaluations` the number of distinct plans scored, and regret the distance from `value` to the optimum of the value table divided by that optimum. Each run's random generator is seeded with the seed, the instance name and the method name, so a row can be made again from its own columns. With `trace` the harness also writes a row each time the best value improves during a solver's own scoring, and `changes_only` keeps the rows where a run's value changes. The count of distinct plans is right only for a scoring model without noise.
 
 Evaluations as the cost of a run, and time reported apart from it: Hansen et al., COCO: The Experimental Procedure, https://arxiv.org/abs/1603.08776
 
@@ -80,13 +80,29 @@ Seeding with a list of integers: NumPy `default_rng`, https://numpy.org/doc/stab
 
 Names to integers: Python `zlib.crc32`, https://docs.python.org/3/library/zlib.html
 
+## briskit/summary.py
+
+Reads result rows as one step curve per run. `regret_at` gives a run's regret at a total number of evaluations, `regret_summary` the median, quartiles and mean over runs, and `runtime_to_target` the number of runs that reach a regret target and the average runtime: the evaluations of the runs that missed plus the evaluations to the target of the runs that reached it, divided by the number that reached it.
+
+Average runtime: Hansen et al., COCO: Performance Assessment, section 4, https://arxiv.org/abs/1605.03560
+
+Median and quartiles in place of the mean alone: Doerr et al., IOHprofiler, https://arxiv.org/abs/1810.05281
+
 ## briskit/solvers.py
 
-Solvers for the harness. `random_plans` draws plans with the right count uniformly, `largest_weights` takes the largest weights, and `greedy` adds one element at a time, the one whose addition scores best on the true model. `fitted(samples, select)` scores a random sample of plans, fits single and pair terms to the scores by ridge regression, and passes the fitted value of every plan to a selector: `best_first` returns the best fitted plans by exact search, `thermal(beta)` draws plans with probability proportional to the exponential of beta times the standardised fitted value, and `qaoa(depth)` trains QAOA on the fitted cost with a penalty on the count and draws plans of the right count from its distribution.
+Solvers for the harness. `random_plans` draws plans with the right count uniformly, `largest_weights` takes the largest weights, `conversion` is the conversion algorithm of Tan et al. for two crews, and `greedy` adds one element at a time, the one whose addition scores best on the true model. `fitted(samples, select)` scores a random sample of plans, fits single and pair terms to the scores by ridge regression, and passes the fitted value of every plan to a selector: `best_first` returns the best fitted plans by exact search, `thermal(beta)` draws plans with probability proportional to the exponential of beta times the standardised fitted value, and `qaoa(depth)` trains QAOA on the fitted cost with a penalty on the count and draws plans of the right count from its distribution.
 
 QAOA: Farhi, Goldstone and Gutmann, https://arxiv.org/abs/1411.4028
 
 Linear solve behind the ridge fit: NumPy `linalg.solve`, https://numpy.org/doc/stable/reference/generated/numpy.linalg.solve.html
+
+## experiments/budget_experiment.py
+
+Runs every solver through the harness on 30 instances of two feeder decisions, restoring 6 of 12 lines and assigning 12 repairs to two crews. Methods that fit a pair cost score 150 random plans and then return up to 50 more; random plans run to the same total of 200. It writes the rows to `results/budget_experiment_restoration.csv` and `results/budget_experiment_crews.csv`, keeping a row only where a run's value changes, and prints regret at fixed totals and the average runtime to regret targets of 5%, 1% and 0.
+
+Comparing methods only up to the smallest budget any of them was given, and instances as repetitions: Hansen et al., COCO: The Experimental Procedure, https://arxiv.org/abs/1603.08776
+
+Instance generator: Tan et al., section 6, https://arxiv.org/abs/1702.08382
 
 ## experiments/crew_assignment.py
 
@@ -214,10 +230,12 @@ Package versions are pinned in `requirements.txt`. The saved results were made w
 
 ## checks/
 
-`benchmark_checks.py` and `solver_checks.py` hold one named function per check, each taking the piece under test and returning what it expected, what it got and whether they agree. `record.py` runs every check twice, on the real code and on a broken version written beside it, and writes both outcomes to a `.csv` file next to the checks: a check counts only if it passes on the real code and fails on the broken one.
+`benchmark_checks.py`, `solver_checks.py`, `summary_checks.py` and `budget_checks.py` hold one named function per check, each taking the piece under test and returning what it expected, what it got and whether they agree. `record.py` runs every check twice, on the real code and on a broken version written beside it, and writes both outcomes to a `.csv` file next to the checks: a check counts only if it passes on the real code and fails on the broken one. `budget_checks.py` audits the saved rows of the budget experiment against the exact expectation for the best of a number of distinct random plans.
 
     python -m checks.benchmark_checks
     python -m checks.solver_checks
+    python -m checks.summary_checks
+    python -m checks.budget_checks
 
 ## qollab/main.py
 

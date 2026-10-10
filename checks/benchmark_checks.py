@@ -93,7 +93,7 @@ def trace_follows_scoring_order(run):
 
     rows = run("check", [tiny_instance()], {"m": solve}, [1, 2], [0], "checks", prefix_safe={"m"}, trace=True)
     got = [(row["budget"], row["evaluations"], row["value"]) for row in rows]
-    expected = [(0, 1, 2.0), (0, 2, 2.0), (0, 3, 8.0), (1, 4, 8.0), (2, 5, 15.0)]
+    expected = [(0, 1, 2.0), (0, 3, 8.0), (1, 4, 8.0), (2, 5, 15.0)]
     return expected, got, got == expected
 
 

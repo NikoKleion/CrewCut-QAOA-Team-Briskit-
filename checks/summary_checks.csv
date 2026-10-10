@@ -1,0 +1,9 @@
+check,version,expected,got,verdict,required,as_required
+regret_at_reads_the_step_curve,real,"[None, 0.5, 0.2, 0.0]","[None, 0.5, 0.2, 0.0]",PASS,PASS,yes
+regret_at_reads_the_step_curve,broken: the first row at or past the total,"[None, 0.5, 0.2, 0.0]","[0.5, 0.2, 0.2, None]",FAIL,FAIL,yes
+average_runtime_matches_hand_arithmetic,real,"(2, 3, 17.0)","(2, 3, 17.0)",PASS,PASS,yes
+average_runtime_matches_hand_arithmetic,broken: unsuccessful runs left out,"(2, 3, 17.0)","(2, 3, 7.0)",FAIL,FAIL,yes
+quartiles_match_hand_values,real,"(0.1, 0.2, 0.3, 0.32)","(0.1, 0.2, 0.3, 0.32)",PASS,PASS,yes
+quartiles_match_hand_values,broken: the mean reported as the median,"(0.1, 0.2, 0.3, 0.32)","(0.1, 0.32, 0.3, 0.32)",FAIL,FAIL,yes
+compact_rows_give_the_same_summary,real,"([0.5993984509982506, 0.43020252916486057, 0.24038782600435551], 5, 54.4) from fewer than 480 rows","([0.5993984509982506, 0.43020252916486057, 0.24038782600435551], 5, 54.4) from 51 rows",PASS,PASS,yes
+compact_rows_give_the_same_summary,broken: the last row of an unsuccessful run dropped,"([0.5993984509982506, 0.43020252916486057, 0.24038782600435551], 5, 54.4) from fewer than 480 rows","([0.5993984509982506, 0.43020252916486057, 0.24038782600435551], 5, 38.0) from 43 rows",FAIL,FAIL,yes
