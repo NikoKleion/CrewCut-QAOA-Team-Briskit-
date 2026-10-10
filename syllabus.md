@@ -96,6 +96,22 @@ QAOA: Farhi, Goldstone and Gutmann, https://arxiv.org/abs/1411.4028
 
 Linear solve behind the ridge fit: NumPy `linalg.solve`, https://numpy.org/doc/stable/reference/generated/numpy.linalg.solve.html
 
+## briskit/dispatch.py
+
+Computes the rho factor of each line, the largest ratio of summed weight to summed repair time over the subtrees rooted at that line, by listing every subtree, which is practical for feeders of a few dozen lines. Dispatches crews by a priority and returns when each repair is completed and when each line is live. The candidate lines are either those whose upstream line has been started, or those whose upstream node is live or whose upstream line is under repair. Also gives the share of weight restored at a given time.
+
+Tan et al., section 5.4, equation 51, Algorithms 4 and 5, https://arxiv.org/abs/1702.08382
+
+## briskit/collective.py
+
+Builds the QAOA cost layer from collective blocks. A block with amplitudes a and strength c is exp(-i c (a . Z)^2), written as one named gate that holds an RZZ rotation of angle 4 c a_i a_j on each pair. Blocks come from the urgency levels of independent repairs (strength a quarter of the gap between levels, amplitudes the repair hours of the lines at that level or above) or from the eigenvalues and eigenvectors of any pair coefficient matrix. In the XX form the pair rotations are RXX, the mixer is a Z rotation, and a Hadamard on each qubit comes before measurement. In Qiskit a block is still a set of pair gates: at 12 repairs the block layer holds 286 RZZ gates as written against 66 for the pair by pair layer, and the transpiler leaves 285, so on a public gate set the pair by pair layer is the one to send.
+
+RZZ: https://quantum.cloud.ibm.com/docs/api/qiskit/qiskit.circuit.library.RZZGate
+
+RXX: https://quantum.cloud.ibm.com/docs/api/qiskit/qiskit.circuit.library.RXXGate
+
+One collective interaction of ions for number partitioning: Graß et al., https://arxiv.org/abs/1507.07863
+
 ## experiments/budget_experiment.py
 
 Runs every solver through the harness on 30 instances of two feeder decisions, restoring 6 of 12 lines and assigning 12 repairs to two crews. Methods that fit a pair cost score 150 random plans and then return up to 50 more; random plans run to the same total of 200. It writes the rows to `results/budget_experiment_restoration.csv` and `results/budget_experiment_crews.csv`, keeping a row only where a run's value changes, and prints regret at fixed totals and the average runtime to regret targets of 5%, 1% and 0.
@@ -220,6 +236,18 @@ Sørensen and Mølmer, https://arxiv.org/abs/quant-ph/9810039
 
 Lotshaw et al., section II A, https://arxiv.org/abs/2211.00133
 
+## experiments/dispatch_readings.py
+
+Dispatches 300 feeder instances by the rho factor, the FirstEnergy rule and the Edison Electric Institute rule under both readings of the candidate set of Algorithm 5, and reports how often the schedules differ, the customer-hours above the best assignment, and the share of weight restored halfway through, the quantity plotted in Figure 4 of the paper.
+
+Tan et al., Algorithm 5 and Figure 4, https://arxiv.org/abs/1702.08382
+
+## experiments/collective_layer_counts.py
+
+Counts, for one cost layer of 12 repairs, the collective blocks, the RZZ gates they hold as written, and the RZZ gates left after Qiskit compiles the layer.
+
+Qiskit transpiler, https://quantum.cloud.ibm.com/docs/api/qiskit/transpiler
+
 ## run_experiments.py
 
 Runs every script in `experiments/` in its own process with a fixed number of numerical threads and writes what each prints to `results/<name>.txt`. With `--check` it runs them again and reports whether each output equals the saved one. `--jobs` sets how many run at once, `--threads` the thread count, and names after the command select scripts.
@@ -238,13 +266,21 @@ Package versions are pinned in `requirements.txt`. The saved results were made w
 
 ## checks/
 
-`benchmark_checks.py`, `solver_checks.py`, `summary_checks.py`, `budget_checks.py` and `fit_checks.py` hold one named function per check, each taking the piece under test and returning what it expected, what it got and whether they agree. `record.py` runs every check twice, on the real code and on a broken version written beside it, and writes both outcomes to a `.csv` file next to the checks: a check counts only if it passes on the real code and fails on the broken one. `budget_checks.py` audits the saved rows of the budget experiment against the exact expectation for the best of a number of distinct random plans. `fit_checks.py` compares the fit with a second way of solving the same least squares problem and with the saved result of `experiments/feeder_fitted_models.py`.
+`benchmark_checks.py`, `solver_checks.py`, `summary_checks.py`, `budget_checks.py`, `fit_checks.py`, `dispatch_checks.py` and `collective_checks.py` hold one named function per check, each taking the piece under test and returning what it expected, what it got and whether they agree. `record.py` runs every check twice, on the real code and on a broken version written beside it, and writes both outcomes to a `.csv` file next to the checks: a check counts only if it passes on the real code and fails on the broken one.
+
+`budget_checks.py` audits the saved rows of the budget experiment against the exact expectation for the best of a number of distinct random plans. `fit_checks.py` compares the fit with a second way of solving the same least squares problem and with the saved result of `experiments/feeder_fitted_models.py`. `dispatch_checks.py` compares the rho factors with a second listing of subtrees by bit masks, the dispatch with `priority_dispatch`, and both with Theorem 5 of Tan et al.: with rho factors as priorities the dispatch must equal the conversion algorithm on every one of 300 feeder instances. `collective_checks.py` compares a block with the matrix exponential of its definition, the block layers with the pair by pair layer by `Operator.equiv`, the whole circuit with the table simulator, and the XX form with the ZZ form.
 
     python -m checks.benchmark_checks
     python -m checks.solver_checks
     python -m checks.summary_checks
     python -m checks.budget_checks
     python -m checks.fit_checks
+    python -m checks.dispatch_checks
+    python -m checks.collective_checks
+
+Theorem 5: Tan et al., sections 5.3 to 5.5, https://arxiv.org/abs/1702.08382
+
+`Operator.equiv`: https://quantum.cloud.ibm.com/docs/api/qiskit/qiskit.quantum_info.Operator
 
 ## qollab/main.py
 

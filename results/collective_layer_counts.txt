@@ -1,0 +1,13 @@
+command: python -m experiments.collective_layer_counts
+code: b6cb34d (clean)
+python: 3.13.14
+packages: numpy 2.5.2  scipy 1.18.1  qiskit 2.5.2
+platform: Windows-11-10.0.26200-SP0, AMD64
+threads: 1
+started: 2026-10-10T21:19:46Z
+seconds: 1
+exit: 0
+
+one cost layer, 12 repairs, 66 pairs
+   distinct urgency ratios  12 blocks, 286 RZZ gates as written, 285 after compiling
+   3 urgency levels          3 blocks, 100 RZZ gates as written, 100 after compiling

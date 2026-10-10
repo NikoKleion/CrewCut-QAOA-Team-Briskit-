@@ -1,0 +1,20 @@
+command: python -m experiments.dispatch_readings
+code: b6cb34d (clean)
+python: 3.13.14
+packages: numpy 2.5.2  scipy 1.18.1  qiskit 2.5.2
+platform: Windows-11-10.0.26200-SP0, AMD64
+threads: 1
+started: 2026-10-10T21:19:46Z
+seconds: 1
+exit: 0
+
+IEEE 13 node feeder, 12 repairs, two crews, 300 instances
+candidate lines: selected = the line upstream has been started; energised = its node is live or the line upstream is under repair
+   rule          schedules differ   above the best assignment, selected   energised
+   rho factor     159 of 300          1.65%                            5.47%
+   FirstEnergy    109 of 300         19.37%                           20.47%
+   EEI            168 of 300         14.17%                           16.07%
+share of weight restored at half the rho rule's time to full restoration, candidates selected
+   rho factor     76.0%
+   FirstEnergy    60.8%
+   EEI            66.0%
