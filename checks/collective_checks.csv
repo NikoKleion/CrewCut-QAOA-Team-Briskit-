@@ -1,0 +1,19 @@
+check,version,expected,got,verdict,required,as_required
+block_matches_matrix_exponential,real,10 of 10 equal up to phase,10 of 10,PASS,PASS,yes
+block_matches_matrix_exponential,broken: half the angle,10 of 10 equal up to phase,0 of 10,FAIL,FAIL,yes
+level_layer_equals_pairwise,real,equal up to phase,equal up to phase,PASS,PASS,yes
+level_layer_equals_pairwise,broken: one block left out,equal up to phase,different,FAIL,FAIL,yes
+level_layer_equals_pairwise,real,equal up to phase,equal up to phase,PASS,PASS,yes
+level_layer_equals_pairwise,broken: one amplitude with its sign flipped,equal up to phase,different,FAIL,FAIL,yes
+eigen_layer_equals_pairwise,real,equal up to phase,equal up to phase with 4 negative and 3 positive blocks,PASS,PASS,yes
+eigen_layer_equals_pairwise,broken: negative eigenvalues taken as positive,equal up to phase,different with 0 negative and 7 positive blocks,FAIL,FAIL,yes
+eigen_layer_equals_pairwise,real,equal up to phase,equal up to phase with 4 negative and 3 positive blocks,PASS,PASS,yes
+eigen_layer_equals_pairwise,broken: three blocks of seven,equal up to phase,different with 1 negative and 2 positive blocks,FAIL,FAIL,yes
+circuit_matches_table_and_pairwise,real,both below 1e-10,"distance to the table simulator 1.4e-12, 1 - fidelity 6.0e-15",PASS,PASS,yes
+circuit_matches_table_and_pairwise,broken: one amplitude 10% too large,both below 1e-10,"distance to the table simulator 1.6e-04, 1 - fidelity 7.4e-07",FAIL,FAIL,yes
+x_form_matches_z_form,real,distance below 1e-10,4.3e-16,PASS,PASS,yes
+x_form_matches_z_form,broken: no Hadamards before measurement,distance below 1e-10,9.5e-01,FAIL,FAIL,yes
+layer_changes_with_one_hour,real,layer changes,layer changes,PASS,PASS,yes
+layer_changes_with_one_hour,broken: blocks that ignore the hours,layer changes,layer unchanged,FAIL,FAIL,yes
+three_levels_give_three_blocks,real,3,3,PASS,PASS,yes
+three_levels_give_three_blocks,broken: ratios not rounded,3,4,FAIL,FAIL,yes
