@@ -104,6 +104,14 @@ Comparing methods only up to the smallest budget any of them was given, and inst
 
 Instance generator: Tan et al., section 6, https://arxiv.org/abs/1702.08382
 
+## experiments/fit_size.py
+
+Regret against the number of plans used for the fit, for restoring 4 and 6 of 12 feeder lines on 30 instances. For fits on 20 to 300 random plans and on every plan of the allowed size, with single and pair terms and with single terms only, it prints the regret of the fitted cost's own best plan, and the regret of the run after the fit and 10 more plans beside random plans given the same total. Rows go to `results/fit_size_restore_4.csv` and `results/fit_size_restore_6.csv`.
+
+Linear solve behind the ridge fit: NumPy `linalg.solve`, https://numpy.org/doc/stable/reference/generated/numpy.linalg.solve.html
+
+Second route used to check it: NumPy `lstsq`, https://numpy.org/doc/stable/reference/generated/numpy.linalg.lstsq.html
+
 ## experiments/crew_assignment.py
 
 Checks the one crew order and the pair cost against brute force. On the IEEE 13 node feeder with two crews it compares the conversion algorithm and the best plan of the closed-form pair cost with the best of all 4,096 assignments, solves 12 instances to proven optimality, and runs QAOA on the closed-form pair cost.
@@ -230,12 +238,13 @@ Package versions are pinned in `requirements.txt`. The saved results were made w
 
 ## checks/
 
-`benchmark_checks.py`, `solver_checks.py`, `summary_checks.py` and `budget_checks.py` hold one named function per check, each taking the piece under test and returning what it expected, what it got and whether they agree. `record.py` runs every check twice, on the real code and on a broken version written beside it, and writes both outcomes to a `.csv` file next to the checks: a check counts only if it passes on the real code and fails on the broken one. `budget_checks.py` audits the saved rows of the budget experiment against the exact expectation for the best of a number of distinct random plans.
+`benchmark_checks.py`, `solver_checks.py`, `summary_checks.py`, `budget_checks.py` and `fit_checks.py` hold one named function per check, each taking the piece under test and returning what it expected, what it got and whether they agree. `record.py` runs every check twice, on the real code and on a broken version written beside it, and writes both outcomes to a `.csv` file next to the checks: a check counts only if it passes on the real code and fails on the broken one. `budget_checks.py` audits the saved rows of the budget experiment against the exact expectation for the best of a number of distinct random plans. `fit_checks.py` compares the fit with a second way of solving the same least squares problem and with the saved result of `experiments/feeder_fitted_models.py`.
 
     python -m checks.benchmark_checks
     python -m checks.solver_checks
     python -m checks.summary_checks
     python -m checks.budget_checks
+    python -m checks.fit_checks
 
 ## qollab/main.py
 

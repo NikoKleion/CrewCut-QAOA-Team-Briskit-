@@ -1,0 +1,5 @@
+check,version,expected,got,verdict,required,as_required
+fit_on_every_plan_matches_second_route,real,10 of 10 best plans of equal value,10 of 10,PASS,PASS,yes
+fit_on_every_plan_matches_second_route,broken: the fit with single terms only,10 of 10 best plans of equal value,7 of 10,FAIL,FAIL,yes
+model_regret_agrees_with_saved_experiment,real,0.029 within 0.013,0.033,PASS,PASS,yes
+model_regret_agrees_with_saved_experiment,broken: the fit with single terms only,0.029 within 0.030,0.068,FAIL,FAIL,yes
