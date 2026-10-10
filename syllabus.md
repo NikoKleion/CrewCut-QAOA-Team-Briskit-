@@ -132,6 +132,12 @@ Files named by a plain string, and the 2 MB limit: Qollab, Runtime environment, 
 
 JSON: Python `json`, https://docs.python.org/3/library/json.html
 
+## briskit/tree_knapsack.py
+
+The exact method for budgeted restoration on a tree. Restoring a fixed number of lines, where a line counts only with every line upstream of it, is the precedence constrained tree knapsack problem with the line weights as profits, cost 1 for each line and the number of lines as the capacity. `best_closed_set` fills a table over the lines in depth-first order: a line left out skips its whole subtree, a line taken moves on into it; the table has (lines) times (capacity + 1) entries and the chosen set is read back from it. Costs other than 1, such as repair hours with a budget in hours, are handled the same way. `tree_optimum` is the same method as a solver for the harness: it reads the weights and the tree from the instance and returns one plan. It applies to trees only, and to weights that are not negative.
+
+Kumabe, Maehara and Sin'ya, Linear Pseudo-Polynomial Factor Algorithm for Automaton Constrained Tree Knapsack Problem, Example 2 (the precedence constrained problem; the paper credits the linear-time method to Johnson and Niemi and to Cho and Shaw), https://arxiv.org/abs/1807.04942
+
 ## experiments/budget_experiment.py
 
 Runs every solver through the harness on 30 instances of two feeder decisions, restoring 6 of 12 lines and assigning 12 repairs to two crews. Methods that fit a pair cost score 150 random plans and then return up to 50 more; random plans run to the same total of 200. It writes the rows to `results/budget_experiment_restoration.csv` and `results/budget_experiment_crews.csv`, keeping a row only where a run's value changes, and prints regret at fixed totals and the average runtime to regret targets of 5%, 1% and 0.
@@ -145,6 +151,12 @@ Instance generator: Tan et al., section 6, https://arxiv.org/abs/1702.08382
 Replays the random stream of the budget experiment's QAOA runs on its first instance (restore 6 of 12 lines, pair cost fitted on 150 plans, depths 1 to 3), so the fit and the angles are the ones behind the saved benchmark rows, and writes them to `qollab/trained_circuits.json`. Prints for each depth the share of probability on plans with the right count, the share of those on the optimum, and their mean regret. The file is rewritten only when a record changes.
 
 Farhi, Goldstone and Gutmann, https://arxiv.org/abs/1411.4028
+
+## experiments/tree_optimum.py
+
+Runs the exact tree method through the harness on the 30 feeder instances of the budget experiment, for 4 and for 6 lines restored, and reports on how many it returns the optimum and how many plans it scored. Then solves a random tree of 2,500 lines, for which no value table can be built, for two numbers of lines and for a budget in repair hours.
+
+Kumabe, Maehara and Sin'ya, https://arxiv.org/abs/1807.04942
 
 ## experiments/fit_size.py
 
@@ -292,9 +304,9 @@ Package versions are pinned in `requirements.txt`. The saved results were made w
 
 ## checks/
 
-`benchmark_checks.py`, `solver_checks.py`, `summary_checks.py`, `budget_checks.py`, `fit_checks.py`, `dispatch_checks.py`, `collective_checks.py`, `cost_circuit_checks.py` and `trained_checks.py` hold one named function per check, each taking the piece under test and returning what it expected, what it got and whether they agree. `record.py` runs every check twice, on the real code and on a broken version written beside it, and writes both outcomes to a `.csv` file next to the checks: a check counts only if it passes on the real code and fails on the broken one.
+`benchmark_checks.py`, `solver_checks.py`, `summary_checks.py`, `budget_checks.py`, `fit_checks.py`, `dispatch_checks.py`, `collective_checks.py`, `cost_circuit_checks.py`, `trained_checks.py` and `tree_knapsack_checks.py` hold one named function per check, each taking the piece under test and returning what it expected, what it got and whether they agree. `record.py` runs every check twice, on the real code and on a broken version written beside it, and writes both outcomes to a `.csv` file next to the checks: a check counts only if it passes on the real code and fails on the broken one.
 
-`budget_checks.py` audits the saved rows of the budget experiment against the exact expectation for the best of a number of distinct random plans. `fit_checks.py` compares the fit with a second way of solving the same least squares problem and with the saved result of `experiments/feeder_fitted_models.py`. `dispatch_checks.py` compares the rho factors with a second listing of subtrees by bit masks, the dispatch with `priority_dispatch`, and both with Theorem 5 of Tan et al.: with rho factors as priorities the dispatch must equal the conversion algorithm on every one of 300 feeder instances. `collective_checks.py` compares a block with the matrix exponential of its definition, the block layers with the pair by pair layer by `Operator.equiv`, the whole circuit with the table simulator, and the XX form with the ZZ form. `cost_circuit_checks.py` compares the rewritten terms with the cost table of the QAOA selector, the scale with the standard deviation of that table, and the circuit's probabilities with `qaoa_probabilities` at 8 and 12 qubits and depths 1 to 3, and with the distribution `train_qaoa` returns for a fit on the feeder. `trained_checks.py` checks that a record read back from the file equals the one written, that its circuit gives the trained distribution, that the plans drawn after replaying the stream are the plans the harness's solver returns for the same seed, instance, method and budget, that scoring from the record equals the feeder model, and that the size limits are tested.
+`budget_checks.py` audits the saved rows of the budget experiment against the exact expectation for the best of a number of distinct random plans. `fit_checks.py` compares the fit with a second way of solving the same least squares problem and with the saved result of `experiments/feeder_fitted_models.py`. `dispatch_checks.py` compares the rho factors with a second listing of subtrees by bit masks, the dispatch with `priority_dispatch`, and both with Theorem 5 of Tan et al.: with rho factors as priorities the dispatch must equal the conversion algorithm on every one of 300 feeder instances. `collective_checks.py` compares a block with the matrix exponential of its definition, the block layers with the pair by pair layer by `Operator.equiv`, the whole circuit with the table simulator, and the XX form with the ZZ form. `cost_circuit_checks.py` compares the rewritten terms with the cost table of the QAOA selector, the scale with the standard deviation of that table, and the circuit's probabilities with `qaoa_probabilities` at 8 and 12 qubits and depths 1 to 3, and with the distribution `train_qaoa` returns for a fit on the feeder. `trained_checks.py` checks that a record read back from the file equals the one written, that its circuit gives the trained distribution, that the plans drawn after replaying the stream are the plans the harness's solver returns for the same seed, instance, method and budget, that scoring from the record equals the feeder model, and that the size limits are tested. `tree_knapsack_checks.py` compares the exact tree method with enumeration on 60 feeder cases and 10 random trees of 16 lines, and with brute force over closed sets for a budget in repair hours, and checks that the plan it returns has the right number of lines when weights are zero.
 
     python -m checks.benchmark_checks
     python -m checks.solver_checks
@@ -305,6 +317,7 @@ Package versions are pinned in `requirements.txt`. The saved results were made w
     python -m checks.collective_checks
     python -m checks.cost_circuit_checks
     python -m checks.trained_checks
+    python -m checks.tree_knapsack_checks
 
 Theorem 5: Tan et al., sections 5.3 to 5.5, https://arxiv.org/abs/1702.08382
 

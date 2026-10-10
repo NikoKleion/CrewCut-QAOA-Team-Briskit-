@@ -1,0 +1,13 @@
+check,version,expected,got,verdict,required,as_required
+order_keeps_subtrees_together,real,20 of 20,20 of 20,PASS,PASS,yes
+order_keeps_subtrees_together,broken: lines in index order with subtrees of size 1,20 of 20,0 of 20,FAIL,FAIL,yes
+equals_enumeration_on_the_feeder,real,60 of 60,60 of 60,PASS,PASS,yes
+equals_enumeration_on_the_feeder,broken: a table that does not skip the subtree of a line left out,60 of 60,5 of 60,FAIL,FAIL,yes
+equals_enumeration_on_random_trees,real,10 of 10,10 of 10,PASS,PASS,yes
+equals_enumeration_on_random_trees,broken: a table that does not skip the subtree of a line left out,10 of 10,0 of 10,FAIL,FAIL,yes
+plan_has_the_count_and_the_value,real,30 of 30,30 of 30,PASS,PASS,yes
+plan_has_the_count_and_the_value,broken: lines of zero weight left out of the plan,30 of 30,0 of 30,FAIL,FAIL,yes
+hours_budget_equals_brute_force,real,10 of 10,10 of 10,PASS,PASS,yes
+hours_budget_equals_brute_force,broken: costs ignored,10 of 10,0 of 10,FAIL,FAIL,yes
+one_weight_changes_the_choice,real,line 3 chosen 0 then 1,line 3 chosen 0 then 1,PASS,PASS,yes
+one_weight_changes_the_choice,broken: weights ignored,line 3 chosen 0 then 1,line 3 chosen 1 then 1,FAIL,FAIL,yes
