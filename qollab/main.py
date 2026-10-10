@@ -91,6 +91,9 @@ def largest_pairs(pairs, keep):
 
 
 def main(shots: int = 2000, depth: int = 2, keep: int = 100):
+    if keep not in ANGLES or depth not in ANGLES[keep]:
+        print(f"keep must be one of {sorted(ANGLES)} and depth one of {sorted(ANGLES[100])}")
+        return
     w, p = np.array(URGENCY), np.array(HOURS, dtype=float)
     n = len(w)
     pairs = pair_coefficients(w, p)
