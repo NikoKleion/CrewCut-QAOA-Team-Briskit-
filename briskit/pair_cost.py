@@ -27,8 +27,11 @@ def level_count(ratio):
 
 def pair_features(plans):
     spins = 1.0 - 2.0 * plans.astype(float)
-    upper = np.triu_indices(spins.shape[1], 1)
-    return np.concatenate([np.ones((spins.shape[0], 1)), spins[:, upper[0]] * spins[:, upper[1]]], axis=1)
+    first, second = np.triu_indices(spins.shape[1], 1)
+    features = np.ones((spins.shape[0], 1 + len(first)), order="F")
+    for column, (i, j) in enumerate(zip(first, second), start=1):
+        features[:, column] = spins[:, i] * spins[:, j]
+    return features
 
 
 def fit_coefficients(features, values, rows):

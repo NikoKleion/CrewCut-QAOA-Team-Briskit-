@@ -170,6 +170,22 @@ Sørensen and Mølmer, https://arxiv.org/abs/quant-ph/9810039
 
 Lotshaw et al., section II A, https://arxiv.org/abs/2211.00133
 
+## run_experiments.py
+
+Runs every script in `experiments/` in its own process with a fixed number of numerical threads and writes what each prints to `results/<name>.txt`. With `--check` it runs them again and reports whether each output equals the saved one. `--jobs` sets how many run at once, `--threads` the thread count, and names after the command select scripts.
+
+    python run_experiments.py
+    python run_experiments.py --check
+    python run_experiments.py --check dispatch_rules level_merging
+
+Every script seeds NumPy's generator with the constant `SEED` at the top of the file, so a rerun draws the same instances: https://numpy.org/doc/stable/reference/random/generator.html
+
+## results/
+
+One file per script in `experiments/`. The lines before the first blank line record how the output was made: the command, the commit of the code and whether the code had uncommitted changes, the Python and package versions, the platform, the thread count, the start time in UTC, the run time in seconds and the exit code. The rest is the output.
+
+Package versions are pinned in `requirements.txt`. Results of `qaoa_limits.py` at depth 3 change in the fourth digit with the thread count, because its optimiser stops after 40 iterations.
+
 ## qollab/main.py
 
 The file Qollab runs. Builds the QAOA circuit for one 12 repair instance with angles trained beforehand, compiles it for the `backend` Qollab supplies, sends one job, and scores the measured plans with the classical cost table.

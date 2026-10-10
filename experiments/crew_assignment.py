@@ -85,7 +85,7 @@ def main(instances=300, exact=12, sampled=20):
 
     print(f"QAOA on the closed-form pair cost, {sampled} instances, no noise")
     for depth in (1, 2, 3):
-        hit, shots, hit_random, shots_random = [], [], [], []
+        hit, shots, hit_random, shots_random, listed = [], [], [], [], []
         for w, p, true, pair, listed_cost in cases[:sampled]:
             _, prob = train_qaoa(pair, depth, rng)
             best = true.min()
@@ -95,8 +95,10 @@ def main(instances=300, exact=12, sampled=20):
             hit_random.append(uniform[optimal].sum())
             shots.append(expected_best_of(prob, true, 100) / best - 1)
             shots_random.append(expected_best_of(uniform, true, 100) / best - 1)
+            listed.append(listed_cost / best - 1)
         print(f"   depth {depth}  chance of a best assignment {100 * np.mean(hit):.2f}% (random {100 * np.mean(hit_random):.3f}%)"
-              f"  best of 100 shots +{100 * np.mean(shots):.2f}% (random +{100 * np.mean(shots_random):.2f}%)", flush=True)
+              f"  best of 100 shots +{100 * np.mean(shots):.2f}% (random +{100 * np.mean(shots_random):.2f}%,"
+              f" conversion algorithm +{100 * np.mean(listed):.2f}%)", flush=True)
 
 
 if __name__ == "__main__":
