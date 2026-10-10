@@ -54,14 +54,19 @@ def fitted_merit(coefficients, plans, sense):
     return value if sense == "max" else -value
 
 
+def fit_on_sample(instance, samples, rng, pairs=True):
+    rows, plans = allowed(instance)
+    sample = rows[rng.choice(len(rows), size=min(samples, len(rows)), replace=False)]
+    features = selection_features(plans[sample], pairs=pairs)
+    coefficients = ridge_coefficients(features, instance.score(plans[sample]))
+    if not pairs:
+        coefficients = np.concatenate([coefficients, np.zeros(instance.size * (instance.size - 1) // 2)])
+    return coefficients, rows, plans
+
+
 def fitted(samples, select, pairs=True):
     def solve(instance, budget, rng):
-        rows, plans = allowed(instance)
-        sample = rows[rng.choice(len(rows), size=min(samples, len(rows)), replace=False)]
-        features = selection_features(plans[sample], pairs=pairs)
-        coefficients = ridge_coefficients(features, instance.score(plans[sample]))
-        if not pairs:
-            coefficients = np.concatenate([coefficients, np.zeros(instance.size * (instance.size - 1) // 2)])
+        coefficients, rows, plans = fit_on_sample(instance, samples, rng, pairs)
         merit = fitted_merit(coefficients, plans, instance.sense)
         return plans[select(merit, rows, instance, budget, rng)]
     return solve
@@ -78,12 +83,19 @@ def thermal(beta):
     return select
 
 
+def penalised_cost(merit, rows, instance):
+    cost = -merit
+    penalty = 0.0
+    if instance.count is not None:
+        chosen = all_plans(instance.size).sum(axis=1)
+        penalty = merit[rows].std()
+        cost = cost + penalty * (chosen - instance.count) ** 2
+    return cost, float(penalty)
+
+
 def qaoa(depth, starts=2, maxiter=None):
     def select(merit, rows, instance, budget, rng):
-        cost = -merit
-        if instance.count is not None:
-            chosen = all_plans(instance.size).sum(axis=1)
-            cost = cost + merit[rows].std() * (chosen - instance.count) ** 2
+        cost, _ = penalised_cost(merit, rows, instance)
         _, probability = train_qaoa(cost, depth, rng, starts=starts, maxiter=maxiter)
         inside = probability[rows] / probability[rows].sum()
         return rows[rng.choice(len(rows), size=budget, p=inside)]

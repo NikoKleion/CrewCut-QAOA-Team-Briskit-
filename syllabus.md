@@ -122,6 +122,16 @@ RZZ: https://quantum.cloud.ibm.com/docs/api/qiskit/qiskit.circuit.library.RZZGat
 
 QAOA: Farhi, Goldstone and Gutmann, https://arxiv.org/abs/1411.4028
 
+## briskit/trained.py
+
+Reads and writes the file of trained circuits, `qollab/trained_circuits.json`, and rebuilds from one record the QAOA circuit and the true value of measured plans. A record holds what the circuit needs (size, sense, count, coefficients of the fitted cost, penalty strength, angles), what scoring needs (weights and the line upstream of each line), and where it came from (experiment, instance, method, seed, number of fitting plans, depth, commit of the code). It imports NumPy, Qiskit and `json` only, so a run on Qollab trains nothing and loads no SciPy, and `within_limits` tests the platform's limits of 2 MB for a file and 24 qubits for the built-in simulator. The records hold restoration on the feeder only, and no record has been run on Qollab.
+
+Files named by a plain string, and the 2 MB limit: Qollab, Runtime environment, https://qollab.xyz/learn/docs/runtime-environment
+
+24 qubits: Qollab, Compute backends, https://qollab.xyz/learn/docs/compute-backends
+
+JSON: Python `json`, https://docs.python.org/3/library/json.html
+
 ## experiments/budget_experiment.py
 
 Runs every solver through the harness on 30 instances of two feeder decisions, restoring 6 of 12 lines and assigning 12 repairs to two crews. Methods that fit a pair cost score 150 random plans and then return up to 50 more; random plans run to the same total of 200. It writes the rows to `results/budget_experiment_restoration.csv` and `results/budget_experiment_crews.csv`, keeping a row only where a run's value changes, and prints regret at fixed totals and the average runtime to regret targets of 5%, 1% and 0.
@@ -129,6 +139,12 @@ Runs every solver through the harness on 30 instances of two feeder decisions, r
 Comparing methods only up to the smallest budget any of them was given, and instances as repetitions: Hansen et al., COCO: The Experimental Procedure, https://arxiv.org/abs/1603.08776
 
 Instance generator: Tan et al., section 6, https://arxiv.org/abs/1702.08382
+
+## experiments/trained_circuits.py
+
+Replays the random stream of the budget experiment's QAOA runs on its first instance (restore 6 of 12 lines, pair cost fitted on 150 plans, depths 1 to 3), so the fit and the angles are the ones behind the saved benchmark rows, and writes them to `qollab/trained_circuits.json`. Prints for each depth the share of probability on plans with the right count, the share of those on the optimum, and their mean regret. The file is rewritten only when a record changes.
+
+Farhi, Goldstone and Gutmann, https://arxiv.org/abs/1411.4028
 
 ## experiments/fit_size.py
 
@@ -276,9 +292,9 @@ Package versions are pinned in `requirements.txt`. The saved results were made w
 
 ## checks/
 
-`benchmark_checks.py`, `solver_checks.py`, `summary_checks.py`, `budget_checks.py`, `fit_checks.py`, `dispatch_checks.py`, `collective_checks.py` and `cost_circuit_checks.py` hold one named function per check, each taking the piece under test and returning what it expected, what it got and whether they agree. `record.py` runs every check twice, on the real code and on a broken version written beside it, and writes both outcomes to a `.csv` file next to the checks: a check counts only if it passes on the real code and fails on the broken one.
+`benchmark_checks.py`, `solver_checks.py`, `summary_checks.py`, `budget_checks.py`, `fit_checks.py`, `dispatch_checks.py`, `collective_checks.py`, `cost_circuit_checks.py` and `trained_checks.py` hold one named function per check, each taking the piece under test and returning what it expected, what it got and whether they agree. `record.py` runs every check twice, on the real code and on a broken version written beside it, and writes both outcomes to a `.csv` file next to the checks: a check counts only if it passes on the real code and fails on the broken one.
 
-`budget_checks.py` audits the saved rows of the budget experiment against the exact expectation for the best of a number of distinct random plans. `fit_checks.py` compares the fit with a second way of solving the same least squares problem and with the saved result of `experiments/feeder_fitted_models.py`. `dispatch_checks.py` compares the rho factors with a second listing of subtrees by bit masks, the dispatch with `priority_dispatch`, and both with Theorem 5 of Tan et al.: with rho factors as priorities the dispatch must equal the conversion algorithm on every one of 300 feeder instances. `collective_checks.py` compares a block with the matrix exponential of its definition, the block layers with the pair by pair layer by `Operator.equiv`, the whole circuit with the table simulator, and the XX form with the ZZ form. `cost_circuit_checks.py` compares the rewritten terms with the cost table of the QAOA selector, the scale with the standard deviation of that table, and the circuit's probabilities with `qaoa_probabilities` at 8 and 12 qubits and depths 1 to 3, and with the distribution `train_qaoa` returns for a fit on the feeder.
+`budget_checks.py` audits the saved rows of the budget experiment against the exact expectation for the best of a number of distinct random plans. `fit_checks.py` compares the fit with a second way of solving the same least squares problem and with the saved result of `experiments/feeder_fitted_models.py`. `dispatch_checks.py` compares the rho factors with a second listing of subtrees by bit masks, the dispatch with `priority_dispatch`, and both with Theorem 5 of Tan et al.: with rho factors as priorities the dispatch must equal the conversion algorithm on every one of 300 feeder instances. `collective_checks.py` compares a block with the matrix exponential of its definition, the block layers with the pair by pair layer by `Operator.equiv`, the whole circuit with the table simulator, and the XX form with the ZZ form. `cost_circuit_checks.py` compares the rewritten terms with the cost table of the QAOA selector, the scale with the standard deviation of that table, and the circuit's probabilities with `qaoa_probabilities` at 8 and 12 qubits and depths 1 to 3, and with the distribution `train_qaoa` returns for a fit on the feeder. `trained_checks.py` checks that a record read back from the file equals the one written, that its circuit gives the trained distribution, that the plans drawn after replaying the stream are the plans the harness's solver returns for the same seed, instance, method and budget, that scoring from the record equals the feeder model, and that the size limits are tested.
 
     python -m checks.benchmark_checks
     python -m checks.solver_checks
@@ -288,6 +304,7 @@ Package versions are pinned in `requirements.txt`. The saved results were made w
     python -m checks.dispatch_checks
     python -m checks.collective_checks
     python -m checks.cost_circuit_checks
+    python -m checks.trained_checks
 
 Theorem 5: Tan et al., sections 5.3 to 5.5, https://arxiv.org/abs/1702.08382
 
