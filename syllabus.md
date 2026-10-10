@@ -14,7 +14,7 @@ Instance generator and the rule that a line is live only when everything upstrea
 
 Orders repairs by weight per hour, finds the optimal order for one crew on a tree by repeatedly merging the line with the largest weight per hour into the line upstream of it, and computes the cost of every two crew assignment as the sum of weight times the hour each line is live. Converts a one crew order to two crews by giving each repair to the crew that is free first, dispatches by a priority rule, solves crew assignment one urgency level at a time, and finds the proven optimum with an integer program that has one variable per line and hour.
 
-One crew order (Algorithm 2), conversion to several crews (Algorithm 3), dispatch rules (section 5.4 and Algorithm 5) and the integer program (section 3, used here without interrupted repairs): Tan et al., https://arxiv.org/abs/1702.08382
+One crew order (Algorithm 2), conversion to several crews (Algorithm 3), dispatch by priority (section 5.4, Algorithm 5) with the FirstEnergy and Edison Electric Institute priorities (section 5.5), and the integer program (section 3, used here without interrupted repairs): Tan et al., https://arxiv.org/abs/1702.08382
 
 Integer program solver: SciPy `milp`, https://docs.scipy.org/doc/scipy/reference/generated/scipy.optimize.milp.html
 
@@ -62,6 +62,30 @@ Many ions at once, and the mode returning to its start: Lotshaw et al., Modellin
 
 Matrix exponential: SciPy `expm`, https://docs.scipy.org/doc/scipy/reference/generated/scipy.linalg.expm.html
 
+## briskit/instances.py
+
+An instance is one decision on a network: a name, the number of yes or no elements, whether a plan's score is a value to raise or a cost to lower, how many elements a plan must choose, what a planner knows (weights, hours, network), and a scoring model. The scoring model is one function, `score(plans)`, that takes rows of 0 and 1 and returns one number per row; `table()` scores every plan, with element q as bit q of the row number. The three feeder decisions are built here: restoring a fixed number of lines, assigning repairs to two crews, and protecting a fixed number of lines.
+
+The scoring rules are those of `briskit/feeder.py`, `briskit/scheduling.py` and `briskit/pair_cost.py`, with the sources listed for them above.
+
+## briskit/benchmark.py
+
+The benchmark harness. A solver is a function `solve(instance, budget, rng)` that returns at most `budget` plans; it gets the instance with a counter on its scoring model and never the value table. The harness refuses plans with the wrong count, scores what comes back, and returns one row per run: experiment, instance, method, budget, seed, value, regret, evaluations, seconds, script. `evaluations` is the number of distinct plans whose true value was obtained, by the solver and the harness together, and regret is the distance to the optimum of the value table divided by that optimum. Each run's random generator is seeded with the seed, the instance name and the method name, so a row can be made again from its own columns.
+
+Evaluations as the cost of a run, and time reported apart from it: Hansen et al., COCO: The Experimental Procedure, https://arxiv.org/abs/1603.08776
+
+Seeding with a list of integers: NumPy `default_rng`, https://numpy.org/doc/stable/reference/random/generator.html
+
+Names to integers: Python `zlib.crc32`, https://docs.python.org/3/library/zlib.html
+
+## briskit/solvers.py
+
+Solvers for the harness. `random_plans` draws plans with the right count uniformly, `largest_weights` takes the largest weights, and `greedy` adds one element at a time, the one whose addition scores best on the true model. `fitted(samples, select)` scores a random sample of plans, fits single and pair terms to the scores by ridge regression, and passes the fitted value of every plan to a selector: `best_first` returns the best fitted plans by exact search, `thermal(beta)` draws plans with probability proportional to the exponential of beta times the standardised fitted value, and `qaoa(depth)` trains QAOA on the fitted cost with a penalty on the count and draws plans of the right count from its distribution.
+
+QAOA: Farhi, Goldstone and Gutmann, https://arxiv.org/abs/1411.4028
+
+Linear solve behind the ridge fit: NumPy `linalg.solve`, https://numpy.org/doc/stable/reference/generated/numpy.linalg.solve.html
+
 ## experiments/crew_assignment.py
 
 Checks the one crew order and the pair cost against brute force. On the IEEE 13 node feeder with two crews it compares the conversion algorithm and the best plan of the closed-form pair cost with the best of all 4,096 assignments, solves 12 instances to proven optimality, and runs QAOA on the closed-form pair cost.
@@ -98,7 +122,7 @@ Instance generator: Tan et al., section 6, https://arxiv.org/abs/1702.08382
 
 Customer-hours without power on 300 feeder instances under the FirstEnergy rule (largest weight first), the Edison Electric Institute rule (largest weight per hour first) and the conversion algorithm, each against the best two crew assignment.
 
-Tan et al., sections 5.4 and 6.1, https://arxiv.org/abs/1702.08382
+Tan et al., sections 5.4, 5.5 and 6.1, https://arxiv.org/abs/1702.08382
 
 ## experiments/protection_and_levels.py
 
@@ -185,6 +209,13 @@ Every script seeds NumPy's generator with the constant `SEED` at the top of the 
 One file per script in `experiments/`. The lines before the first blank line record how the output was made: the command, the commit of the code and whether the code had uncommitted changes, the Python and package versions, the platform, the thread count, the start time in UTC, the run time in seconds and the exit code. The rest is the output.
 
 Package versions are pinned in `requirements.txt`. The saved results were made with one thread. The depth 3 figures of `qaoa_limits.py` depend on the thread count, because its optimiser stops after 40 iterations and the last bits of a sum depend on how it is split: with 14 repairs the chance of the best plan is 7.2 times random at one thread and 7.5 at two (growth per added repair x1.105 and x1.111), and the best of 100 shots at one urgency level is 0.0856 hours at one and two threads and 0.0854 at the machine's default.
+
+## checks/
+
+`benchmark_checks.py` and `solver_checks.py` hold one named function per check, each taking the piece under test and returning what it expected, what it got and whether they agree. `record.py` runs every check twice, on the real code and on a broken version written beside it, and writes both outcomes to a `.csv` file next to the checks: a check counts only if it passes on the real code and fails on the broken one.
+
+    python -m checks.benchmark_checks
+    python -m checks.solver_checks
 
 ## qollab/main.py
 

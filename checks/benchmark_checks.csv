@@ -1,0 +1,15 @@
+check,version,expected,got,verdict,required,as_required
+distinct_plans_are_counted,real,3,3,PASS,PASS,yes
+distinct_plans_are_counted,broken: a counter that counts rows scored,3,5,FAIL,FAIL,yes
+budget_is_enforced,real,refused,refused,PASS,PASS,yes
+budget_is_enforced,broken: no test on returned plans,refused,accepted,FAIL,FAIL,yes
+wrong_count_is_refused,real,refused,refused,PASS,PASS,yes
+wrong_count_is_refused,broken: no test on returned plans,refused,accepted,FAIL,FAIL,yes
+entry_other_than_0_or_1_is_refused,real,refused,refused,PASS,PASS,yes
+entry_other_than_0_or_1_is_refused,broken: no test on returned plans,refused,accepted,FAIL,FAIL,yes
+regret_matches_hand_arithmetic,real,"(0.25, 0.25)","(0.25, 0.25)",PASS,PASS,yes
+regret_matches_hand_arithmetic,broken: the same sign for both senses,"(0.25, 0.25)","(0.25, -0.25)",FAIL,FAIL,yes
+rows_regenerate_alone,real,6 of 6 rows equal,6 of 6 rows equal,PASS,PASS,yes
+rows_regenerate_alone,broken: one random stream shared by all runs,6 of 6 rows equal,0 of 6 rows equal,FAIL,FAIL,yes
+prefix_route_equals_budget_route,real,20 of 20 rows equal,20 of 20 rows equal,PASS,PASS,yes
+prefix_route_equals_budget_route,broken: a sampler whose order depends on the budget,20 of 20 rows equal,5 of 20 rows equal,FAIL,FAIL,yes

@@ -1,0 +1,21 @@
+check,version,expected,got,verdict,required,as_required
+random_best_matches_order_statistics,real,2.5237 within 0.1714,2.5425,PASS,PASS,yes
+random_best_matches_order_statistics,broken: a sampler that returns one draw fewer,2.5237 within 0.1662,1.9952,FAIL,FAIL,yes
+greedy_matches_table_route,real,20 of 20 plans equal,20 of 20 plans equal,PASS,PASS,yes
+greedy_matches_table_route,broken: greedy that takes the worst gain,20 of 20 plans equal,0 of 20 plans equal,FAIL,FAIL,yes
+greedy_evaluations_match_hand_count,real,57,57,PASS,PASS,yes
+greedy_evaluations_match_hand_count,broken: greedy that scores one plan more,57,58,FAIL,FAIL,yes
+largest_weights_matches_argsort,real,20 of 20 plans equal,20 of 20 plans equal,PASS,PASS,yes
+largest_weights_matches_argsort,broken: the smallest weights,20 of 20 plans equal,0 of 20 plans equal,FAIL,FAIL,yes
+fit_evaluations_are_counted,real,50 to 53 in every run,51 to 53,PASS,PASS,yes
+fit_evaluations_are_counted,broken: a fit that scores past the counter,50 to 53 in every run,3 to 3,FAIL,FAIL,yes
+feeder_figures_are_reproduced,real,"[83.9, 31.7, 67.0, 15.8]","[83.9, 31.7, 67.0, 15.8]",PASS,PASS,yes
+feeder_figures_are_reproduced,broken: smallest weights and worst gain,"[83.9, 31.7, 67.0, 15.8]","[97.5, 100.0, 93.1, 100.0]",FAIL,FAIL,yes
+greedy_plan_follows_one_weight,real,"[[0, 5], [0, 1]]","[[0, 5], [0, 1]]",PASS,PASS,yes
+greedy_plan_follows_one_weight,broken: a solver that ignores the scores,"[[0, 5], [0, 1]]","[[0, 5], [0, 5]]",FAIL,FAIL,yes
+fitted_plan_follows_one_weight,real,"[[0, 5], [0, 1]]","[[0, 5], [0, 1]]",PASS,PASS,yes
+fitted_plan_follows_one_weight,broken: a solver that ignores the scores,"[[0, 5], [0, 1]]","[[0, 5], [0, 5]]",FAIL,FAIL,yes
+thermal_mean_matches_direct_formula,real,7.5320 within 0.0283,7.5255,PASS,PASS,yes
+thermal_mean_matches_direct_formula,broken: the temperature sign flipped,7.5320 within 0.0131,0.1427,FAIL,FAIL,yes
+qaoa_draws_beat_random_plans,real,"above 0.4385 by more than 0.0629, every draw with 4 lines","0.5820, right count True",PASS,PASS,yes
+qaoa_draws_beat_random_plans,broken: QAOA trained on the negated cost,"above 0.4385 by more than 0.0428, every draw with 4 lines","0.3619, right count True",FAIL,FAIL,yes
