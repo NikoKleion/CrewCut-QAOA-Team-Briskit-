@@ -1,0 +1,16 @@
+command: python -m experiments.trained_circuits
+code: c05b41b (clean)
+python: 3.13.14
+packages: numpy 2.5.2  scipy 1.18.1  qiskit 2.5.2
+platform: Windows-11-10.0.26200-SP0, AMD64
+threads: 1
+started: 2026-10-10T21:29:28Z
+seconds: 2
+exit: 0
+
+restore 6 of 12, instance 0, pair cost fitted on 150 plans, seed 0
+   depth   right count   optimum, of the right count   mean regret, of the right count
+   1         57.8%         0.14%                       70.05%
+   2         69.3%         0.18%                       65.47%
+   3         56.2%         0.64%                       19.93%
+   records for depths 1, 2 and 3 are in qollab/trained_circuits.json

@@ -1,0 +1,11 @@
+check,version,expected,got,verdict,required,as_required
+records_survive_the_file,real,read back equal,read back equal,PASS,PASS,yes
+records_survive_the_file,broken: numbers rounded to six decimals,read back equal,read back different,FAIL,FAIL,yes
+record_gives_the_trained_distribution,real,total variation below 1e-9,8.4e-16,PASS,PASS,yes
+record_gives_the_trained_distribution,broken: the penalty left out,total variation below 1e-9,4.8e-01,FAIL,FAIL,yes
+record_is_the_benchmark_run,real,50 of 50 plans equal,50 of 50,PASS,PASS,yes
+record_is_the_benchmark_run,broken: another seed,50 of 50 plans equal,0 of 50,FAIL,FAIL,yes
+values_match_the_feeder_model,real,difference below 1e-12,0.0e+00,PASS,PASS,yes
+values_match_the_feeder_model,broken: weights in reversed order,difference below 1e-12,5.5e+00,FAIL,FAIL,yes
+limits_are_enforced,real,"(True, False, False)","(True, False, False)",PASS,PASS,yes
+limits_are_enforced,broken: a test that always says yes,"(True, False, False)","(True, True, True)",FAIL,FAIL,yes
