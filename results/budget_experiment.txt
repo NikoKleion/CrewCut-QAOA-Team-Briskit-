@@ -1,0 +1,55 @@
+command: python -m experiments.budget_experiment
+code: 1fc7e75 (clean)
+python: 3.13.14
+packages: numpy 2.5.2  scipy 1.18.1  qiskit 2.5.2
+platform: Windows-11-10.0.26200-SP0, AMD64
+threads: 1
+started: 2026-10-10T21:08:37Z
+seconds: 57
+exit: 0
+
+IEEE 13 node feeder, restore 6 of 12 lines, 30 instances, fit on 150 plans
+regret at a total number of evaluations: median (lower to upper quartile), mean, in percent
+   method                                                50                       100                       150                       151                       160                       175                       200
+   random plans                    8.39 ( 4.77 to 14.95) 12.62  4.78 ( 1.41 to  6.60)  5.58  4.66 ( 1.41 to  6.45)  5.31  4.66 ( 1.41 to  6.45)  5.31  3.94 ( 0.74 to  6.36)  4.96  3.72 ( 0.16 to  5.92)  4.35  3.72 ( 0.16 to  5.92)  4.35
+   fitted cost, best first        10.17 ( 6.30 to 13.23) 11.95  5.92 ( 2.08 to 11.16)  8.44  3.63 ( 1.34 to  9.18)  5.25  1.76 ( 0.00 to  4.21)  3.54  0.00 ( 0.00 to  0.01)  0.65  0.00 ( 0.00 to  0.00)  0.11  0.00 ( 0.00 to  0.00)  0.00
+   fitted cost, thermal beta 2     6.62 ( 3.59 to 10.72)  8.45  4.52 ( 2.95 to  9.19)  6.39  3.78 ( 1.48 to  6.35)  4.33  3.72 ( 1.21 to  6.27)  4.06  0.01 ( 0.00 to  3.53)  1.56  0.00 ( 0.00 to  2.48)  1.19  0.00 ( 0.00 to  2.48)  1.19
+   fitted cost, thermal beta 5     8.91 ( 5.14 to 13.22) 14.38  5.35 ( 3.19 to  8.36)  8.13  4.25 ( 2.81 to  6.05)  4.78  3.33 ( 0.00 to  5.11)  3.19  0.00 ( 0.00 to  2.41)  1.28  0.00 ( 0.00 to  0.48)  0.91  0.00 ( 0.00 to  0.48)  0.91
+   fitted cost, QAOA depth 1      10.20 ( 5.69 to 13.94) 11.81  6.27 ( 4.19 to  9.88)  7.10  6.00 ( 3.08 to  8.29)  5.89  6.00 ( 3.08 to  8.29)  5.89  5.22 ( 2.23 to  7.54)  5.35  4.35 ( 1.99 to  6.58)  4.68  3.13 ( 1.25 to  6.14)  3.85
+   fitted cost, QAOA depth 2       7.59 ( 2.98 to 15.46) 10.48  3.87 ( 0.31 to  8.80)  4.90  3.18 ( 0.00 to  6.50)  3.67  3.18 ( 0.00 to  6.50)  3.67  2.60 ( 0.00 to  5.84)  3.33  2.60 ( 0.00 to  4.59)  2.98  2.60 ( 0.00 to  4.59)  2.98
+   fitted cost, QAOA depth 3      10.83 ( 4.53 to 12.65) 10.82  5.43 ( 0.76 to  8.43)  6.98  4.16 ( 0.23 to  7.24)  4.45  4.16 ( 0.23 to  7.24)  4.45  0.89 ( 0.00 to  4.76)  2.65  0.01 ( 0.00 to  3.46)  1.80  0.00 ( 0.00 to  2.93)  1.64
+   greedy                                              none  0.00 ( 0.00 to 47.43) 17.63  0.00 ( 0.00 to 47.43) 17.63  0.00 ( 0.00 to 47.43) 17.63  0.00 ( 0.00 to 47.43) 17.63  0.00 ( 0.00 to 47.43) 17.63  0.00 ( 0.00 to 47.43) 17.63
+   largest weights                85.26 (15.47 to 100.00) 64.11 85.26 (15.47 to 100.00) 64.11 85.26 (15.47 to 100.00) 64.11 85.26 (15.47 to 100.00) 64.11 85.26 (15.47 to 100.00) 64.11 85.26 (15.47 to 100.00) 64.11 85.26 (15.47 to 100.00) 64.11
+instances that reach a regret target within the run, and average runtime in evaluations
+   method                                    regret <= 5%            regret <= 1%            regret <= 0%
+   random plans                           22 of 30,    134          9 of 30,    504          8 of 30,    588
+   fitted cost, best first                30 of 30,     99         30 of 30,    141         30 of 30,    145
+   fitted cost, thermal beta 2            29 of 30,     91         18 of 30,    250         18 of 30,    254
+   fitted cost, thermal beta 5            29 of 30,    106         23 of 30,    201         22 of 30,    213
+   fitted cost, QAOA depth 1              19 of 30,    210          6 of 30,    913          5 of 30,   1120
+   fitted cost, QAOA depth 2              23 of 30,    128          9 of 30,    503          9 of 30,    505
+   fitted cost, QAOA depth 3              26 of 30,    123         18 of 30,    232         16 of 30,    278
+   greedy                                 20 of 30,     86         18 of 30,     95         16 of 30,    107
+   largest weights                         1 of 30,     30          1 of 30,     30          1 of 30,     30
+
+IEEE 13 node feeder, 12 repairs on two crews, 30 instances, fit on 150 plans
+regret at a total number of evaluations: median (lower to upper quartile), mean, in percent
+   method                                                50                       100                       150                       151                       160                       175                       200
+   random plans                    0.73 ( 0.33 to  1.48)  1.04  0.39 ( 0.25 to  0.84)  0.59  0.34 ( 0.12 to  0.62)  0.41  0.34 ( 0.12 to  0.62)  0.41  0.34 ( 0.12 to  0.62)  0.41  0.30 ( 0.11 to  0.45)  0.35  0.26 ( 0.08 to  0.45)  0.31
+   fitted cost, best first         1.06 ( 0.54 to  2.28)  1.63  0.46 ( 0.23 to  0.90)  0.77  0.39 ( 0.15 to  0.64)  0.55  0.31 ( 0.14 to  0.52)  0.47  0.18 ( 0.08 to  0.41)  0.35  0.11 ( 0.00 to  0.22)  0.24  0.00 ( 0.00 to  0.12)  0.11
+   fitted cost, thermal beta 2     0.44 ( 0.24 to  1.30)  0.95  0.30 ( 0.11 to  0.48)  0.38  0.25 ( 0.08 to  0.37)  0.26  0.25 ( 0.08 to  0.37)  0.26  0.25 ( 0.06 to  0.34)  0.25  0.22 ( 0.06 to  0.34)  0.24  0.12 ( 0.00 to  0.25)  0.18
+   fitted cost, thermal beta 5     1.16 ( 0.52 to  1.50)  1.22  0.43 ( 0.19 to  0.78)  0.54  0.42 ( 0.19 to  0.77)  0.50  0.36 ( 0.13 to  0.76)  0.47  0.22 ( 0.09 to  0.66)  0.39  0.11 ( 0.00 to  0.38)  0.25  0.10 ( 0.00 to  0.28)  0.17
+   fitted cost, QAOA depth 1       0.57 ( 0.28 to  1.24)  0.93  0.28 ( 0.13 to  0.53)  0.41  0.28 ( 0.09 to  0.43)  0.33  0.28 ( 0.08 to  0.43)  0.33  0.14 ( 0.06 to  0.35)  0.24  0.14 ( 0.03 to  0.33)  0.24  0.14 ( 0.03 to  0.29)  0.23
+   fitted cost, QAOA depth 2       0.77 ( 0.29 to  1.32)  0.94  0.48 ( 0.11 to  0.93)  0.60  0.25 ( 0.05 to  0.47)  0.36  0.25 ( 0.05 to  0.47)  0.36  0.19 ( 0.02 to  0.45)  0.30  0.19 ( 0.02 to  0.42)  0.28  0.09 ( 0.00 to  0.28)  0.16
+   fitted cost, QAOA depth 3       0.88 ( 0.41 to  1.82)  1.38  0.55 ( 0.19 to  1.16)  0.78  0.36 ( 0.12 to  0.65)  0.58  0.36 ( 0.12 to  0.65)  0.52  0.34 ( 0.11 to  0.55)  0.37  0.16 ( 0.06 to  0.35)  0.26  0.11 ( 0.03 to  0.28)  0.17
+   conversion algorithm            0.54 ( 0.06 to  2.41)  1.78  0.54 ( 0.06 to  2.41)  1.78  0.54 ( 0.06 to  2.41)  1.78  0.54 ( 0.06 to  2.41)  1.78  0.54 ( 0.06 to  2.41)  1.78  0.54 ( 0.06 to  2.41)  1.78  0.54 ( 0.06 to  2.41)  1.78
+instances that reach a regret target within the run, and average runtime in evaluations
+   method                                    regret <= 5%            regret <= 1%            regret <= 0%
+   random plans                           30 of 30,      8         30 of 30,     52          2 of 30,   2832
+   fitted cost, best first                30 of 30,      8         29 of 30,     68         16 of 30,    319
+   fitted cost, thermal beta 2            30 of 30,     10         29 of 30,     41          9 of 30,    575
+   fitted cost, thermal beta 5            30 of 30,      6         30 of 30,     60          9 of 30,    585
+   fitted cost, QAOA depth 1              30 of 30,     10         29 of 30,     54          6 of 30,    870
+   fitted cost, QAOA depth 2              30 of 30,      8         30 of 30,     52          8 of 30,    685
+   fitted cost, QAOA depth 3              30 of 30,      8         30 of 30,     64          7 of 30,    772
+   conversion algorithm                   26 of 30,      1         18 of 30,      2          5 of 30,      6
