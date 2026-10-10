@@ -1,0 +1,13 @@
+check,version,expected,got,verdict,required,as_required
+rho_matches_subtree_masks,real,difference below 1e-12,1.1e-16,PASS,PASS,yes
+rho_matches_subtree_masks,broken: the ratio of the line alone,difference below 1e-12,1.2e+00,FAIL,FAIL,yes
+second_implementation_matches,real,difference below 1e-9,0.0e+00,PASS,PASS,yes
+second_implementation_matches,broken: every unstarted line is a candidate,difference below 1e-9,2.9e+02,FAIL,FAIL,yes
+rho_dispatch_equals_conversion,real,300 of 300,300 of 300,PASS,PASS,yes
+rho_dispatch_equals_conversion,broken: priority w / p in place of rho,300 of 300,43 of 300,FAIL,FAIL,yes
+dispatch_obeys_theorem_5,real,300 of 300,300 of 300,PASS,PASS,yes
+dispatch_obeys_theorem_5,broken: candidates need an energised node or a line under repair upstream,300 of 300,141 of 300,FAIL,FAIL,yes
+raising_one_weight_changes_the_order,real,line 2 finishes at 3 then 2,line 2 finishes at 3 then 2,PASS,PASS,yes
+raising_one_weight_changes_the_order,broken: priority ignored,line 2 finishes at 3 then 2,line 2 finishes at 3 then 3,FAIL,FAIL,yes
+curve_area_equals_customer_hours,real,difference below 1e-9,1.7e-13,PASS,PASS,yes
+curve_area_equals_customer_hours,broken: completion times in place of energisation times,difference below 1e-9,5.2e+01,FAIL,FAIL,yes
