@@ -1,0 +1,17 @@
+command: python -m experiments.protection_and_levels
+code: b1c86d9 (clean)
+python: 3.13.14
+packages: numpy 2.5.2  scipy 1.18.1  qiskit 2.5.2
+platform: Windows-11-10.0.26200-SP0, AMD64
+threads: 1
+started: 2026-10-10T20:37:57Z
+seconds: 19
+exit: 0
+
+protection: expected cost over every failure set against the sum over levels, 40 cases of 8 lines
+   largest difference 2.1e-14
+18 repairs in urgency levels, 20 instances per row, percent above the optimum, mean (worst)
+   levels x repairs   classical rule         level by level
+   2 x 9               0.248% ( 1.111%)      0.000% ( 0.000%)   optimal in 20 of 20
+   3 x 6               0.263% ( 1.392%)      0.002% ( 0.029%)   optimal in 17 of 20
+   6 x 3               0.276% ( 0.797%)      0.027% ( 0.083%)   optimal in 7 of 20

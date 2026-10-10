@@ -1,0 +1,27 @@
+command: python -m experiments.budgeted_restoration
+code: b1c86d9 (clean)
+python: 3.13.14
+packages: numpy 2.5.2  scipy 1.18.1  qiskit 2.5.2
+platform: Windows-11-10.0.26200-SP0, AMD64
+threads: 1
+started: 2026-10-10T20:31:15Z
+seconds: 444
+exit: 0
+
+   instance 1 of 4
+   instance 2 of 4
+   instance 3 of 4
+   instance 4 of 4
+restore 8 of 18 lines on random trees, 43758 feasible sets, 4 instances
+value lost against the optimum, mean
+   largest weights first                                           96.24%
+   greedy by marginal gain                                         23.16%
+   fitted pair cost, its best set                                   6.55%
+   fitted pair cost, its 100 best sets                              0.00%
+   best of the 600 fitting sets                                     8.50%
+   random feasible sets, best of 100                               17.35%
+   QAOA depth 1: share of shots with the right count                49.2%
+   QAOA depth 1, best of 100 feasible shots                        14.41%
+   QAOA depth 2: share of shots with the right count                63.5%
+   QAOA depth 2, best of 100 feasible shots                        12.25%
+   thermal sampler at the same mean fitted value, best of 100      12.42%

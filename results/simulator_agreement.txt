@@ -1,0 +1,12 @@
+command: python -m experiments.simulator_agreement
+code: b1c86d9 (clean)
+python: 3.13.14
+packages: numpy 2.5.2  scipy 1.18.1  qiskit 2.5.2
+platform: Windows-11-10.0.26200-SP0, AMD64
+threads: 1
+started: 2026-10-10T20:38:57Z
+seconds: 2
+exit: 0
+
+state vector simulator against the Qiskit circuit, 10 qubits, depths 1 to 3
+   largest total variation distance 1.40e-15

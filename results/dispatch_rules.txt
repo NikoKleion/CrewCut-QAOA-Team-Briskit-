@@ -1,0 +1,19 @@
+command: python -m experiments.dispatch_rules
+code: b1c86d9 (clean)
+python: 3.13.14
+packages: numpy 2.5.2  scipy 1.18.1  qiskit 2.5.2
+platform: Windows-11-10.0.26200-SP0, AMD64
+threads: 1
+started: 2026-10-10T20:31:15Z
+seconds: 1
+exit: 0
+
+IEEE 13 node feeder, 12 repairs, two crews, 300 instances
+customer-hours without power, relative to the best plan in the encoding
+   FirstEnergy rule             mean + 19.37%   median + 10.03%   worst +152.71%
+   EEI rule                     mean + 14.17%   median +  5.92%   worst +114.12%
+   conversion algorithm         mean +  1.65%   median +  0.49%   worst + 12.10%
+   best plan in the encoding    mean +  0.00%   median +  0.00%   worst +  0.00%
+   customer-hours saved by the best plan against the FirstEnergy rule: 16.2%
+   customer-hours saved by the best plan against the EEI rule: 12.8%
+   customer-hours saved by the best plan against the conversion algorithm: 1.6%

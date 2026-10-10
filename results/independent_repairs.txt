@@ -1,0 +1,46 @@
+command: python -m experiments.independent_repairs
+code: b1c86d9 (clean)
+python: 3.13.14
+packages: numpy 2.5.2  scipy 1.18.1  qiskit 2.5.2
+platform: Windows-11-10.0.26200-SP0, AMD64
+threads: 1
+started: 2026-10-10T20:31:19Z
+seconds: 458
+exit: 0
+
+   12 repairs: instance 1 of 10
+   12 repairs: instance 2 of 10
+   12 repairs: instance 3 of 10
+   12 repairs: instance 4 of 10
+   12 repairs: instance 5 of 10
+   12 repairs: instance 6 of 10
+   12 repairs: instance 7 of 10
+   12 repairs: instance 8 of 10
+   12 repairs: instance 9 of 10
+   12 repairs: instance 10 of 10
+12 independent repairs, 4096 plans, 10 instances, mean percent above the optimum
+   classical rule (urgency per hour, first free crew)                0.603%
+   random plans, best of 100                                         0.366%
+   random plans, best of 1000                                        0.037%
+   QAOA depth 1, chance one shot is optimal (random 0.00049)        0.00262
+   QAOA depth 1, best of 100                                         0.148%
+   QAOA depth 1, best of 1000                                        0.006%
+   QAOA depth 2, chance one shot is optimal (random 0.00049)        0.00499
+   QAOA depth 2, best of 100                                         0.082%
+   QAOA depth 2, best of 1000                                        0.002%
+   QAOA depth 3, chance one shot is optimal (random 0.00049)        0.00728
+   QAOA depth 3, best of 100                                         0.060%
+   QAOA depth 3, best of 1000                                        0.001%
+   18 repairs: instance 1 of 3
+   18 repairs: instance 2 of 3
+   18 repairs: instance 3 of 3
+18 independent repairs, 262144 plans, 3 instances, mean percent above the optimum
+   classical rule (urgency per hour, first free crew)                0.013%
+   random plans, best of 100                                         0.373%
+   random plans, best of 1000                                        0.120%
+   QAOA depth 1, chance one shot is optimal (random 0.00001)        0.00005
+   QAOA depth 1, best of 100                                         0.217%
+   QAOA depth 1, best of 1000                                        0.059%
+   QAOA depth 2, chance one shot is optimal (random 0.00001)        0.00009
+   QAOA depth 2, best of 100                                         0.156%
+   QAOA depth 2, best of 1000                                        0.035%

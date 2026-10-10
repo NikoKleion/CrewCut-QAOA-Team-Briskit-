@@ -1,0 +1,16 @@
+command: python -m experiments.level_merging
+code: b1c86d9 (clean)
+python: 3.13.14
+packages: numpy 2.5.2  scipy 1.18.1  qiskit 2.5.2
+platform: Windows-11-10.0.26200-SP0, AMD64
+threads: 1
+started: 2026-10-10T20:37:55Z
+seconds: 2
+exit: 0
+
+12 independent repairs, 40 instances per row
+   step   levels before -> after   rounded cost / true cost over all plans   plan found, above the optimum (worst)
+   0.10    12.0 -> 10.4            1.0183 to 1.0723 (bound 1.10)             0.09% (bound 10%)
+   0.25    12.0 ->  9.3            1.0338 to 1.1960 (bound 1.25)             0.62% (bound 25%)
+   0.50    12.0 ->  8.1            1.0835 to 1.4117 (bound 1.50)             0.75% (bound 50%)
+   1.00    12.0 ->  6.2            1.2104 to 1.8379 (bound 2.00)             2.06% (bound 100%)

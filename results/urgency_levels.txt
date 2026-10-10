@@ -1,0 +1,17 @@
+command: python -m experiments.urgency_levels
+code: b1c86d9 (clean)
+python: 3.13.14
+packages: numpy 2.5.2  scipy 1.18.1  qiskit 2.5.2
+platform: Windows-11-10.0.26200-SP0, AMD64
+threads: 1
+started: 2026-10-10T20:38:59Z
+seconds: 3
+exit: 0
+
+pair matrix and cost against brute force, 9 repairs, every one of the 512 assignments, 20 cases per row
+   1 level(s)  pair matrix against the sum over levels 0.0e+00  rank [1]  cost against brute force up to one constant 1.8e-12
+   2 level(s)  pair matrix against the sum over levels 2.8e-14  rank [2]  cost against brute force up to one constant 9.1e-13
+   4 level(s)  pair matrix against the sum over levels 2.8e-14  rank [4]  cost against brute force up to one constant 9.1e-13
+one cost layer, 10 repairs, 3 levels: one rotation per pair against one operation per level
+   state fidelity 1.000000000000
+   entangling operations in the layer: 45 per pair, 3 per level

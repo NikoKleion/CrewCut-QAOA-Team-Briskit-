@@ -1,0 +1,49 @@
+command: python -m experiments.qaoa_limits
+code: b1c86d9 (clean)
+python: 3.13.14
+packages: numpy 2.5.2  scipy 1.18.1  qiskit 2.5.2
+platform: Windows-11-10.0.26200-SP0, AMD64
+threads: 1
+started: 2026-10-10T20:38:16Z
+seconds: 140
+exit: 0
+
+one urgency level, 14 repairs, 6 instances: difference in hours between the two crews, mean
+   optimum                                       0.0034
+   longest first, to the less loaded crew        0.3610
+   Karmarkar-Karp differencing                   0.0207
+   random plans, best of 100                     0.2867
+   random plans, best of 1000                    0.0310
+   QAOA depth 1, best of 100                     0.1191
+   QAOA depth 1, best of 1000                    0.0142
+   QAOA depth 2, best of 100                     0.0883
+   QAOA depth 2, best of 1000                    0.0109
+   QAOA depth 3, best of 100                     0.0856
+   QAOA depth 3, best of 1000                    0.0106
+
+steepest bit-flip descent from a starting plan: chance it ends at the best plan
+   12 repairs: random start 9.8%;  QAOA depth 1 start 9.3%;  QAOA depth 2 start 9.1%;  QAOA depth 3 start 9.0%
+   14 repairs: random start 3.0%;  QAOA depth 1 start 2.8%;  QAOA depth 2 start 2.7%;  QAOA depth 3 start 2.7%
+
+14 repairs, 5 instances, best of 100 shots, percent above the optimum
+each shot is unaffected or replaced by a random plan; keep is the share of pair terms kept, largest first
+   random plans 0.374%
+   depth 1, keep 1.00:  91 gates, shots unaffected 63.7%, without noise 0.193%, with noise 0.231%
+   depth 1, keep 0.75:  68 gates, shots unaffected 71.4%, without noise 0.191%, with noise 0.220%
+   depth 1, keep 0.50:  46 gates, shots unaffected 79.6%, without noise 0.193%, with noise 0.212%
+   depth 1, keep 0.25:  23 gates, shots unaffected 89.2%, without noise 0.202%, with noise 0.211%
+   depth 2, keep 1.00: 182 gates, shots unaffected 40.5%, without noise 0.144%, with noise 0.222%
+   depth 2, keep 0.75: 136 gates, shots unaffected 50.9%, without noise 0.141%, with noise 0.199%
+   depth 2, keep 0.50:  92 gates, shots unaffected 63.3%, without noise 0.148%, with noise 0.188%
+   depth 2, keep 0.25:  46 gates, shots unaffected 79.6%, without noise 0.158%, with noise 0.177%
+
+chance one shot is the best plan, as a multiple of random sampling, median
+   distinct urgency ratios, sizes (8, 10, 12, 14)
+     depth 1:    2.5     2.7     3.0     3.1    growth per added repair x1.038
+     depth 2:    3.7     4.0     5.1     4.9    growth per added repair x1.058
+     depth 3:    4.0     5.4     6.6     7.2    growth per added repair x1.105
+   one urgency level, sizes (8, 10, 12, 14)
+     depth 1:    2.1     2.2     2.3     2.4    growth per added repair x1.019
+     depth 2:    2.8     2.9     3.0     3.2    growth per added repair x1.024
+     depth 3:    2.9     3.1     3.1     3.3    growth per added repair x1.020
+

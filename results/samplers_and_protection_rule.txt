@@ -1,0 +1,24 @@
+command: python -m experiments.samplers_and_protection_rule
+code: b1c86d9 (clean)
+python: 3.13.14
+packages: numpy 2.5.2  scipy 1.18.1  qiskit 2.5.2
+platform: Windows-11-10.0.26200-SP0, AMD64
+threads: 1
+started: 2026-10-10T20:38:39Z
+seconds: 22
+exit: 0
+
+IEEE 13 node feeder, 12 repairs, 20 instances, pair cost fitted on 150 plans, mean percent above the best plan
+   QAOA depth 3, best of 10 shots                                   0.931%
+   thermal sampler at the same mean fitted cost, best of 10         0.976%
+   thermal sampler at its best temperature, best of 10              0.501%
+   fitted cost, its 10 best plans                                   0.712%
+   QAOA depth 3, best of 100 shots                                  0.134%
+   thermal sampler at the same mean fitted cost, best of 100        0.147%
+   thermal sampler at its best temperature, best of 100             0.098%
+   fitted cost, its 100 best plans                                  0.152%
+protection, one crew, independent lines: single-line rule against the optimum of the expected cost
+   failure chance 0.05 to 0.60, protect 4 of 12: mean +0.93%, worst +10.52%, optimal set differs in 49 of 200
+   failure chance 0.50 to 1.00, protect 4 of 12: mean +1.40%, worst +23.71%, optimal set differs in 59 of 200
+   failure chance 0.50 to 1.00, protect 6 of 12: mean +1.03%, worst +21.47%, optimal set differs in 46 of 200
+   failure chance 0.90 to 1.00, protect 6 of 12: mean +1.03%, worst +20.44%, optimal set differs in 47 of 200

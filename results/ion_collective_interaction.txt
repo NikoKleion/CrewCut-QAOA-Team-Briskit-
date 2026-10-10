@@ -1,0 +1,18 @@
+command: python -m experiments.ion_collective_interaction
+code: b1c86d9 (clean)
+python: 3.13.14
+packages: numpy 2.5.2  scipy 1.18.1  qiskit 2.5.2
+platform: Windows-11-10.0.26200-SP0, AMD64
+threads: 1
+started: 2026-10-10T20:34:33Z
+seconds: 202
+exit: 0
+
+three ions and one vibrational mode, laser strength proportional to repair hours 3, 5, 8
+   on for 5, 3, 2 periods     match to the target 1.000000   left in the mode 2.96e-14
+   on for 4, 4, 4 periods     match to the target 1.000000   left in the mode 2.72e-14
+   on for 5, 2.5, 2 periods   match to the target 0.980198   left in the mode 3.92e-02
+   target pair phases for 5, 3, 2 periods are in the ratio [45.0, 48.0, 80.0]
+sign controls, on for 5, 3, 2 periods
+   phase of the second laser flipped: match to the target with that strength negative 1.000000, to the unflipped target 0.623887
+   drive on the other side of the mode frequency: match to the target with the detuning negative 1.000000

@@ -1,0 +1,14 @@
+command: python -m experiments.gate_counts
+code: b1c86d9 (clean)
+python: 3.13.14
+packages: numpy 2.5.2  scipy 1.18.1  qiskit 2.5.2
+platform: Windows-11-10.0.26200-SP0, AMD64
+threads: 1
+started: 2026-10-10T20:31:16Z
+seconds: 3
+exit: 0
+
+one cost layer with a term on every pair; heavy hex has 115 qubits, best of 5 seeds
+   12 repairs: all pairs  66 gates, depth  21, shots without a two-qubit error 72% | heavy hex  209 gates, depth   99 | ratio 3.17
+   22 repairs: all pairs 231 gates, depth  41, shots without a two-qubit error 32% | heavy hex  757 gates, depth  204 | ratio 3.28
+   29 repairs: all pairs 406 gates, depth  55, shots without a two-qubit error 13% | heavy hex 1244 gates, depth  266 | ratio 3.06

@@ -1,0 +1,16 @@
+command: python -m experiments.interaction_spectrum
+code: b1c86d9 (clean)
+python: 3.13.14
+packages: numpy 2.5.2  scipy 1.18.1  qiskit 2.5.2
+platform: Windows-11-10.0.26200-SP0, AMD64
+threads: 1
+started: 2026-10-10T20:34:31Z
+seconds: 2
+exit: 0
+
+share of the non-constant variance by interaction order, 12 lines, mean over 50 instances
+   decision                                 order 1   order 2   order 3   order 4   order 5+
+   crew assignment, independent repairs       0.0%   100.0%     0.0%     0.0%     0.0%
+   crew assignment on the feeder              0.0%    98.1%     0.0%     1.8%     0.1%
+   budgeted restoration on the feeder        64.5%    27.4%     7.4%     0.8%     0.0%
+   protection, independent lines             99.4%     0.6%     0.0%     0.0%     0.0%

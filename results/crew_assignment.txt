@@ -1,0 +1,37 @@
+command: python -m experiments.crew_assignment
+code: b1c86d9 (clean)
+python: 3.13.14
+packages: numpy 2.5.2  scipy 1.18.1  qiskit 2.5.2
+platform: Windows-11-10.0.26200-SP0, AMD64
+threads: 1
+started: 2026-10-10T20:31:15Z
+seconds: 196
+exit: 0
+
+single crew order against brute force, 40 random trees of 7 repairs
+   largest difference 0.00e+00
+pair cost for independent repairs against brute force over every order on each crew, 20 cases of 7 repairs
+   largest difference 4.26e-14
+IEEE 13 node feeder, 12 repairs, two crews, 300 instances, percent above the best assignment
+   conversion algorithm                 mean 1.73%  median 0.55%  worst 18.15%
+   conversion algorithm already best    17% of instances
+   best plan of the closed-form pair cost  mean 13.64%  worst 50.32%
+   share of assignments better than the conversion algorithm  3.57%
+exact optimum over all schedules, first 12 instances
+   instance  0  optimum  166.298  conversion algorithm  +0.15%  best assignment  +0.15%  proven True
+   instance  1  optimum  160.175  conversion algorithm  +0.00%  best assignment  +0.00%  proven True
+   instance  2  optimum  166.054  conversion algorithm  +0.52%  best assignment  +0.00%  proven True
+   instance  3  optimum  228.564  conversion algorithm  +1.89%  best assignment  +0.12%  proven True
+   instance  4  optimum  144.235  conversion algorithm  +0.00%  best assignment  +0.00%  proven True
+   instance  5  optimum  115.464  conversion algorithm  +0.19%  best assignment  +0.00%  proven True
+   instance  6  optimum  131.450  conversion algorithm  +0.17%  best assignment  -0.00%  proven True
+   instance  7  optimum  172.945  conversion algorithm  +1.87%  best assignment  +0.88%  proven True
+   instance  8  optimum  106.315  conversion algorithm  +1.46%  best assignment  +0.00%  proven True
+   instance  9  optimum  173.405  conversion algorithm  +0.00%  best assignment  +0.00%  proven True
+   instance 10  optimum  124.723  conversion algorithm  +6.46%  best assignment  +0.19%  proven True
+   instance 11  optimum  132.438  conversion algorithm  +7.16%  best assignment  +0.47%  proven True
+   mean  conversion algorithm +1.65%  best assignment +0.15%
+QAOA on the closed-form pair cost, 20 instances, no noise
+   depth 1  chance of a best assignment 0.34% (random 0.132%)  best of 100 shots +0.32% (random +0.62%, conversion algorithm +1.47%)
+   depth 2  chance of a best assignment 0.42% (random 0.132%)  best of 100 shots +0.66% (random +0.62%, conversion algorithm +1.47%)
+   depth 3  chance of a best assignment 0.47% (random 0.132%)  best of 100 shots +1.13% (random +0.62%, conversion algorithm +1.47%)

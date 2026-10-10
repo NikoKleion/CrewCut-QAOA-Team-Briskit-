@@ -1,0 +1,21 @@
+command: python -m experiments.feeder_fitted_models
+code: b1c86d9 (clean)
+python: 3.13.14
+packages: numpy 2.5.2  scipy 1.18.1  qiskit 2.5.2
+platform: Windows-11-10.0.26200-SP0, AMD64
+threads: 1
+started: 2026-10-10T20:31:15Z
+seconds: 1
+exit: 0
+
+IEEE 13 node feeder, restore a fixed number of 12 damaged lines, 200 instances
+a line counts only if every line upstream of it is restored; value lost against the optimum, mean
+   restore 4: largest weights first 83.9%;  fitted cost, single-line terms 24.0%;  fitted cost, single and pair terms 17.6%;  greedy by marginal gain 31.7%
+   restore 6: largest weights first 67.0%;  fitted cost, single-line terms 7.4%;  fitted cost, single and pair terms 2.9%;  greedy by marginal gain 15.8%
+IEEE 13 node feeder, crew assignment, fitted pair cost written as collective blocks, 12 instances
+    1 block(s):  43.5% of the pair cost, best plan 6.53% above the best assignment
+    2 block(s):  70.5% of the pair cost, best plan 5.07% above the best assignment
+    3 block(s):  79.0% of the pair cost, best plan 4.75% above the best assignment
+    4 block(s):  85.3% of the pair cost, best plan 3.12% above the best assignment
+    6 block(s):  93.3% of the pair cost, best plan 1.79% above the best assignment
+   12 block(s): 100.0% of the pair cost, best plan 1.61% above the best assignment
