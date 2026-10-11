@@ -718,6 +718,12 @@
   font-size: 0.98rem;
 }
 
+.cc .tiles.groups .tile h3 {
+  margin: 0;
+  color: var(--ours);
+  font-size: 1.25rem;
+}
+
 .cc .tile small {
   color: var(--dim);
   font-family: Bahnschrift, "Segoe UI", sans-serif;
