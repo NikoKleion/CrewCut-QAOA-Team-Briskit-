@@ -83,8 +83,52 @@ def budget_data():
     return {"code": code, "fit": SAMPLES, "final": FINAL, "total": total, "panels": panels}
 
 
+def ladder_data():
+    output, code = output_and_code("flow_ladder.txt")
+    blocks = []
+    for block in output.split("\n\nflow networks"):
+        head = re.search(r"restore (\d+) of (\d+) damaged links, (\d+) instances, (\d+) seeds, fit on (\d+) plans", block)
+        if not head:
+            continue
+        lines = block.splitlines()
+        totals = re.findall(r"\d+", next(line for line in lines if line.strip().startswith("method") and
+                                         re.search(r"\d", line)))
+        regret, reached, gates, part = {}, {}, {}, None
+        for line in lines:
+            if line.startswith("regret at a total"):
+                part = "regret"
+            elif line.startswith("runs that reach"):
+                part = "targets"
+            elif "pair gates per cost layer" in line:
+                part = "gates"
+            elif part == "regret":
+                found = re.match(r"\s+(.+?)\s{2,}((?:[\d.]+ \(\s*[\d.]+ to\s+[\d.]+\)\s+[\d.]+\s*)+)$", line)
+                if found:
+                    means = re.findall(r"\)\s+([\d.]+)", found.group(2))
+                    regret[found.group(1)] = dict(zip(totals, (float(m) / 100 for m in means)))
+            elif part == "targets":
+                found = re.match(r"\s+(.+?)\s{2,}.*?(\d+) of (\d+),\s+(\d+)$", line)
+                if found:
+                    reached[found.group(1)] = {"runs": int(found.group(2)), "of": int(found.group(3)),
+                                               "evaluations": int(found.group(4))}
+            elif part == "gates":
+                found = re.match(r"\s+(.+?)\s{2,}(\d+)\s+(\d+)$", line)
+                if found:
+                    gates[found.group(1)] = {"with_penalty": int(found.group(2)), "without": int(found.group(3))}
+        if not regret or set(regret) != set(reached):
+            raise ValueError(f"unexpected method tables in flow_ladder.txt for restore {head.group(1)}")
+        blocks.append({"restore": int(head.group(1)), "damaged": int(head.group(2)),
+                       "instances": int(head.group(3)), "seeds": int(head.group(4)), "fit": int(head.group(5)),
+                       "total": totals[-1], "methods": [{"name": name, "regret": regret[name],
+                                                         "optimum": reached[name]} for name in regret],
+                       "gates": gates})
+    if len(blocks) != 2:
+        raise ValueError(f"expected 2 restore counts in flow_ladder.txt, found {len(blocks)}")
+    return {"source": "results/flow_ladder.txt", "code": code, "blocks": blocks}
+
+
 def main():
-    data = {"spectrum": spectrum_data(), "gates": gate_data(), "budget": budget_data()}
+    data = {"spectrum": spectrum_data(), "gates": gate_data(), "budget": budget_data(), "ladder": ladder_data()}
     text = json.dumps(data, indent=1)
     if not DATA_FILE.exists() or DATA_FILE.read_text(encoding="utf-8") != text:
         DATA_FILE.write_text(text, encoding="utf-8")

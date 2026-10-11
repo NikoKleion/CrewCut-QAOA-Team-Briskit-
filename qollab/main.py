@@ -102,6 +102,14 @@ def backend_label(device):
 
 
 def run_circuit(device, shots, depth, keep):
+    return run_with_plans(device, shots, depth, keep)[0]
+
+
+def crew_letters(plan, n):
+    return "".join("B" if (int(plan) >> q) & 1 else "A" for q in range(n))
+
+
+def run_with_plans(device, shots, depth, keep):
     started = time.perf_counter()
     date = datetime.now(timezone.utc).strftime("%Y-%m-%dT%H:%M:%SZ")
     w, p = np.array(URGENCY), np.array(HOURS, dtype=float)
@@ -139,10 +147,11 @@ def run_circuit(device, shots, depth, keep):
              f"average over all plans (random)    {cost.mean():9.3f}",
              f"shots that are a best plan         {100 * hit:8.2f}%   (random: {100 * optimal.mean():.3f}%)"]
     for k in measured[np.argsort(measured_cost)][:3]:
-        crews = "".join("B" if (int(k) >> q) & 1 else "A" for q in range(n))
-        lines.append(f"plan {crews}   cost {cost[k]:.3f}")
+        lines.append(f"plan {crew_letters(k, n)}   cost {cost[k]:.3f}")
     lines.append(f"seconds for circuit, job and scoring: {time.perf_counter() - started:.1f}")
-    return lines
+    plans = [[crew_letters(k, n), int(c), float(cost[k]), float(cost[k] / best - 1)]
+             for k, c in sorted(plans.items(), key=lambda item: (-item[1], cost[item[0]]))]
+    return lines, plans
 
 
 def record_name(lines, depth, keep):

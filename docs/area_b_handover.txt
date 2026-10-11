@@ -59,23 +59,27 @@ FILES OF AREA C (C1-C4, made by Johnathan on 2026-10-10 and 2026-10-11)
 
 Area C is Jithesh's. Johnathan built C1 to C4 at his request; C5 to C7 are untouched. Every file below, with its task. Paths are from the repo root.
 
-Qollab project (upload these three files, all at the top level of the Qollab project)
-   qollab/main.py (C1, C2, C4; the file Qollab runs, changed from the A7 version):
-      run_circuit(device, shots, depth, keep): one run of the 12-repair crew-assignment circuit on the backend Qollab supplies, one job. Returns the report as lines of text: backend (with the IonQ noise model when the backend names one), UTC date, shots, depth, share of pair terms kept, two-qubit gates before and after compiling, best plan, classical rule, best of the shots, averages, share of shots on a best plan, the three best plans, seconds. Kept separate from main() so the C2 page can call it.
+Qollab project (upload these files, all at the top level of the Qollab project)
+   With index.html and main.js present, Qollab runs the page (C2) and main.py is only imported by it. Without them, Qollab runs main.py (the console version with the settings form and the figures).
+   qollab/index.html, qollab/main.js, qollab/main.css (C2, made 2026-10-11): the page. Settings form (shots, depth, share of pair terms kept) and a Run button. main.js calls page_run.run_page through .callPromising with the backend Qollab supplies, then shows the report, a link to download the record, the shots in five bands of cost above the best plan, and every measured plan: the template's filter of outcomes under 5% is not used. On IonQ it stops after one run (one job per run); otherwise it waits for the next press. The record is also printed to the console. Tested in Node with a stand-in page and a real simulator result (1008 plans, bands add to 2000 shots); not yet run on Qollab.
+   qollab/page_run.py (C2): run_page(device, shots, depth, keep) checks the settings, runs run_with_plans and returns the report lines, every plan, the record name and text (headed "project file: qollab/page_run.py, called from qollab/main.js") and whether the backend is IonQ's.
+   qollab/main.py (C1, C2, C4; changed from the A7 version):
+      run_circuit(device, shots, depth, keep): one run of the 12-repair crew-assignment circuit on the backend Qollab supplies, one job. Returns the report as lines of text: backend (with the IonQ noise model when the backend names one), UTC date, shots, depth, share of pair terms kept, two-qubit gates before and after compiling, best plan, classical rule, best of the shots, averages, share of shots on a best plan, the three best plans, seconds. run_with_plans returns the same lines plus every measured plan (crews, shots, cost, share above the best plan), for the page.
       save_record: on Qollab, sendFile puts the record qollab_run_<backend>_keep<keep>_depth<depth>.txt in the console to download. Locally it writes the record to the folder run_local.py supplies.
       main(shots=2000, depth=2, keep=100, figures=True): the settings form on Qollab. keep is 100, 50 or 25 (angles trained for each). With figures on, it draws the four figures from figure_data.json, which is the quick path. It prints the seconds for the circuit, for the figures and in total.
-   qollab/project_figures.py (C3): draws the pipeline, interaction spectrum, budget curves and gate counts from figure_data.json. Each figure gets a caption whose numbers are computed from the data, a short alt text and a long description as a text table. Colours from Matplotlib's tableau-colorblind10, plus a hatch, marker or line style per series, so colour is never the only cue. Imports Matplotlib only, which Qollab loads without a requirements.txt.
+   qollab/project_figures.py (C3): draws the pipeline, interaction spectrum, budget curves and gate counts from figure_data.json, and the ladder table (B9 results drawn as a table figure) when the data holds it. Each figure gets a caption whose numbers are computed from the data, a short alt text and a long description as a text table. Colours from Matplotlib's tableau-colorblind10, plus a hatch, marker or line style per series, so colour is never the only cue. Imports Matplotlib only, which Qollab loads without a requirements.txt.
    qollab/figure_data.json (C3, C4): the cached data the figures need, about 109 kB. Written by figures/build.py; do not edit by hand.
    Not uploaded: qollab/trained_circuits.json (A7, B10). main.py does not read it. Running the flow record on Qollab (the B10 action for area C) is not built.
 
 Local tools
    qollab/run_local.py (C1, C4): runs main.py the way Qollab does, with BasicSimulator or an IBM fake backend as backend. Options --shots, --depth, --keep (one or more), --devices (basic and IBM fake backend names such as fez), --no-figures, --save. Figures go to figures/quick_path/ (ignored by git); records go to results/qollab/local/ with --save.
       Run: python qollab/run_local.py --devices basic fez --keep 100 50 --no-figures --save
-   figures/build.py (C3; the full path for the figures): reads results/interaction_spectrum.txt, results/gate_counts.txt and results/feeder/budget_experiment_*.csv, writes qollab/figure_data.json when it changes, and draws the four figures into figures/ with figures/captions.md. Fails if a result file no longer has the expected lines.
+   figures/build.py (C3; the full path for the figures): reads results/interaction_spectrum.txt, results/gate_counts.txt, results/feeder/budget_experiment_*.csv and results/flow_ladder.txt, writes qollab/figure_data.json when it changes, and draws the five figures into figures/ with figures/captions.md. Fails if a result file no longer has the expected lines.
       Run, after run_experiments.py: python -m figures.build
 
 Figures (committed)
    figures/pipeline.png, figures/interaction_spectrum.png, figures/budget_curves.png, figures/gate_counts.png (C3).
+   figures/flow_ladder.png (C3 addition): the ladder of B9 as a table, 11 methods by restore 4 and 6 (mean regret at 200 evaluations, runs at the optimum) and pair gates per layer with and without the count penalty. Caption: no QAOA rung beats the pair fit with best-first selection (0.52% and 0.00% against 1.87% and 1.63% for the best QAOA rungs; random 2.63% and 2.34%).
    figures/captions.md (C3, for C5): alt text, caption and description table of each figure, ready for the project page.
 
 Results
@@ -93,16 +97,17 @@ Environment
 
 Open for area C
    1. The six hosted C1 runs, on the captain's project. The code is ready (checked 2026-10-10); see "C1 run sheet" below. The records go in results/qollab/.
-   2. C2 changed to a page (index.html, main.js) with the Python behind it. Qollab runs the page when both files are at the top level, so the project then holds the page and no bare main.py run. Python is called through .callPromising on IonQ backends. Remove the template's filter that deletes outcomes under 5%. Not built. run_circuit is ready to be called from the page.
-   3. C3 addition: two tables as figures with alt text, the ladder and the four backends of section 4. Not built; needs the document with section 4 and the four screenshots.
+   2. C2 page built (2026-10-11) but not yet run on Qollab. First run it once on the built-in simulator in a test project (not the captain's), to check the import of page_run, the download link and the table.
+   3. C3 addition: the ladder table is built (figures/flow_ladder.png). The four-backends table of section 4 is not built; it is to be made from the six C1 records once they exist.
    4. The IonQ run was checked offline on 2026-10-10 with qiskit-ionq 1.1.1 (the simulator backend with noise model forte-1, no job sent): the circuit compiles at keep 100 (132 rzz) and keep 50 (66 rzz), IonQ's converter accepts both, and the backend line reads "ionq_simulator, noise model forte-1". A real IonQ job has not been sent. If compiling fails on Qollab, main.py sends the circuit as written and the record says "not compiled locally".
 
 C1 run sheet (for the captain, on the project we submit)
-   Before: the Qollab project holds main.py, project_figures.py and figure_data.json at the top level and no index.html or main.js, so Qollab runs main.py. Upload the versions on main at the time of the runs.
-   Settings for every run: shots 2000, depth 2, figures off. keep is 100 for one run and 50 for the next.
+   Upload the versions on main at the time of the runs, all at the top level. Use route A once the page has passed its test run (open item 2); otherwise route B.
+   Route A, the page: upload index.html, main.js, main.css, page_run.py, main.py, project_figures.py and figure_data.json. Press Run, then in the page set shots 2000, depth 2 and pair terms kept 100% (then 50%), press Run the circuit, and use the "Download the record" link. For the next IonQ run press Stop, then Run.
+   Route B, the console: upload main.py, project_figures.py and figure_data.json only (no index.html or main.js). Settings shots 2000, depth 2, figures off, keep 100 (then 50). The console offers the record to download.
    Backends, each at keep 100 then keep 50 (six runs): Built-in simulator; IBM Fez (noise model); IonQ Forte 1 (remote simulator, one job per run).
-   After each run: the console prints the report and offers qollab_run_<backend>_keep<keep>_depth2.txt to download. Download it, and send the six files to Johnathan or commit them to results/qollab/ unchanged.
-   Check: each file starts "project file: qollab/main.py", the backend line names the backend picked, and "shots returned" is 2000. The IonQ file names forte-1 in the backend line.
+   After each run: download qollab_run_<backend>_keep<keep>_depth2.txt, and send the six files to Johnathan or commit them to results/qollab/ unchanged.
+   Check: each file starts "project file: qollab/page_run.py, called from qollab/main.js" (route A) or "project file: qollab/main.py" (route B), the backend line names the backend picked, and "shots returned" is 2000. The IonQ file names forte-1 in the backend line.
    Expected from the local checks: about 1% of shots on a best plan on the simulator and under 0.5% on IBM Fez, against 0.098% at random. IBM Fez took about 15 s per run locally; IonQ waits in IonQ's queue.
 
 Documents

@@ -79,3 +79,26 @@ conversion algorithm             0.54 ( 0.06 to   2.41)   1.78   0.54 ( 0.06 to 
       22        231     41        757    204   3.28                  32%
       29        406     55       1244    266   3.06                  13%
 ```
+
+## Figure 5: flow_ladder
+
+![Table of 11 methods on the flow networks: mean regret and runs at the optimum for each restore count, and pair gates per cost layer. The text below the figure gives every value.](flow_ladder.png)
+
+**Caption.** On the flow networks no QAOA rung beats the pair fit with best-first selection. After 200 evaluations it has mean regret 0.52% (restore 4) and 0.00% (restore 6), against 2.63% and 2.34% for random plans; the best QAOA rung reaches 1.87% (single-link fit, QAOA depth 2 or pair fit, QAOA depth 2) and 1.63% (single-link fit, QAOA depth 1). Keeping fewer fitted pair terms does not save gates: the count penalty for restoring 4 and 6 links puts a term on every pair, 66 pair gates per layer.
+
+**Description.**
+
+```
+method                                         restore 4 mean regret  restore 4 runs at the optimum  restore 6 mean regret  restore 6 runs at the optimum  pair gates per layer, with penalty  pair gates per layer, without it
+random plans                                                   2.63%                     200 of 270                  2.34%                     215 of 270                          no circuit                        no circuit
+single-link fit, best first                                    1.24%                     245 of 270                  0.09%                     264 of 270                          no circuit                        no circuit
+pair fit, best first                                           0.52%                     249 of 270                  0.00%                     270 of 270                          no circuit                        no circuit
+single-link fit, QAOA depth 1                                  2.55%                     204 of 270                  1.63%                     231 of 270                                  66                                 0
+pair fit, QAOA depth 1                                         2.05%                     211 of 270                  2.10%                     221 of 270                                  66                                66
+pair fit, 50% of pair terms, QAOA depth 1                      2.17%                     206 of 270                  2.08%                     215 of 270                                  66                                33
+pair fit, 25% of pair terms, QAOA depth 1                      2.19%                     212 of 270                  2.24%                     221 of 270                                  66                                16
+single-link fit, QAOA depth 2                                  1.87%                     206 of 270                  2.16%                     217 of 270                                  66                                 0
+pair fit, QAOA depth 2                                         1.87%                     213 of 270                  2.18%                     228 of 270                                  66                                66
+pair fit, 50% of pair terms, QAOA depth 2                      2.25%                     207 of 270                  1.76%                     226 of 270                                  66                                33
+pair fit, 25% of pair terms, QAOA depth 2                      2.09%                     210 of 270                  2.29%                     219 of 270                                  66                                16
+```

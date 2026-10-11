@@ -1,0 +1,42 @@
+<main>
+  <h1>Crew assignment with QAOA</h1>
+  <p>Twelve repairs on a damaged feeder go to two crews. Each repair is one qubit: A for crew 1, B for crew 2. The
+    circuit samples plans from a pair cost with angles trained in advance, and every shot is scored on the true cost
+    (weighted completion time). The backend is the one picked in Select QPU.</p>
+
+  <form id="settings">
+    <label>Shots <input id="shots" type="number" min="1" max="10000" step="1" value="2000"></label>
+    <label>Depth
+      <select id="depth"><option>1</option><option selected>2</option><option>3</option></select>
+    </label>
+    <label>Pair terms kept
+      <select id="keep"><option value="100" selected>100%</option><option value="50">50%</option>
+        <option value="25">25%</option></select>
+    </label>
+    <button id="run" type="button">Run the circuit</button>
+  </form>
+  <p id="status" role="status">Pick the settings, then press Run the circuit. IonQ backends take one job per run.</p>
+
+  <section id="result" hidden>
+    <h2>Report</h2>
+    <pre id="report"></pre>
+    <p><a id="download" href="#" download>Download the record</a></p>
+
+    <h2>Shots by distance from the best plan</h2>
+    <table id="bands">
+      <thead><tr><th scope="col">cost above the best plan</th><th scope="col">shots</th>
+        <th scope="col">share of shots</th></tr></thead>
+      <tbody></tbody>
+    </table>
+
+    <h2 id="plans-title">Every plan measured</h2>
+    <p>All plans the shots returned, most frequent first, with none left out. The plan lists the crew of repairs 1 to 12.</p>
+    <div class="scroll">
+      <table id="plans">
+        <thead><tr><th scope="col">plan</th><th scope="col">shots</th><th scope="col">share</th>
+          <th scope="col">cost</th><th scope="col">above the best plan</th></tr></thead>
+        <tbody></tbody>
+      </table>
+    </div>
+  </section>
+</main>

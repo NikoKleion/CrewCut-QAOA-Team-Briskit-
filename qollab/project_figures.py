@@ -186,11 +186,93 @@ def gate_figure(data):
     return {"name": "gate_counts", "figure": figure, "alt": alt, "caption": caption, "description": "\n".join(lines)}
 
 
+def circuit_shape(method):
+    for suffix in (", best first", ", QAOA depth 1", ", QAOA depth 2", ", QAOA depth 3"):
+        if method.endswith(suffix):
+            return method.removesuffix(suffix), suffix != ", best first"
+    return method, False
+
+
+def ladder_figure(data):
+    blocks = data["ladder"]["blocks"]
+    first = blocks[0]
+    names = [method["name"] for method in first["methods"]]
+    total = first["total"]
+    by_block = [{m["name"]: m for m in block["methods"]} for block in blocks]
+    header = ["method"]
+    for block in blocks:
+        header += [f"restore {block['restore']}\nmean\nregret", f"restore {block['restore']}\nruns at the\noptimum"]
+    header += ["pair gates\nper layer,\nwith penalty", "pair gates\nper layer,\nwithout it"]
+    cells = []
+    for name in names:
+        row = [name]
+        for methods in by_block:
+            optimum = methods[name]["optimum"]
+            row += [percent(methods[name]["regret"][total]), f"{optimum['runs']} of {optimum['of']}"]
+        shape, circuit = circuit_shape(name)
+        gates = first["gates"].get(shape)
+        row += [str(gates["with_penalty"]), str(gates["without"])] if circuit and gates else ["no circuit"] * 2
+        cells.append(row)
+    lowest = [min(methods[name]["regret"][total] for name in names) for methods in by_block]
+
+    figure, axes = plt.subplots(figsize=(15, 0.42 * len(names) + 1.6))
+    axes.axis("off")
+    table = axes.table(cellText=cells, colLabels=header, loc="center", cellLoc="center",
+                       colWidths=[0.29] + [0.1] * (len(header) - 1))
+    table.auto_set_font_size(False)
+    table.set_fontsize(10.5)
+    table.scale(1, 1.75)
+    for (r, c), cell in table.get_celld().items():
+        cell.set_edgecolor("#555555")
+        if r == 0:
+            cell.set_text_props(fontweight="bold")
+            cell.set_facecolor("#e8e8e8")
+            cell.set_height(cell.get_height() * 2.3)
+        elif c == 0:
+            cell.set_text_props(ha="left")
+        elif c in (1, 3) and by_block[(c - 1) // 2][names[r - 1]]["regret"][total] == lowest[(c - 1) // 2]:
+            cell.set_text_props(fontweight="bold")
+    axes.set_title(f"Ladder on the flow networks: {first['damaged']} damaged links, {first['instances']} instances, "
+                   f"{first['seeds']} seeds, {total} evaluations with {first['fit']} for the fit. Lowest regret in bold.",
+                   fontsize=12)
+
+    def final(k, name):
+        return by_block[k][name]["regret"][total]
+
+    quantum = [name for name in names if "QAOA" in name]
+    best_quantum = [min(quantum, key=lambda name: final(k, name)) for k in range(len(blocks))]
+    tied = [" or ".join(name for name in quantum if final(k, name) == final(k, best_quantum[k]))
+            for k in range(len(blocks))]
+    restores = " and ".join(str(block["restore"]) for block in blocks)
+    beaten = any(final(k, best_quantum[k]) < final(k, "pair fit, best first") for k in range(len(blocks)))
+    lead = "a QAOA rung beats" if beaten else "no QAOA rung beats"
+    caption = (f"On the flow networks {lead} the pair fit with best-first selection. After {total} "
+               f"evaluations it has mean regret " +
+               " and ".join(f"{percent(final(k, 'pair fit, best first'))} (restore {b['restore']})"
+                            for k, b in enumerate(blocks)) +
+               ", against " + " and ".join(percent(final(k, "random plans")) for k in range(len(blocks))) +
+               " for random plans; the best QAOA rung reaches " +
+               " and ".join(f"{percent(final(k, best_quantum[k]))} ({tied[k]})" for k in range(len(blocks))) +
+               f". Keeping fewer fitted pair terms does not save gates: the count penalty for restoring {restores} "
+               f"links puts a term on every pair, {first['gates']['pair fit']['with_penalty']} pair gates per layer.")
+    alt = (f"Table of {len(names)} methods on the flow networks: mean regret and runs at the optimum for each "
+           f"restore count, and pair gates per cost layer. The text below the figure gives every value.")
+    flat = [label.replace("\n", " ") for label in header]
+    widths = [45] + [len(label) + 2 for label in flat[1:]]
+    lines = ["".join(f"{label:>{w}s}" if k else f"{label:{w}s}" for k, (label, w) in enumerate(zip(flat, widths)))]
+    lines += ["".join(f"{cell:>{w}s}" if k else f"{cell:{w}s}" for k, (cell, w) in enumerate(zip(row, widths)))
+              for row in cells]
+    return {"name": "flow_ladder", "figure": figure, "alt": alt, "caption": caption, "description": "\n".join(lines)}
+
+
 # W3C WAI, complex images: short alt text plus a long description in the page, https://www.w3.org/WAI/tutorials/images/complex/
 def draw_all(data, folder="", show_text=True):
     figures = []
     with plt.style.context(STYLE):
-        for build in (pipeline_figure, spectrum_figure, budget_figure, gate_figure):
+        builds = [pipeline_figure, spectrum_figure, budget_figure, gate_figure]
+        if "ladder" in data:
+            builds.append(ladder_figure)
+        for build in builds:
             figure = build(data)
             # Qollab shows a saved figure in the console and offers the PNG, https://qollab.xyz/learn/docs/runtime-environment
             figure["figure"].savefig(folder + figure["name"] + ".png", dpi=150, bbox_inches="tight",
