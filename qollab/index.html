@@ -1,6 +1,6 @@
 <main class="cc">
   <header class="hero">
-    <p class="kicker">RestoreBench-Q</p>
+    <p class="kicker">CrewCut-QAOA</p>
     <h1>Storm dispatch</h1>
     <p class="lead">A storm has knocked out eight sites and you have two crews. Every hour a site stays dark costs
       its urgency. Send the crews. Then watch a classical search and two quantum circuits take on the same night.</p>
@@ -11,6 +11,7 @@
     <h2 id="t-night"><span class="step">1</span> The night</h2>
     <p class="small" id="hint">Select a site to hand it to crew A; select it again for crew B. Each crew works its
       most urgent site per hour first. Travel between sites is not part of the model.</p>
+    <p class="small">A site is one repair, and its urgency is the repair's priority weight.</p>
     <div id="map" class="map" role="group" aria-label="Map of the eight damaged sites"></div>
     <div id="lanes" class="lanes" aria-label="Order of work of each crew"></div>
     <div class="controls">
@@ -26,8 +27,11 @@
 
   <section id="s-search" aria-labelledby="t-search" hidden>
     <h2 id="t-search"><span class="step">2</span> Classical brute force: try every plan</h2>
-    <p>Eight sites, two crews: 2<sup>8</sup> = 256 ways to split them. Brute force scores each one. Every bar below
-      is one plan; its height is how much worse it is than the best.</p>
+    <p>Eight sites, two crews: 2<sup>8</sup> = 256 ways to hand them out. Swapping the names of the crews gives
+      the same night, so there are 128 different plans and every bar below has a twin. Brute force scores each
+      one; a bar's height is how much worse that plan is than the best.</p>
+    <p class="small">Best plan means the best of these, with each crew working in the order of the rule. The sites
+      here do not depend on each other, so that order is the best one for each crew.</p>
     <div class="controls"><button id="scan" type="button">Search every plan</button>
       <span id="scan-count" class="count" role="status"></span></div>
     <div id="landscape" class="board" role="img" aria-label="One bar for each of the 256 plans"></div>
@@ -36,13 +40,13 @@
     <div id="growth" hidden>
       <p>Brute force is exact, and at this size nothing beats it: this page just did it in
         <span id="search-time">-</span> milliseconds. Its catch is that every added site doubles the bars.</p>
-      <div class="doubling" role="img" aria-label="Plans to score: 8 sites 256; 12 sites 4,096; 16 sites 65,536; 20 sites 1,048,576; 30 sites about a billion; 40 sites about a trillion">
+      <div class="doubling" role="img" aria-label="Plans to score: 8 sites 256; 12 sites 4,096; 16 sites 65,536; 20 sites 1,048,576; 30 sites about a billion, not run; 40 sites about a trillion, not run">
         <div><b>8</b><i style="width:0.4%"></i><span>256 plans</span></div>
         <div><b>12</b><i style="width:1.2%"></i><span>4,096 · 1.00 ms measured</span></div>
         <div><b>16</b><i style="width:4%"></i><span>65,536 · 18.41 ms measured</span></div>
         <div><b>20</b><i style="width:14%"></i><span>1,048,576 · 1,450.67 ms measured</span></div>
-        <div><b>30</b><i style="width:48%"></i><span>1,073,741,824 · not run; about 25 minutes at that rate</span></div>
-        <div><b>40</b><i style="width:100%"></i><span>1,099,511,627,776 · not run; about 18 days at that rate</span></div>
+        <div><b>30</b><i style="width:48%"></i><span>1,073,741,824 · not run</span></div>
+        <div><b>40</b><i style="width:100%"></i><span>1,099,511,627,776 · not run</span></div>
       </div>
       <p class="small">Bar lengths are not to scale beyond 20 sites. Measured times: one laptop,
         future/timing/search_and_training_times.txt in the repository. Brute force is the simplest exact method,
@@ -51,11 +55,11 @@
   </section>
 
   <section id="s-links" aria-labelledby="t-links" hidden>
-    <h2 id="t-links"><span class="step">3</span> How Crew-Cut reads the night: every pair of sites is a link</h2>
+    <h2 id="t-links"><span class="step">3</span> How CrewCut reads the night: every pair of sites is a link</h2>
     <p>Put two sites on the same crew and the less pressing one waits while the other is repaired. That wait is a
       link between the two, and its thickness is what the wait costs. Split the two across the crews and the link
       is cut: nobody waits. A plan is a cut through the links, and the best plan is the one that cuts away the
-      most weight.</p>
+      most weight, which is weighted MaxCut.</p>
     <div class="controls">
       <button id="links-mine" type="button" aria-pressed="true">Your plan</button>
       <button id="links-best" type="button" aria-pressed="false">The best plan</button>
@@ -69,7 +73,7 @@
       <div class="meter cut"><span class="cap">waiting cut away</span><b id="l-cut">-</b></div>
     </div>
     <h3>One layer of the circuit, on the same picture</h3>
-    <p>The Crew-Cut circuit has one qubit for each site and one two-qubit gate for each link, turned by an angle
+    <p>The CrewCut circuit has one qubit for each site and one two-qubit gate for each link, turned by an angle
       in proportion to the link's weight. That gives every plan a phase set by the links it pays. One rotation on
       each qubit then lets the phases of neighbouring plans add or cancel. Two such layers, a measurement, and
       each shot is one plan.</p>
@@ -88,12 +92,14 @@
         <p id="flicker" class="small" role="status"></p>
       </div>
       <div>
-        <h3>Crew-Cut QAOA: 8 qubits</h3>
+        <h3>CrewCut QAOA: 8 qubits</h3>
         <p class="small">One qubit for each site: it says which crew. Every pattern is a plan. No penalty, half
           the qubits, and one gate for each link: 28 in a layer. The standard form needs every link twice, once
           for each crew, and a penalty gate for each site: 64.</p>
         <div id="reg-crewcut" class="register" role="img" aria-label="Eight qubits, one for each site"></div>
-        <p class="small">The form comes from the scheduling literature. What is measured here is what it buys.</p>
+        <p class="small">The one bit form is from scheduling theory (Skutella, 2000). New here: its use for
+          restoration on a feeder, pair weights fitted to scored plans, a thinned cost layer, and the test against
+          standard QAOA and classical search.</p>
       </div>
     </div>
   </section>
@@ -110,10 +116,10 @@
     <div id="rain" hidden>
       <div class="rainrow"><h3>Plans picked at random</h3><div id="row-random" class="board" role="img"></div><p id="cap-random" class="small"></p></div>
       <div class="rainrow"><h3>Standard QAOA</h3><div id="row-standard" class="board" role="img"></div><p id="cap-standard" class="small"></p></div>
-      <div class="rainrow ours"><h3>Crew-Cut QAOA</h3><div id="row-crewcut" class="board" role="img"></div><p id="cap-crewcut" class="small"></p></div>
+      <div class="rainrow ours"><h3>CrewCut QAOA</h3><div id="row-crewcut" class="board" role="img"></div><p id="cap-crewcut" class="small"></p></div>
       <div class="tiles" id="tiles"></div>
       <table id="compare">
-        <thead><tr><th scope="col">measure</th><th scope="col">Crew-Cut QAOA</th><th scope="col">standard QAOA</th>
+        <thead><tr><th scope="col">measure</th><th scope="col">CrewCut QAOA</th><th scope="col">standard QAOA</th>
           <th scope="col">picked at random</th></tr></thead>
         <tbody></tbody>
       </table>
@@ -121,11 +127,57 @@
     </div>
   </section>
 
+  <section aria-labelledby="t-measured" class="measured">
+    <h2 id="t-measured">Beyond this night: what was measured</h2>
+    <p>The night above is one small case with sites that do not depend on each other. The results below are in
+      the repository. The test feeder is the public IEEE 13 node feeder with 12 repairs, where a repaired line
+      carries power only once the lines between it and the substation are repaired. Under each number is its
+      setup. Every circuit is simulated; none ran on a machine.</p>
+    <div class="tiles heads">
+      <div class="tile ours"><b>0.32%</b>
+        <span>from the best plan with a hundred shots and no plan scored beforehand. A hundred random plans:
+          0.62%. Published algorithm: 1.47%.</span>
+        <small>One circuit layer · 20 feeder instances · mean · results/crew_assignment.txt</small></div>
+      <div class="tile"><b>0.09%</b>
+        <span>from the best plan with 200 scored plans, 150 of them to fit the cost. 200 random plans: 0.26%.
+          Classical best first search: 0.00%, and it stays ahead.</span>
+        <small>Two layers · 30 feeder instances · median · means 0.16%, 0.31% and 0.11% ·
+          results/budget_experiment.txt</small></div>
+      <div class="tile ours"><b>3 to 5x</b>
+        <span>fewer shots than standard QAOA to reach a best plan, on half the qubits.</span>
+        <small>6 to 10 independent repairs · two layers · median · ahead on every instance ·
+          results/standard_qaoa.txt and results/standard_qaoa_10.txt</small></div>
+      <div class="tile"><b>52 vs 45%</b>
+        <span>of the gain kept at the error rates of an ion machine when half of the pair gates are removed.
+          Without errors the full circuit is slightly ahead, 69.7% against 68.3%.</span>
+        <small>12 independent repairs · two layers · 30 instances · median · noise model ·
+          future/A8_noise_study/sparse_layer_under_noise.txt</small></div>
+    </div>
+    <h3>The classical baseline</h3>
+    <p class="small">Distance from the best plan on the test feeder, mean over 300 instances.</p>
+    <div class="baseline" role="img" aria-label="Distance from the best plan: FirstEnergy rule 19.4%; EEI rule 14.2%; published algorithm 1.65%; full search 0%">
+      <div><span>FirstEnergy rule</span><i style="width:100%"></i><b>19.4%</b></div>
+      <div><span>EEI rule</span><i style="width:73.2%"></i><b>14.2%</b></div>
+      <div><span>Published algorithm</span><i style="width:8.5%"></i><b>1.65%</b></div>
+      <div class="exact"><span>Full search, every plan</span><i style="width:0"></i><b>0%</b></div>
+    </div>
+    <p class="small">Rules and algorithm from Tan et al., 2017; results/dispatch_rules.txt. The published
+      algorithm does well on most instances and badly on a few: its median is 0.49%. On the feeder, a schedule
+      free to reorder each crew is 0.15% better than the best plan on average, over the 12 instances where that
+      optimum is proven.</p>
+    <p class="small">Scale: weather outages cost the United States $18 to $33 billion a year, so one percent is
+      $180 to $330 million. A conversion to show scale: it does not say that any utility runs these methods,
+      and percentages from a 13 node test feeder are not shown to hold in a real storm. Sources: docs/money in
+      the repository.</p>
+    <p class="small">Two crews only. Four crews would take two bits for each repair, still with no penalty, and
+      gates on four qubits. That is not built.</p>
+  </section>
+
   <section aria-labelledby="t-limits">
     <h2 id="t-limits">What this shows and what it does not</h2>
     <ul>
-      <li>It shows Crew-Cut QAOA against standard QAOA on equal terms: same sites, same number of layers, same
-        training. Over 30 nights of this size Crew-Cut returned a best plan 4 times as often (3.63% of shots
+      <li>It shows CrewCut QAOA against standard QAOA on equal terms: same sites, same number of layers, same
+        training. Over 30 nights of this size CrewCut returned a best plan 4 times as often (3.63% of shots
         against 0.90%) with half the qubits; results/standard_qaoa.txt in the repository.</li>
       <li>It does not show a quantum speedup. Brute force above is exact and takes a fraction of a millisecond
         here; training the circuit's angles takes longer than that in simulation.</li>
@@ -133,6 +185,7 @@
         tells the circuits apart is where the shots pile up.</li>
       <li id="rule-note">On 16 of the 30 test nights of this size the simple dispatch rule is already a best plan.</li>
       <li>Standard QAOA is given the penalty that suits it best on this night, of four tried.</li>
+      <li>Two crews, and no travel time between sites.</li>
       <li>Everything runs on simulators and noise models, and one night is one night.</li>
     </ul>
   </section>

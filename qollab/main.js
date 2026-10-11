@@ -573,13 +573,13 @@ function show(result) {
   element('cap-crewcut').textContent = caption(measured.crewcut);
   element('cap-standard').textContent = measured.standard ? caption(measured.standard)
     : 'Not run on this backend: Qollab allows one job in a run on IonQ backends. Pick the built-in simulator to see both.';
-  for (const [id, m, name] of [['row-random', measured.random, 'Plans picked at random'], ['row-standard', measured.standard, 'Standard QAOA'], ['row-crewcut', measured.crewcut, 'Crew-Cut QAOA']]) {
+  for (const [id, m, name] of [['row-random', measured.random, 'Plans picked at random'], ['row-standard', measured.standard, 'Standard QAOA'], ['row-crewcut', measured.crewcut, 'CrewCut QAOA']]) {
     element(id).setAttribute('aria-label', m ? `${name}: shots over the 256 plans sorted from best to worst. ${caption(m)}` : `${name}: not run on this backend`);
   }
 
   const tiles = element('tiles');
   tiles.replaceChildren(
-    tile(`${n} vs ${2 * n}`, 'qubits: Crew-Cut against standard QAOA', 'ours'),
+    tile(`${n} vs ${2 * n}`, 'qubits: CrewCut against standard QAOA', 'ours'),
     tile(`${data.crewcut_gates} vs ${data.standard_gates}`, 'two-qubit gates in one layer'),
     tile(`${percent(data.exact.crewcut.best)} vs ${percent(data.exact.standard.best)}`, `shots that are a best plan, exact for the trained circuits; picking at random gives ${percent(chance.best)}`, 'ours'),
     tile(`${shotsFor(data.exact.crewcut.best)} vs ${shotsFor(data.exact.standard.best)}`, `shots for a 95% chance of a best plan; picking at random needs ${shotsFor(chance.best)}`),
@@ -602,7 +602,7 @@ function show(result) {
     row.appendChild(head);
     for (const value of values) row.appendChild(make('td', value));
   }
-  const notes = [`Backend: ${result.backend}. ${result.shots} shots for each circuit; Crew-Cut job ${result.crewcut.seconds.toFixed(1)} s${result.standard ? `, standard job ${result.standard.seconds.toFixed(1)} s` : ''}.`,
+  const notes = [`Backend: ${result.backend}. ${result.shots} shots for each circuit; CrewCut job ${result.crewcut.seconds.toFixed(1)} s${result.standard ? `, standard job ${result.standard.seconds.toFixed(1)} s` : ''}.`,
     `Standard QAOA's penalty: ${data.penalty_name}. The random row is drawn by this page.`];
   for (const run of [result.crewcut, result.standard]) if (run && run.note) notes.push(run.note);
   element('run-note').textContent = notes.join(' ');

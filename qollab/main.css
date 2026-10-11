@@ -701,6 +701,71 @@
   font-size: 0.88rem;
 }
 
+.cc .tiles.heads {
+  grid-template-columns: repeat(2, 1fr);
+}
+
+@media (max-width: 44rem) {
+  .cc .tiles.heads { grid-template-columns: 1fr; }
+}
+
+.cc .tiles.heads .tile b {
+  font-size: 2.6rem;
+}
+
+.cc .tiles.heads .tile span {
+  color: var(--ink);
+  font-size: 0.98rem;
+}
+
+.cc .tile small {
+  color: var(--dim);
+  font-family: Bahnschrift, "Segoe UI", sans-serif;
+  font-size: 0.8rem;
+  border-top: 1px solid var(--line);
+  padding-top: 0.4rem;
+  overflow-wrap: anywhere;
+}
+
+.cc .baseline {
+  display: grid;
+  gap: 0.35rem;
+  margin: 0.6rem 0;
+}
+
+.cc .baseline div {
+  display: grid;
+  grid-template-columns: minmax(7.5rem, 11rem) 1fr 3.6rem;
+  gap: 0.6rem;
+  align-items: center;
+}
+
+.cc .baseline span {
+  font-family: Bahnschrift, "Segoe UI", sans-serif;
+  color: var(--soft);
+}
+
+.cc .baseline i {
+  display: block;
+  height: 1.1rem;
+  min-width: 3px;
+  background: var(--soft);
+}
+
+.cc .baseline b {
+  font-family: Bahnschrift, "Segoe UI", sans-serif;
+  text-align: right;
+  color: #ffffff;
+}
+
+.cc .baseline .exact i {
+  background: var(--gold);
+}
+
+.cc .baseline .exact b {
+  color: var(--gold);
+}
+
 .cc table {
   border-collapse: collapse;
   font-variant-numeric: tabular-nums;
