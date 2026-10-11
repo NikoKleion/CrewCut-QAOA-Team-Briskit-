@@ -1,0 +1,18 @@
+command: python future/A11_ladder/layout_gate_counts.py
+code: f158ea0 (clean)
+python: 3.13.14
+packages: numpy 2.5.2  scipy 1.18.1  qiskit 2.5.2
+platform: Windows-11-10.0.26200-SP0, AMD64
+threads: 1
+future scripts: clean
+started: 2026-10-11T05:05:38Z
+seconds: 1
+
+one cost layer and one mixer layer; heavy hex has 115 qubits, fewest gates of 3 seeds
+   repairs   form                            qubits   every pair connected: gates, depth   heavy hex: gates, depth
+         6   one qubit per repair                6                      15,     9                 46,    37
+         6   one qubit per repair and crew      12                      36,    11                105,    39
+         8   one qubit per repair                8                      28,    13                 91,    59
+         8   one qubit per repair and crew      16                      64,    15                195,    63
+        12   one qubit per repair               12                      66,    21                205,    97
+        12   one qubit per repair and crew      24                     144,    23                420,    67
