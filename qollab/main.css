@@ -724,6 +724,32 @@
   font-size: 1.25rem;
 }
 
+.cc code {
+  font-family: Consolas, "Cascadia Mono", monospace;
+  font-size: 0.88em;
+  padding: 0 0.25rem;
+  border: 1px solid var(--line);
+  background: var(--page);
+  overflow-wrap: anywhere;
+}
+
+.cc .commands {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  display: grid;
+  gap: 0.5rem;
+  color: var(--soft);
+  font-size: 0.9rem;
+}
+
+.cc .commands code {
+  display: block;
+  margin-bottom: 0.15rem;
+  padding: 0.2rem 0.4rem;
+  color: var(--ink);
+}
+
 .cc .tile small {
   color: var(--dim);
   font-family: Bahnschrift, "Segoe UI", sans-serif;
