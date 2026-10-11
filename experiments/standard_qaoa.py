@@ -25,7 +25,7 @@ VARIANTS = {
 }
 REGISTERED = [("uniform", 1.0), ("uniform", 0.5), ("uniform", 0.25), ("uniform", 0.125)]
 ADDED = [("uniform", 2.0), ("uniform", 4.0), ("own", 1.0), ("own", 0.5)]
-RUN = {6: (REGISTERED, ADDED), 8: (REGISTERED[:1], ADDED[:3])}
+RUN = {6: (REGISTERED, ADDED), 8: (REGISTERED[:1], ADDED[:3]), 10: (REGISTERED[:1], ADDED[:3])}
 
 
 def pair_gates(circuit):

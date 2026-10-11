@@ -354,6 +354,12 @@ Compares the two forms of crew assignment for two crews under QAOA with the same
 
 Farhi, Goldstone and Gutmann, https://arxiv.org/abs/1411.4028 ; Skutella, sections 2.1 and 6; Lucas, section 6.3, https://arxiv.org/abs/1302.5843
 
+## experiments/standard_qaoa_10.py
+
+The comparison of `experiments/standard_qaoa.py` at 10 repairs, where the standard form takes 20 qubits, on 10 instances with the penalties run at 8 repairs. Ten instances and not 30 because one circuit evaluation takes 48 times as long as at 8 repairs.
+
+Farhi, Goldstone and Gutmann, https://arxiv.org/abs/1411.4028 ; Skutella, sections 2.1 and 6; Lucas, section 6.3, https://arxiv.org/abs/1302.5843
+
 ## experiments/trained_circuits.py
 
 Replays the random stream of the budget experiment's QAOA runs on its first instance (restore 6 of 12 lines, pair cost fitted on 150 plans, depths 1 to 3), so the fit and the angles are the ones behind the saved benchmark rows, and writes them to `qollab/trained_circuits.json`. Prints for each depth the share of probability on plans with the right count, the share of those on the optimum, and their mean regret. The file is rewritten only when one of its records changes, and records of other experiments in the file are kept.
@@ -378,7 +384,7 @@ Qiskit `Statevector`, https://quantum.cloud.ibm.com/docs/api/qiskit/qiskit.quant
 
 ## RUNTHIS.py
 
-Runs `experiments/standard_qaoa.py` through `run_experiments.py` with up to 5 worker processes, prints what it needs and how long it took when measured, and says how to send back `results/standard_qaoa.txt`. Run as `python RUNTHIS.py` from any folder.
+Runs `experiments/standard_qaoa.py` through `run_experiments.py` with up to 5 worker processes, prints what it needs and how long it took when measured, and says how to send back the result file. `python RUNTHIS.py overnight` runs `experiments/standard_qaoa_10.py` after it. Run from any folder.
 
 ## run_experiments.py
 
