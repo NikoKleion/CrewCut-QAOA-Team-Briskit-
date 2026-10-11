@@ -1,0 +1,79 @@
+command: python -m experiments.flow_ladder
+code: c981f85 (modified)
+python: 3.13.5
+packages: numpy 2.5.2  scipy 1.18.1  qiskit 2.5.2
+platform: Windows-11-10.0.26200-SP0, AMD64
+threads: 1
+started: 2026-10-11T04:02:13Z
+seconds: 116
+exit: 0
+
+flow networks, rungs 2 and 4, restore 4 of 12 damaged links, 9 instances, 30 seeds, fit on 150 plans
+regret at a total number of evaluations: median (lower to upper quartile), mean, in percent
+   method                                                                       50                               100                               150                               151                               160                               175                               200
+   random plans                                      0.00 ( 0.00 to  14.29)   5.75     0.00 ( 0.00 to   4.51)   3.73     0.00 ( 0.00 to   2.30)   2.84     0.00 ( 0.00 to   2.30)   2.79     0.00 ( 0.00 to   2.30)   2.67     0.00 ( 0.00 to   2.30)   2.63     0.00 ( 0.00 to   2.30)   2.63
+   single-link fit, best first                       0.00 ( 0.00 to  14.29)   6.07     0.00 ( 0.00 to   4.82)   3.83     0.00 ( 0.00 to   2.30)   2.78     0.00 ( 0.00 to   2.30)   2.66     0.00 ( 0.00 to   0.00)   1.60     0.00 ( 0.00 to   0.00)   1.26     0.00 ( 0.00 to   0.00)   1.24
+   pair fit, best first                              0.00 ( 0.00 to  14.16)   5.30     0.00 ( 0.00 to   3.54)   3.30     0.00 ( 0.00 to   0.00)   2.31     0.00 ( 0.00 to   0.00)   2.09     0.00 ( 0.00 to   0.00)   1.63     0.00 ( 0.00 to   0.00)   0.63     0.00 ( 0.00 to   0.00)   0.52
+   single-link fit, QAOA depth 1                     0.00 ( 0.00 to  14.29)   5.86     0.00 ( 0.00 to  10.34)   4.11     0.00 ( 0.00 to   2.38)   3.14     0.00 ( 0.00 to   2.30)   3.09     0.00 ( 0.00 to   2.30)   2.90     0.00 ( 0.00 to   2.30)   2.72     0.00 ( 0.00 to   0.00)   2.55
+   pair fit, QAOA depth 1                            0.00 ( 0.00 to  14.29)   5.66     0.00 ( 0.00 to   3.57)   3.43     0.00 ( 0.00 to   2.30)   2.55     0.00 ( 0.00 to   2.30)   2.55     0.00 ( 0.00 to   0.00)   2.43     0.00 ( 0.00 to   0.00)   2.19     0.00 ( 0.00 to   0.00)   2.05
+   pair fit, 50% of pair terms, QAOA depth 1         0.00 ( 0.00 to  14.29)   5.97     0.00 ( 0.00 to   4.82)   3.59     0.00 ( 0.00 to   2.30)   2.51     0.00 ( 0.00 to   2.30)   2.51     0.00 ( 0.00 to   2.30)   2.35     0.00 ( 0.00 to   0.00)   2.24     0.00 ( 0.00 to   0.00)   2.17
+   pair fit, 25% of pair terms, QAOA depth 1         0.00 ( 0.00 to  14.29)   5.51     0.00 ( 0.00 to   3.57)   3.77     0.00 ( 0.00 to   0.00)   2.73     0.00 ( 0.00 to   0.00)   2.70     0.00 ( 0.00 to   0.00)   2.59     0.00 ( 0.00 to   0.00)   2.44     0.00 ( 0.00 to   0.00)   2.19
+   single-link fit, QAOA depth 2                     0.00 ( 0.00 to  14.29)   5.73     0.00 ( 0.00 to   6.38)   3.65     0.00 ( 0.00 to   2.30)   2.35     0.00 ( 0.00 to   2.30)   2.34     0.00 ( 0.00 to   2.30)   2.20     0.00 ( 0.00 to   1.72)   2.03     0.00 ( 0.00 to   0.00)   1.87
+   pair fit, QAOA depth 2                            0.00 ( 0.00 to  14.29)   5.76     0.00 ( 0.00 to   3.57)   3.54     0.00 ( 0.00 to   0.00)   2.25     0.00 ( 0.00 to   0.00)   2.25     0.00 ( 0.00 to   0.00)   2.09     0.00 ( 0.00 to   0.00)   1.98     0.00 ( 0.00 to   0.00)   1.87
+   pair fit, 50% of pair terms, QAOA depth 2         0.00 ( 0.00 to  14.29)   5.75     0.00 ( 0.00 to   6.90)   4.00     0.00 ( 0.00 to   2.30)   2.98     0.00 ( 0.00 to   2.30)   2.98     0.00 ( 0.00 to   2.30)   2.75     0.00 ( 0.00 to   0.00)   2.33     0.00 ( 0.00 to   0.00)   2.25
+   pair fit, 25% of pair terms, QAOA depth 2         0.00 ( 0.00 to  14.29)   5.68     0.00 ( 0.00 to   4.82)   3.66     0.00 ( 0.00 to   1.72)   2.67     0.00 ( 0.00 to   1.72)   2.67     0.00 ( 0.00 to   0.00)   2.38     0.00 ( 0.00 to   0.00)   2.33     0.00 ( 0.00 to   0.00)   2.09
+runs that reach a regret target, and average runtime in evaluations
+   method                                                   regret <= 5%            regret <= 1%            regret <= 0%
+   random plans                                         225 of 270,     59        200 of 270,     91        200 of 270,     91
+   single-link fit, best first                          245 of 270,     56        245 of 270,     76        245 of 270,     76
+   pair fit, best first                                 264 of 270,     46        249 of 270,     68        249 of 270,     68
+   single-link fit, QAOA depth 1                        225 of 270,     65        204 of 270,     93        204 of 270,     93
+   pair fit, QAOA depth 1                               237 of 270,     56        211 of 270,     88        211 of 270,     88
+   pair fit, 50% of pair terms, QAOA depth 1            230 of 270,     62        206 of 270,     94        206 of 270,     94
+   pair fit, 25% of pair terms, QAOA depth 1            230 of 270,     60        212 of 270,     88        212 of 270,     88
+   single-link fit, QAOA depth 2                        239 of 270,     57        206 of 270,     94        206 of 270,     94
+   pair fit, QAOA depth 2                               237 of 270,     57        213 of 270,     87        213 of 270,     87
+   pair fit, 50% of pair terms, QAOA depth 2            232 of 270,     66        207 of 270,     96        207 of 270,     96
+   pair fit, 25% of pair terms, QAOA depth 2            234 of 270,     61        210 of 270,     89        210 of 270,     89
+   pair gates per cost layer, 12 qubits, median over the instances
+   method                                          with the count penalty   without it
+   single-link fit                                                     66            0
+   pair fit                                                            66           66
+   pair fit, 50% of pair terms                                         66           33
+   pair fit, 25% of pair terms                                         66           16
+
+flow networks, rungs 2 and 4, restore 6 of 12 damaged links, 9 instances, 30 seeds, fit on 150 plans
+regret at a total number of evaluations: median (lower to upper quartile), mean, in percent
+   method                                                                       50                               100                               150                               151                               160                               175                               200
+   random plans                                      0.00 ( 0.00 to   5.71)   5.17     0.00 ( 0.00 to   0.00)   3.45     0.00 ( 0.00 to   0.00)   2.84     0.00 ( 0.00 to   0.00)   2.84     0.00 ( 0.00 to   0.00)   2.63     0.00 ( 0.00 to   0.00)   2.36     0.00 ( 0.00 to   0.00)   2.34
+   single-link fit, best first                       0.00 ( 0.00 to  10.34)   5.75     0.00 ( 0.00 to   2.86)   3.86     0.00 ( 0.00 to   0.00)   2.81     0.00 ( 0.00 to   0.00)   0.99     0.00 ( 0.00 to   0.00)   0.74     0.00 ( 0.00 to   0.00)   0.28     0.00 ( 0.00 to   0.00)   0.09
+   pair fit, best first                              0.00 ( 0.00 to   5.71)   5.38     0.00 ( 0.00 to   2.14)   3.72     0.00 ( 0.00 to   0.00)   2.63     0.00 ( 0.00 to   0.00)   0.67     0.00 ( 0.00 to   0.00)   0.01     0.00 ( 0.00 to   0.00)   0.00     0.00 ( 0.00 to   0.00)   0.00
+   single-link fit, QAOA depth 1                     0.00 ( 0.00 to   8.57)   5.96     0.00 ( 0.00 to   0.00)   3.91     0.00 ( 0.00 to   0.00)   2.50     0.00 ( 0.00 to   0.00)   2.50     0.00 ( 0.00 to   0.00)   2.21     0.00 ( 0.00 to   0.00)   1.91     0.00 ( 0.00 to   0.00)   1.63
+   pair fit, QAOA depth 1                            0.00 ( 0.00 to   2.86)   5.18     0.00 ( 0.00 to   0.00)   3.42     0.00 ( 0.00 to   0.00)   2.52     0.00 ( 0.00 to   0.00)   2.52     0.00 ( 0.00 to   0.00)   2.35     0.00 ( 0.00 to   0.00)   2.19     0.00 ( 0.00 to   0.00)   2.10
+   pair fit, 50% of pair terms, QAOA depth 1         0.00 ( 0.00 to   9.90)   5.53     0.00 ( 0.00 to   2.86)   3.49     0.00 ( 0.00 to   0.00)   2.72     0.00 ( 0.00 to   0.00)   2.69     0.00 ( 0.00 to   0.00)   2.57     0.00 ( 0.00 to   0.00)   2.24     0.00 ( 0.00 to   0.00)   2.08
+   pair fit, 25% of pair terms, QAOA depth 1         0.00 ( 0.00 to   5.71)   5.22     0.00 ( 0.00 to   2.86)   3.58     0.00 ( 0.00 to   0.00)   2.98     0.00 ( 0.00 to   0.00)   2.94     0.00 ( 0.00 to   0.00)   2.71     0.00 ( 0.00 to   0.00)   2.42     0.00 ( 0.00 to   0.00)   2.24
+   single-link fit, QAOA depth 2                     0.00 ( 0.00 to   8.57)   5.59     0.00 ( 0.00 to   2.86)   3.92     0.00 ( 0.00 to   0.00)   3.06     0.00 ( 0.00 to   0.00)   3.06     0.00 ( 0.00 to   0.00)   2.88     0.00 ( 0.00 to   0.00)   2.34     0.00 ( 0.00 to   0.00)   2.16
+   pair fit, QAOA depth 2                            0.00 ( 0.00 to  11.43)   6.44     0.00 ( 0.00 to   2.14)   4.09     0.00 ( 0.00 to   0.00)   3.25     0.00 ( 0.00 to   0.00)   3.16     0.00 ( 0.00 to   0.00)   2.98     0.00 ( 0.00 to   0.00)   2.52     0.00 ( 0.00 to   0.00)   2.18
+   pair fit, 50% of pair terms, QAOA depth 2         0.00 ( 0.00 to   8.57)   5.41     0.00 ( 0.00 to   2.86)   3.57     0.00 ( 0.00 to   0.00)   2.42     0.00 ( 0.00 to   0.00)   2.42     0.00 ( 0.00 to   0.00)   2.31     0.00 ( 0.00 to   0.00)   2.10     0.00 ( 0.00 to   0.00)   1.76
+   pair fit, 25% of pair terms, QAOA depth 2         0.00 ( 0.00 to   8.57)   5.69     0.00 ( 0.00 to   2.86)   4.13     0.00 ( 0.00 to   0.00)   3.24     0.00 ( 0.00 to   0.00)   3.04     0.00 ( 0.00 to   0.00)   2.66     0.00 ( 0.00 to   0.00)   2.54     0.00 ( 0.00 to   0.00)   2.29
+runs that reach a regret target, and average runtime in evaluations
+   method                                                   regret <= 5%            regret <= 1%            regret <= 0%
+   random plans                                         224 of 270,     54        215 of 270,     63        215 of 270,     63
+   single-link fit, best first                          269 of 270,     43        264 of 270,     50        264 of 270,     50
+   pair fit, best first                                 270 of 270,     40        270 of 270,     44        270 of 270,     44
+   single-link fit, QAOA depth 1                        242 of 270,     47        231 of 270,     58        231 of 270,     58
+   pair fit, QAOA depth 1                               228 of 270,     51        221 of 270,     61        221 of 270,     61
+   pair fit, 50% of pair terms, QAOA depth 1            229 of 270,     57        215 of 270,     69        215 of 270,     69
+   pair fit, 25% of pair terms, QAOA depth 1            228 of 270,     55        221 of 270,     68        221 of 270,     68
+   single-link fit, QAOA depth 2                        226 of 270,     60        217 of 270,     68        217 of 270,     68
+   pair fit, QAOA depth 2                               231 of 270,     57        228 of 270,     63        228 of 270,     63
+   pair fit, 50% of pair terms, QAOA depth 2            234 of 270,     53        226 of 270,     63        226 of 270,     63
+   pair fit, 25% of pair terms, QAOA depth 2            228 of 270,     58        219 of 270,     68        219 of 270,     68
+   pair gates per cost layer, 12 qubits, median over the instances
+   method                                          with the count penalty   without it
+   single-link fit                                                     66            0
+   pair fit                                                            66           66
+   pair fit, 50% of pair terms                                         66           33
+   pair fit, 25% of pair terms                                         66           16
+
+the count penalty puts a pair term on every pair of links, so dropping weak fitted pair terms does not remove pair gates here; the column without it is what a mixer that keeps the count would need for the cost layer, before the gates of that mixer

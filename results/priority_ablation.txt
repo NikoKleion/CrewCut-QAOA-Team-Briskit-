@@ -1,10 +1,10 @@
 command: python -m experiments.priority_ablation
-code: 2374eda (clean)
+code: c981f85 (modified)
 python: 3.13.5
 packages: numpy 2.5.2  scipy 1.18.1  qiskit 2.5.2
 platform: Windows-11-10.0.26200-SP0, AMD64
 threads: 1
-started: 2026-10-11T02:40:13Z
+started: 2026-10-11T04:02:08Z
 seconds: 5
 exit: 0
 
