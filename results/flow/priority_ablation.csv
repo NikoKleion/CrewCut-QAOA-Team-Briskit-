@@ -1,0 +1,703 @@
+experiment,instance,method,budget,seed,value,regret,returned,evaluations,seconds,script
+E10,"random_geometric_12_0, restore 1",weights on,1,0,89.0,0.0,89.0,1,0.0011089000618085265,experiments/priority_ablation.py
+E10,"random_geometric_12_0, restore 1","weights off, best tie",1,0,78.0,0.12359550561797752,78.0,1,0.0005676000146195292,experiments/priority_ablation.py
+E10,"random_geometric_12_0, restore 1","weights off, worst tie",1,0,78.0,0.12359550561797752,78.0,1,0.00048809999134391546,experiments/priority_ablation.py
+E10,"random_geometric_12_0, restore 2",weights on,1,0,92.0,0.0,92.0,1,0.0004972000606358051,experiments/priority_ablation.py
+E10,"random_geometric_12_0, restore 2","weights off, best tie",1,0,92.0,0.0,92.0,1,0.0004183999262750149,experiments/priority_ablation.py
+E10,"random_geometric_12_0, restore 2","weights off, worst tie",1,0,78.0,0.15217391304347827,78.0,1,0.00044970004819333553,experiments/priority_ablation.py
+E10,"random_geometric_12_0, restore 3",weights on,1,0,92.0,0.0,92.0,1,0.00045980000868439674,experiments/priority_ablation.py
+E10,"random_geometric_12_0, restore 3","weights off, best tie",1,0,92.0,0.0,92.0,1,0.00041089998558163643,experiments/priority_ablation.py
+E10,"random_geometric_12_0, restore 3","weights off, worst tie",1,0,78.0,0.15217391304347827,78.0,1,0.00046390003990381956,experiments/priority_ablation.py
+E10,"random_geometric_12_0, restore 4",weights on,1,0,92.0,0.0,92.0,1,0.00045819999650120735,experiments/priority_ablation.py
+E10,"random_geometric_12_0, restore 4","weights off, best tie",1,0,92.0,0.0,92.0,1,0.0004290000069886446,experiments/priority_ablation.py
+E10,"random_geometric_12_0, restore 4","weights off, worst tie",1,0,78.0,0.15217391304347827,78.0,1,0.00041019998025149107,experiments/priority_ablation.py
+E10,"random_geometric_12_0, restore 5",weights on,1,0,92.0,0.0,92.0,1,0.00037530006375163794,experiments/priority_ablation.py
+E10,"random_geometric_12_0, restore 5","weights off, best tie",1,0,92.0,0.0,92.0,1,0.0005026999861001968,experiments/priority_ablation.py
+E10,"random_geometric_12_0, restore 5","weights off, worst tie",1,0,78.0,0.15217391304347827,78.0,1,0.0005020999815315008,experiments/priority_ablation.py
+E10,"random_geometric_12_0, restore 6",weights on,1,0,92.0,0.0,92.0,1,0.00039840000681579113,experiments/priority_ablation.py
+E10,"random_geometric_12_0, restore 6","weights off, best tie",1,0,92.0,0.0,92.0,1,0.00044050009455531836,experiments/priority_ablation.py
+E10,"random_geometric_12_0, restore 6","weights off, worst tie",1,0,78.0,0.15217391304347827,78.0,1,0.00037329993210732937,experiments/priority_ablation.py
+E10,"random_geometric_12_0, restore 7",weights on,1,0,92.0,0.0,92.0,1,0.000495100044645369,experiments/priority_ablation.py
+E10,"random_geometric_12_0, restore 7","weights off, best tie",1,0,92.0,0.0,92.0,1,0.00044380000326782465,experiments/priority_ablation.py
+E10,"random_geometric_12_0, restore 7","weights off, worst tie",1,0,78.0,0.15217391304347827,78.0,1,0.00047309999354183674,experiments/priority_ablation.py
+E10,"random_geometric_12_0, restore 8",weights on,1,0,92.0,0.0,92.0,1,0.0007068999111652374,experiments/priority_ablation.py
+E10,"random_geometric_12_0, restore 8","weights off, best tie",1,0,92.0,0.0,92.0,1,0.00045219995081424713,experiments/priority_ablation.py
+E10,"random_geometric_12_0, restore 8","weights off, worst tie",1,0,78.0,0.15217391304347827,78.0,1,0.00025180005468428135,experiments/priority_ablation.py
+E10,"random_geometric_12_0, restore 9",weights on,1,0,92.0,0.0,92.0,1,0.00020540005061775446,experiments/priority_ablation.py
+E10,"random_geometric_12_0, restore 9","weights off, best tie",1,0,92.0,0.0,92.0,1,0.00016009993851184845,experiments/priority_ablation.py
+E10,"random_geometric_12_0, restore 9","weights off, worst tie",1,0,78.0,0.15217391304347827,78.0,1,0.00013940001372247934,experiments/priority_ablation.py
+E10,"random_geometric_12_0, restore 10",weights on,1,0,92.0,0.0,92.0,1,0.0006763000274077058,experiments/priority_ablation.py
+E10,"random_geometric_12_0, restore 10","weights off, best tie",1,0,92.0,0.0,92.0,1,0.0003681998932734132,experiments/priority_ablation.py
+E10,"random_geometric_12_0, restore 10","weights off, worst tie",1,0,78.0,0.15217391304347827,78.0,1,0.00045219995081424713,experiments/priority_ablation.py
+E10,"random_geometric_12_0, restore 11",weights on,1,0,92.0,0.0,92.0,1,0.0005513000069186091,experiments/priority_ablation.py
+E10,"random_geometric_12_0, restore 11","weights off, best tie",1,0,92.0,0.0,92.0,1,0.0004962999373674393,experiments/priority_ablation.py
+E10,"random_geometric_12_0, restore 11","weights off, worst tie",1,0,92.0,0.0,92.0,1,0.00024729990400373936,experiments/priority_ablation.py
+E10,"random_geometric_12_1, restore 1",weights on,1,1,48.0,0.0,48.0,1,0.00042910000775009394,experiments/priority_ablation.py
+E10,"random_geometric_12_1, restore 1","weights off, best tie",1,1,48.0,0.0,48.0,1,0.0003532000118866563,experiments/priority_ablation.py
+E10,"random_geometric_12_1, restore 1","weights off, worst tie",1,1,48.0,0.0,48.0,1,0.00035660003777593374,experiments/priority_ablation.py
+E10,"random_geometric_12_1, restore 2",weights on,1,1,71.0,0.0,71.0,1,0.0004107999848201871,experiments/priority_ablation.py
+E10,"random_geometric_12_1, restore 2","weights off, best tie",1,1,71.0,0.0,71.0,1,0.0003394000232219696,experiments/priority_ablation.py
+E10,"random_geometric_12_1, restore 2","weights off, worst tie",1,1,71.0,0.0,71.0,1,0.0003290999447926879,experiments/priority_ablation.py
+E10,"random_geometric_12_1, restore 3",weights on,1,1,71.0,0.0,71.0,1,0.00040659995283931494,experiments/priority_ablation.py
+E10,"random_geometric_12_1, restore 3","weights off, best tie",1,1,71.0,0.0,71.0,1,0.00034989998675882816,experiments/priority_ablation.py
+E10,"random_geometric_12_1, restore 3","weights off, worst tie",1,1,71.0,0.0,71.0,1,0.0003358999965712428,experiments/priority_ablation.py
+E10,"random_geometric_12_1, restore 4",weights on,1,1,87.0,0.0,87.0,1,0.0003272999310865998,experiments/priority_ablation.py
+E10,"random_geometric_12_1, restore 4","weights off, best tie",1,1,87.0,0.0,87.0,1,0.00032750004902482033,experiments/priority_ablation.py
+E10,"random_geometric_12_1, restore 4","weights off, worst tie",1,1,87.0,0.0,87.0,1,0.0003429000498726964,experiments/priority_ablation.py
+E10,"random_geometric_12_1, restore 5",weights on,1,1,87.0,0.0,87.0,1,0.0003860999131575227,experiments/priority_ablation.py
+E10,"random_geometric_12_1, restore 5","weights off, best tie",1,1,87.0,0.0,87.0,1,0.00030800001695752144,experiments/priority_ablation.py
+E10,"random_geometric_12_1, restore 5","weights off, worst tie",1,1,87.0,0.0,87.0,1,0.0003274999326094985,experiments/priority_ablation.py
+E10,"random_geometric_12_1, restore 6",weights on,1,1,87.0,0.0,87.0,1,0.00041859992779791355,experiments/priority_ablation.py
+E10,"random_geometric_12_1, restore 6","weights off, best tie",1,1,87.0,0.0,87.0,1,0.00037129991687834263,experiments/priority_ablation.py
+E10,"random_geometric_12_1, restore 6","weights off, worst tie",1,1,87.0,0.0,87.0,1,0.0004243999719619751,experiments/priority_ablation.py
+E10,"random_geometric_12_1, restore 7",weights on,1,1,87.0,0.0,87.0,1,0.0003712000325322151,experiments/priority_ablation.py
+E10,"random_geometric_12_1, restore 7","weights off, best tie",1,1,87.0,0.0,87.0,1,0.00039790000300854445,experiments/priority_ablation.py
+E10,"random_geometric_12_1, restore 7","weights off, worst tie",1,1,87.0,0.0,87.0,1,0.000367300002835691,experiments/priority_ablation.py
+E10,"random_geometric_12_1, restore 8",weights on,1,1,87.0,0.0,87.0,1,0.00038620003033429384,experiments/priority_ablation.py
+E10,"random_geometric_12_1, restore 8","weights off, best tie",1,1,87.0,0.0,87.0,1,0.0004284000024199486,experiments/priority_ablation.py
+E10,"random_geometric_12_1, restore 8","weights off, worst tie",1,1,87.0,0.0,87.0,1,0.00035880005452781916,experiments/priority_ablation.py
+E10,"random_geometric_12_1, restore 9",weights on,1,1,87.0,0.0,87.0,1,0.0004051999421790242,experiments/priority_ablation.py
+E10,"random_geometric_12_1, restore 9","weights off, best tie",1,1,87.0,0.0,87.0,1,0.00019339995924383402,experiments/priority_ablation.py
+E10,"random_geometric_12_1, restore 9","weights off, worst tie",1,1,87.0,0.0,87.0,1,0.00016240007244050503,experiments/priority_ablation.py
+E10,"random_geometric_12_1, restore 10",weights on,1,1,87.0,0.0,87.0,1,0.00017090002074837685,experiments/priority_ablation.py
+E10,"random_geometric_12_1, restore 10","weights off, best tie",1,1,87.0,0.0,87.0,1,0.00015269999857991934,experiments/priority_ablation.py
+E10,"random_geometric_12_1, restore 10","weights off, worst tie",1,1,87.0,0.0,87.0,1,0.00015320000238716602,experiments/priority_ablation.py
+E10,"random_geometric_12_1, restore 11",weights on,1,1,87.0,0.0,87.0,1,0.00017120002303272486,experiments/priority_ablation.py
+E10,"random_geometric_12_1, restore 11","weights off, best tie",1,1,87.0,0.0,87.0,1,0.0001517999917268753,experiments/priority_ablation.py
+E10,"random_geometric_12_1, restore 11","weights off, worst tie",1,1,87.0,0.0,87.0,1,0.00014919997192919254,experiments/priority_ablation.py
+E10,"random_geometric_12_2, restore 1",weights on,1,2,51.0,0.0,51.0,1,0.0002367999404668808,experiments/priority_ablation.py
+E10,"random_geometric_12_2, restore 1","weights off, best tie",1,2,51.0,0.0,51.0,1,0.0001647999742999673,experiments/priority_ablation.py
+E10,"random_geometric_12_2, restore 1","weights off, worst tie",1,2,51.0,0.0,51.0,1,0.00015089998487383127,experiments/priority_ablation.py
+E10,"random_geometric_12_2, restore 2",weights on,1,2,51.0,0.0,51.0,1,0.0004123999970033765,experiments/priority_ablation.py
+E10,"random_geometric_12_2, restore 2","weights off, best tie",1,2,51.0,0.0,51.0,1,0.00041999993845820427,experiments/priority_ablation.py
+E10,"random_geometric_12_2, restore 2","weights off, worst tie",1,2,51.0,0.0,51.0,1,0.0003467000788077712,experiments/priority_ablation.py
+E10,"random_geometric_12_2, restore 3",weights on,1,2,79.0,0.0,79.0,1,0.00017680006567388773,experiments/priority_ablation.py
+E10,"random_geometric_12_2, restore 3","weights off, best tie",1,2,79.0,0.0,79.0,1,0.00013840000610798597,experiments/priority_ablation.py
+E10,"random_geometric_12_2, restore 3","weights off, worst tie",1,2,79.0,0.0,79.0,1,0.0001330999657511711,experiments/priority_ablation.py
+E10,"random_geometric_12_2, restore 4",weights on,1,2,83.0,0.0,83.0,1,0.0001447000540792942,experiments/priority_ablation.py
+E10,"random_geometric_12_2, restore 4","weights off, best tie",1,2,83.0,0.0,83.0,1,0.00013810000382363796,experiments/priority_ablation.py
+E10,"random_geometric_12_2, restore 4","weights off, worst tie",1,2,83.0,0.0,83.0,1,0.00014680007006973028,experiments/priority_ablation.py
+E10,"random_geometric_12_2, restore 5",weights on,1,2,83.0,0.0,83.0,1,0.0001623000716790557,experiments/priority_ablation.py
+E10,"random_geometric_12_2, restore 5","weights off, best tie",1,2,83.0,0.0,83.0,1,0.00014080002438277006,experiments/priority_ablation.py
+E10,"random_geometric_12_2, restore 5","weights off, worst tie",1,2,83.0,0.0,83.0,1,0.0001335999695584178,experiments/priority_ablation.py
+E10,"random_geometric_12_2, restore 6",weights on,1,2,83.0,0.0,83.0,1,0.00014139991253614426,experiments/priority_ablation.py
+E10,"random_geometric_12_2, restore 6","weights off, best tie",1,2,83.0,0.0,83.0,1,0.00012949993833899498,experiments/priority_ablation.py
+E10,"random_geometric_12_2, restore 6","weights off, worst tie",1,2,83.0,0.0,83.0,1,0.00012630003038793802,experiments/priority_ablation.py
+E10,"random_geometric_12_2, restore 7",weights on,1,2,83.0,0.0,83.0,1,0.00015929993242025375,experiments/priority_ablation.py
+E10,"random_geometric_12_2, restore 7","weights off, best tie",1,2,83.0,0.0,83.0,1,0.00013539998326450586,experiments/priority_ablation.py
+E10,"random_geometric_12_2, restore 7","weights off, worst tie",1,2,83.0,0.0,83.0,1,0.00013019994366914034,experiments/priority_ablation.py
+E10,"random_geometric_12_2, restore 8",weights on,1,2,83.0,0.0,83.0,1,0.00014560006093233824,experiments/priority_ablation.py
+E10,"random_geometric_12_2, restore 8","weights off, best tie",1,2,83.0,0.0,83.0,1,0.00012889993377029896,experiments/priority_ablation.py
+E10,"random_geometric_12_2, restore 8","weights off, worst tie",1,2,83.0,0.0,83.0,1,0.00012619991321116686,experiments/priority_ablation.py
+E10,"random_geometric_12_2, restore 9",weights on,1,2,83.0,0.0,83.0,1,0.00015730003360658884,experiments/priority_ablation.py
+E10,"random_geometric_12_2, restore 9","weights off, best tie",1,2,83.0,0.0,83.0,1,0.00015570002142339945,experiments/priority_ablation.py
+E10,"random_geometric_12_2, restore 9","weights off, worst tie",1,2,83.0,0.0,83.0,1,0.00013139995280653238,experiments/priority_ablation.py
+E10,"random_geometric_12_2, restore 10",weights on,1,2,83.0,0.0,83.0,1,0.00012860004790127277,experiments/priority_ablation.py
+E10,"random_geometric_12_2, restore 10","weights off, best tie",1,2,83.0,0.0,83.0,1,0.00012250000145286322,experiments/priority_ablation.py
+E10,"random_geometric_12_2, restore 10","weights off, worst tie",1,2,83.0,0.0,83.0,1,0.00011830008588731289,experiments/priority_ablation.py
+E10,"random_geometric_12_2, restore 11",weights on,1,2,83.0,0.0,83.0,1,0.0001273000380024314,experiments/priority_ablation.py
+E10,"random_geometric_12_2, restore 11","weights off, best tie",1,2,83.0,0.0,83.0,1,0.00011979998089373112,experiments/priority_ablation.py
+E10,"random_geometric_12_2, restore 11","weights off, worst tie",1,2,83.0,0.0,83.0,1,0.0001186000881716609,experiments/priority_ablation.py
+E10,"ring_with_chords_12_0, restore 1",weights on,1,0,20.0,0.0,20.0,1,0.0003459000727161765,experiments/priority_ablation.py
+E10,"ring_with_chords_12_0, restore 1","weights off, best tie",1,0,20.0,0.0,20.0,1,0.00024039996787905693,experiments/priority_ablation.py
+E10,"ring_with_chords_12_0, restore 1","weights off, worst tie",1,0,20.0,0.0,20.0,1,0.00019480008631944656,experiments/priority_ablation.py
+E10,"ring_with_chords_12_0, restore 2",weights on,1,0,20.0,0.0,20.0,1,0.0002063000574707985,experiments/priority_ablation.py
+E10,"ring_with_chords_12_0, restore 2","weights off, best tie",1,0,16.0,0.2,16.0,1,0.00018560001626610756,experiments/priority_ablation.py
+E10,"ring_with_chords_12_0, restore 2","weights off, worst tie",1,0,16.0,0.2,16.0,1,0.0001829999964684248,experiments/priority_ablation.py
+E10,"ring_with_chords_12_0, restore 3",weights on,1,0,36.0,0.0,36.0,1,0.00018910004291683435,experiments/priority_ablation.py
+E10,"ring_with_chords_12_0, restore 3","weights off, best tie",1,0,36.0,0.0,36.0,1,0.00017630006186664104,experiments/priority_ablation.py
+E10,"ring_with_chords_12_0, restore 3","weights off, worst tie",1,0,36.0,0.0,36.0,1,0.00018550001550465822,experiments/priority_ablation.py
+E10,"ring_with_chords_12_0, restore 4",weights on,1,0,42.0,0.0,42.0,1,0.00018919992726296186,experiments/priority_ablation.py
+E10,"ring_with_chords_12_0, restore 4","weights off, best tie",1,0,32.0,0.23809523809523808,32.0,1,0.00017580005805939436,experiments/priority_ablation.py
+E10,"ring_with_chords_12_0, restore 4","weights off, worst tie",1,0,32.0,0.23809523809523808,32.0,1,0.00017539993859827518,experiments/priority_ablation.py
+E10,"ring_with_chords_12_0, restore 5",weights on,1,0,52.0,0.0,52.0,1,0.00020570005290210247,experiments/priority_ablation.py
+E10,"ring_with_chords_12_0, restore 5","weights off, best tie",1,0,52.0,0.0,52.0,1,0.0001879000337794423,experiments/priority_ablation.py
+E10,"ring_with_chords_12_0, restore 5","weights off, worst tie",1,0,52.0,0.0,52.0,1,0.00020999996922910213,experiments/priority_ablation.py
+E10,"ring_with_chords_12_0, restore 6",weights on,1,0,58.0,0.0,58.0,1,0.00019289995543658733,experiments/priority_ablation.py
+E10,"ring_with_chords_12_0, restore 6","weights off, best tie",1,0,52.0,0.10344827586206896,52.0,1,0.00018590001855045557,experiments/priority_ablation.py
+E10,"ring_with_chords_12_0, restore 6","weights off, worst tie",1,0,37.0,0.3620689655172414,37.0,1,0.0001860000193119049,experiments/priority_ablation.py
+E10,"ring_with_chords_12_0, restore 7",weights on,1,0,58.0,0.0,58.0,1,0.00018590001855045557,experiments/priority_ablation.py
+E10,"ring_with_chords_12_0, restore 7","weights off, best tie",1,0,55.0,0.05172413793103448,55.0,1,0.0001865000231191516,experiments/priority_ablation.py
+E10,"ring_with_chords_12_0, restore 7","weights off, worst tie",1,0,55.0,0.05172413793103448,55.0,1,0.000188400037586689,experiments/priority_ablation.py
+E10,"ring_with_chords_12_0, restore 8",weights on,1,0,74.0,0.0,74.0,1,0.00020700006280094385,experiments/priority_ablation.py
+E10,"ring_with_chords_12_0, restore 8","weights off, best tie",1,0,74.0,0.0,74.0,1,0.0001976999919861555,experiments/priority_ablation.py
+E10,"ring_with_chords_12_0, restore 8","weights off, worst tie",1,0,74.0,0.0,74.0,1,0.00019170006271451712,experiments/priority_ablation.py
+E10,"ring_with_chords_12_0, restore 9",weights on,1,0,74.0,0.0,74.0,1,0.00022899999748915434,experiments/priority_ablation.py
+E10,"ring_with_chords_12_0, restore 9","weights off, best tie",1,0,74.0,0.0,74.0,1,0.00020839995704591274,experiments/priority_ablation.py
+E10,"ring_with_chords_12_0, restore 9","weights off, worst tie",1,0,74.0,0.0,74.0,1,0.00041420001070946455,experiments/priority_ablation.py
+E10,"ring_with_chords_12_0, restore 10",weights on,1,0,78.0,0.0,78.0,1,0.00021850003395229578,experiments/priority_ablation.py
+E10,"ring_with_chords_12_0, restore 10","weights off, best tie",1,0,78.0,0.0,78.0,1,0.00020180002320557833,experiments/priority_ablation.py
+E10,"ring_with_chords_12_0, restore 10","weights off, worst tie",1,0,76.0,0.02564102564102564,76.0,1,0.00019880000036209822,experiments/priority_ablation.py
+E10,"ring_with_chords_12_0, restore 11",weights on,1,0,90.0,0.0,90.0,1,0.0002183000324293971,experiments/priority_ablation.py
+E10,"ring_with_chords_12_0, restore 11","weights off, best tie",1,0,90.0,0.0,90.0,1,0.0001925000688061118,experiments/priority_ablation.py
+E10,"ring_with_chords_12_0, restore 11","weights off, worst tie",1,0,77.0,0.14444444444444443,77.0,1,0.0001943999668583274,experiments/priority_ablation.py
+E10,"ring_with_chords_12_1, restore 1",weights on,1,1,38.0,0.0,38.0,1,0.0004803999327123165,experiments/priority_ablation.py
+E10,"ring_with_chords_12_1, restore 1","weights off, best tie",1,1,38.0,0.0,38.0,1,0.00035710004158318043,experiments/priority_ablation.py
+E10,"ring_with_chords_12_1, restore 1","weights off, worst tie",1,1,38.0,0.0,38.0,1,0.00034740008413791656,experiments/priority_ablation.py
+E10,"ring_with_chords_12_1, restore 2",weights on,1,1,44.0,0.0,44.0,1,0.00042290007695555687,experiments/priority_ablation.py
+E10,"ring_with_chords_12_1, restore 2","weights off, best tie",1,1,44.0,0.0,44.0,1,0.00035500002559274435,experiments/priority_ablation.py
+E10,"ring_with_chords_12_1, restore 2","weights off, worst tie",1,1,44.0,0.0,44.0,1,0.0003355999942868948,experiments/priority_ablation.py
+E10,"ring_with_chords_12_1, restore 3",weights on,1,1,54.0,0.0,54.0,1,0.00040140002965927124,experiments/priority_ablation.py
+E10,"ring_with_chords_12_1, restore 3","weights off, best tie",1,1,48.0,0.1111111111111111,48.0,1,0.00037240004166960716,experiments/priority_ablation.py
+E10,"ring_with_chords_12_1, restore 3","weights off, worst tie",1,1,48.0,0.1111111111111111,48.0,1,0.0003396000247448683,experiments/priority_ablation.py
+E10,"ring_with_chords_12_1, restore 4",weights on,1,1,58.0,0.0,58.0,1,0.00034870009403675795,experiments/priority_ablation.py
+E10,"ring_with_chords_12_1, restore 4","weights off, best tie",1,1,58.0,0.0,58.0,1,0.0003790999762713909,experiments/priority_ablation.py
+E10,"ring_with_chords_12_1, restore 4","weights off, worst tie",1,1,48.0,0.1724137931034483,48.0,1,0.00034469994716346264,experiments/priority_ablation.py
+E10,"ring_with_chords_12_1, restore 5",weights on,1,1,66.0,0.0,66.0,1,0.0005012999754399061,experiments/priority_ablation.py
+E10,"ring_with_chords_12_1, restore 5","weights off, best tie",1,1,62.0,0.06060606060606061,62.0,1,0.0006354999495670199,experiments/priority_ablation.py
+E10,"ring_with_chords_12_1, restore 5","weights off, worst tie",1,1,52.0,0.21212121212121213,52.0,1,0.00030260009225457907,experiments/priority_ablation.py
+E10,"ring_with_chords_12_1, restore 6",weights on,1,1,70.0,0.0,70.0,1,0.00024640001356601715,experiments/priority_ablation.py
+E10,"ring_with_chords_12_1, restore 6","weights off, best tie",1,1,68.0,0.02857142857142857,68.0,1,0.00036310008727014065,experiments/priority_ablation.py
+E10,"ring_with_chords_12_1, restore 6","weights off, worst tie",1,1,68.0,0.02857142857142857,68.0,1,0.0003494999837130308,experiments/priority_ablation.py
+E10,"ring_with_chords_12_1, restore 7",weights on,1,1,76.0,0.0,76.0,1,0.0004248999757692218,experiments/priority_ablation.py
+E10,"ring_with_chords_12_1, restore 7","weights off, best tie",1,1,72.0,0.05263157894736842,72.0,1,0.00039109995122998953,experiments/priority_ablation.py
+E10,"ring_with_chords_12_1, restore 7","weights off, worst tie",1,1,72.0,0.05263157894736842,72.0,1,0.0004099999787285924,experiments/priority_ablation.py
+E10,"ring_with_chords_12_1, restore 8",weights on,1,1,80.0,0.0,80.0,1,0.0003828000044450164,experiments/priority_ablation.py
+E10,"ring_with_chords_12_1, restore 8","weights off, best tie",1,1,76.0,0.05,76.0,1,0.0003493999829515815,experiments/priority_ablation.py
+E10,"ring_with_chords_12_1, restore 8","weights off, worst tie",1,1,76.0,0.05,76.0,1,0.0003548000240698457,experiments/priority_ablation.py
+E10,"ring_with_chords_12_1, restore 9",weights on,1,1,82.0,0.0,82.0,1,0.0005492999916896224,experiments/priority_ablation.py
+E10,"ring_with_chords_12_1, restore 9","weights off, best tie",1,1,82.0,0.0,82.0,1,0.0004998000804334879,experiments/priority_ablation.py
+E10,"ring_with_chords_12_1, restore 9","weights off, worst tie",1,1,76.0,0.07317073170731707,76.0,1,0.0003801999846473336,experiments/priority_ablation.py
+E10,"ring_with_chords_12_1, restore 10",weights on,1,1,86.0,0.0,86.0,1,0.0004972999449819326,experiments/priority_ablation.py
+E10,"ring_with_chords_12_1, restore 10","weights off, best tie",1,1,86.0,0.0,86.0,1,0.00041820004116743803,experiments/priority_ablation.py
+E10,"ring_with_chords_12_1, restore 10","weights off, worst tie",1,1,86.0,0.0,86.0,1,0.00038109999150037766,experiments/priority_ablation.py
+E10,"ring_with_chords_12_1, restore 11",weights on,1,1,88.0,0.0,88.0,1,0.0007054000161588192,experiments/priority_ablation.py
+E10,"ring_with_chords_12_1, restore 11","weights off, best tie",1,1,88.0,0.0,88.0,1,0.0004786999197676778,experiments/priority_ablation.py
+E10,"ring_with_chords_12_1, restore 11","weights off, worst tie",1,1,86.0,0.022727272727272728,86.0,1,0.000355200027115643,experiments/priority_ablation.py
+E10,"ring_with_chords_12_2, restore 1",weights on,1,2,11.0,0.0,11.0,1,0.00024259998463094234,experiments/priority_ablation.py
+E10,"ring_with_chords_12_2, restore 1","weights off, best tie",1,2,11.0,0.0,11.0,1,0.00016659998800605536,experiments/priority_ablation.py
+E10,"ring_with_chords_12_2, restore 1","weights off, worst tie",1,2,11.0,0.0,11.0,1,0.00019029993563890457,experiments/priority_ablation.py
+E10,"ring_with_chords_12_2, restore 2",weights on,1,2,20.0,0.0,20.0,1,0.0002796000335365534,experiments/priority_ablation.py
+E10,"ring_with_chords_12_2, restore 2","weights off, best tie",1,2,20.0,0.0,20.0,1,0.0001650999765843153,experiments/priority_ablation.py
+E10,"ring_with_chords_12_2, restore 2","weights off, worst tie",1,2,11.0,0.45,11.0,1,0.00014800007920712233,experiments/priority_ablation.py
+E10,"ring_with_chords_12_2, restore 3",weights on,1,2,24.0,0.0,24.0,1,0.00016769999638199806,experiments/priority_ablation.py
+E10,"ring_with_chords_12_2, restore 3","weights off, best tie",1,2,24.0,0.0,24.0,1,0.00014680007006973028,experiments/priority_ablation.py
+E10,"ring_with_chords_12_2, restore 3","weights off, worst tie",1,2,24.0,0.0,24.0,1,0.00014160003047436476,experiments/priority_ablation.py
+E10,"ring_with_chords_12_2, restore 4",weights on,1,2,28.0,0.0,28.0,1,0.00020869995933026075,experiments/priority_ablation.py
+E10,"ring_with_chords_12_2, restore 4","weights off, best tie",1,2,28.0,0.0,28.0,1,0.00020350003615021706,experiments/priority_ablation.py
+E10,"ring_with_chords_12_2, restore 4","weights off, worst tie",1,2,27.0,0.03571428571428571,27.0,1,0.00017830007709562778,experiments/priority_ablation.py
+E10,"ring_with_chords_12_2, restore 5",weights on,1,2,36.0,0.0,36.0,1,0.00021009996999055147,experiments/priority_ablation.py
+E10,"ring_with_chords_12_2, restore 5","weights off, best tie",1,2,32.0,0.1111111111111111,32.0,1,0.00015570002142339945,experiments/priority_ablation.py
+E10,"ring_with_chords_12_2, restore 5","weights off, worst tie",1,2,32.0,0.1111111111111111,32.0,1,0.00014319992624223232,experiments/priority_ablation.py
+E10,"ring_with_chords_12_2, restore 6",weights on,1,2,42.0,0.0,42.0,1,0.00016719999257475138,experiments/priority_ablation.py
+E10,"ring_with_chords_12_2, restore 6","weights off, best tie",1,2,42.0,0.0,42.0,1,0.00015020009595900774,experiments/priority_ablation.py
+E10,"ring_with_chords_12_2, restore 6","weights off, worst tie",1,2,32.0,0.23809523809523808,32.0,1,0.00015630002599209547,experiments/priority_ablation.py
+E10,"ring_with_chords_12_2, restore 7",weights on,1,2,42.0,0.0,42.0,1,0.00018289999570697546,experiments/priority_ablation.py
+E10,"ring_with_chords_12_2, restore 7","weights off, best tie",1,2,32.0,0.23809523809523808,32.0,1,0.00016020005568861961,experiments/priority_ablation.py
+E10,"ring_with_chords_12_2, restore 7","weights off, worst tie",1,2,32.0,0.23809523809523808,32.0,1,0.00014969997573643923,experiments/priority_ablation.py
+E10,"ring_with_chords_12_2, restore 8",weights on,1,2,44.0,0.0,44.0,1,0.00017369992565363646,experiments/priority_ablation.py
+E10,"ring_with_chords_12_2, restore 8","weights off, best tie",1,2,44.0,0.0,44.0,1,0.00018199998885393143,experiments/priority_ablation.py
+E10,"ring_with_chords_12_2, restore 8","weights off, worst tie",1,2,44.0,0.0,44.0,1,0.00015169999096542597,experiments/priority_ablation.py
+E10,"ring_with_chords_12_2, restore 9",weights on,1,2,44.0,0.0,44.0,1,0.00017180002760142088,experiments/priority_ablation.py
+E10,"ring_with_chords_12_2, restore 9","weights off, best tie",1,2,44.0,0.0,44.0,1,0.00014629994984716177,experiments/priority_ablation.py
+E10,"ring_with_chords_12_2, restore 9","weights off, worst tie",1,2,44.0,0.0,44.0,1,0.00014400004874914885,experiments/priority_ablation.py
+E10,"ring_with_chords_12_2, restore 10",weights on,1,2,44.0,0.0,44.0,1,0.00018820003606379032,experiments/priority_ablation.py
+E10,"ring_with_chords_12_2, restore 10","weights off, best tie",1,2,44.0,0.0,44.0,1,0.00017660006415098906,experiments/priority_ablation.py
+E10,"ring_with_chords_12_2, restore 10","weights off, worst tie",1,2,43.0,0.022727272727272728,43.0,1,0.00015819992404431105,experiments/priority_ablation.py
+E10,"ring_with_chords_12_2, restore 11",weights on,1,2,44.0,0.0,44.0,1,0.00016799999866634607,experiments/priority_ablation.py
+E10,"ring_with_chords_12_2, restore 11","weights off, best tie",1,2,44.0,0.0,44.0,1,0.00015259999781847,experiments/priority_ablation.py
+E10,"ring_with_chords_12_2, restore 11","weights off, worst tie",1,2,43.0,0.022727272727272728,43.0,1,0.00015089998487383127,experiments/priority_ablation.py
+E10,"hub_and_spoke_12_0, restore 1",weights on,1,0,51.0,0.0,51.0,1,0.000569600029848516,experiments/priority_ablation.py
+E10,"hub_and_spoke_12_0, restore 1","weights off, best tie",1,0,51.0,0.0,51.0,1,0.0004330999217927456,experiments/priority_ablation.py
+E10,"hub_and_spoke_12_0, restore 1","weights off, worst tie",1,0,50.0,0.0196078431372549,50.0,1,0.00035830005072057247,experiments/priority_ablation.py
+E10,"hub_and_spoke_12_0, restore 2",weights on,1,0,71.0,0.0,71.0,1,0.0004156999057158828,experiments/priority_ablation.py
+E10,"hub_and_spoke_12_0, restore 2","weights off, best tie",1,0,71.0,0.0,71.0,1,0.0003554999129846692,experiments/priority_ablation.py
+E10,"hub_and_spoke_12_0, restore 2","weights off, worst tie",1,0,70.0,0.014084507042253521,70.0,1,0.00036479998379945755,experiments/priority_ablation.py
+E10,"hub_and_spoke_12_0, restore 3",weights on,1,0,71.0,0.0,71.0,1,0.00037459994200617075,experiments/priority_ablation.py
+E10,"hub_and_spoke_12_0, restore 3","weights off, best tie",1,0,71.0,0.0,71.0,1,0.00032899994403123856,experiments/priority_ablation.py
+E10,"hub_and_spoke_12_0, restore 3","weights off, worst tie",1,0,70.0,0.014084507042253521,70.0,1,0.0003261000383645296,experiments/priority_ablation.py
+E10,"hub_and_spoke_12_0, restore 4",weights on,1,0,71.0,0.0,71.0,1,0.0003618999617174268,experiments/priority_ablation.py
+E10,"hub_and_spoke_12_0, restore 4","weights off, best tie",1,0,71.0,0.0,71.0,1,0.0003554000286385417,experiments/priority_ablation.py
+E10,"hub_and_spoke_12_0, restore 4","weights off, worst tie",1,0,70.0,0.014084507042253521,70.0,1,0.0003733000485226512,experiments/priority_ablation.py
+E10,"hub_and_spoke_12_0, restore 5",weights on,1,0,71.0,0.0,71.0,1,0.00034689996391534805,experiments/priority_ablation.py
+E10,"hub_and_spoke_12_0, restore 5","weights off, best tie",1,0,71.0,0.0,71.0,1,0.00044350000098347664,experiments/priority_ablation.py
+E10,"hub_and_spoke_12_0, restore 5","weights off, worst tie",1,0,70.0,0.014084507042253521,70.0,1,0.00034689996391534805,experiments/priority_ablation.py
+E10,"hub_and_spoke_12_0, restore 6",weights on,1,0,71.0,0.0,71.0,1,0.0003826000029221177,experiments/priority_ablation.py
+E10,"hub_and_spoke_12_0, restore 6","weights off, best tie",1,0,71.0,0.0,71.0,1,0.0003201999934390187,experiments/priority_ablation.py
+E10,"hub_and_spoke_12_0, restore 6","weights off, worst tie",1,0,70.0,0.014084507042253521,70.0,1,0.00035850005224347115,experiments/priority_ablation.py
+E10,"hub_and_spoke_12_0, restore 7",weights on,1,0,71.0,0.0,71.0,1,0.00034309993498027325,experiments/priority_ablation.py
+E10,"hub_and_spoke_12_0, restore 7","weights off, best tie",1,0,71.0,0.0,71.0,1,0.0003114999271929264,experiments/priority_ablation.py
+E10,"hub_and_spoke_12_0, restore 7","weights off, worst tie",1,0,70.0,0.014084507042253521,70.0,1,0.00030860002152621746,experiments/priority_ablation.py
+E10,"hub_and_spoke_12_0, restore 8",weights on,1,0,71.0,0.0,71.0,1,0.0003530000103637576,experiments/priority_ablation.py
+E10,"hub_and_spoke_12_0, restore 8","weights off, best tie",1,0,71.0,0.0,71.0,1,0.0003299000672996044,experiments/priority_ablation.py
+E10,"hub_and_spoke_12_0, restore 8","weights off, worst tie",1,0,71.0,0.0,71.0,1,0.00030869990587234497,experiments/priority_ablation.py
+E10,"hub_and_spoke_12_0, restore 9",weights on,1,0,71.0,0.0,71.0,1,0.00035660003777593374,experiments/priority_ablation.py
+E10,"hub_and_spoke_12_0, restore 9","weights off, best tie",1,0,71.0,0.0,71.0,1,0.00031299993861466646,experiments/priority_ablation.py
+E10,"hub_and_spoke_12_0, restore 9","weights off, worst tie",1,0,71.0,0.0,71.0,1,0.0003236000193282962,experiments/priority_ablation.py
+E10,"hub_and_spoke_12_0, restore 10",weights on,1,0,71.0,0.0,71.0,1,0.00036419997923076153,experiments/priority_ablation.py
+E10,"hub_and_spoke_12_0, restore 10","weights off, best tie",1,0,71.0,0.0,71.0,1,0.00031430006492882967,experiments/priority_ablation.py
+E10,"hub_and_spoke_12_0, restore 10","weights off, worst tie",1,0,71.0,0.0,71.0,1,0.0003071000101044774,experiments/priority_ablation.py
+E10,"hub_and_spoke_12_0, restore 11",weights on,1,0,71.0,0.0,71.0,1,0.0003250000299885869,experiments/priority_ablation.py
+E10,"hub_and_spoke_12_0, restore 11","weights off, best tie",1,0,71.0,0.0,71.0,1,0.00033459998667240143,experiments/priority_ablation.py
+E10,"hub_and_spoke_12_0, restore 11","weights off, worst tie",1,0,71.0,0.0,71.0,1,0.0003079000161960721,experiments/priority_ablation.py
+E10,"hub_and_spoke_12_1, restore 1",weights on,1,1,74.0,0.0,74.0,1,0.0006793999345973134,experiments/priority_ablation.py
+E10,"hub_and_spoke_12_1, restore 1","weights off, best tie",1,1,74.0,0.0,74.0,1,0.0004314000252634287,experiments/priority_ablation.py
+E10,"hub_and_spoke_12_1, restore 1","weights off, worst tie",1,1,74.0,0.0,74.0,1,0.0004040999338030815,experiments/priority_ablation.py
+E10,"hub_and_spoke_12_1, restore 2",weights on,1,1,86.0,0.0,86.0,1,0.0005272000562399626,experiments/priority_ablation.py
+E10,"hub_and_spoke_12_1, restore 2","weights off, best tie",1,1,86.0,0.0,86.0,1,0.0006173999281600118,experiments/priority_ablation.py
+E10,"hub_and_spoke_12_1, restore 2","weights off, worst tie",1,1,86.0,0.0,86.0,1,0.0007072999142110348,experiments/priority_ablation.py
+E10,"hub_and_spoke_12_1, restore 3",weights on,1,1,87.0,0.0,87.0,1,0.0003779999678954482,experiments/priority_ablation.py
+E10,"hub_and_spoke_12_1, restore 3","weights off, best tie",1,1,87.0,0.0,87.0,1,0.00036609999369829893,experiments/priority_ablation.py
+E10,"hub_and_spoke_12_1, restore 3","weights off, worst tie",1,1,87.0,0.0,87.0,1,0.0003842000151053071,experiments/priority_ablation.py
+E10,"hub_and_spoke_12_1, restore 4",weights on,1,1,87.0,0.0,87.0,1,0.0006784999277442694,experiments/priority_ablation.py
+E10,"hub_and_spoke_12_1, restore 4","weights off, best tie",1,1,87.0,0.0,87.0,1,0.0003144999500364065,experiments/priority_ablation.py
+E10,"hub_and_spoke_12_1, restore 4","weights off, worst tie",1,1,87.0,0.0,87.0,1,0.00018939992878586054,experiments/priority_ablation.py
+E10,"hub_and_spoke_12_1, restore 5",weights on,1,1,87.0,0.0,87.0,1,0.00018750003073364496,experiments/priority_ablation.py
+E10,"hub_and_spoke_12_1, restore 5","weights off, best tie",1,1,87.0,0.0,87.0,1,0.00016820000018924475,experiments/priority_ablation.py
+E10,"hub_and_spoke_12_1, restore 5","weights off, worst tie",1,1,87.0,0.0,87.0,1,0.00015920004807412624,experiments/priority_ablation.py
+E10,"hub_and_spoke_12_1, restore 6",weights on,1,1,87.0,0.0,87.0,1,0.0005781999789178371,experiments/priority_ablation.py
+E10,"hub_and_spoke_12_1, restore 6","weights off, best tie",1,1,87.0,0.0,87.0,1,0.0006723999977111816,experiments/priority_ablation.py
+E10,"hub_and_spoke_12_1, restore 6","weights off, worst tie",1,1,87.0,0.0,87.0,1,0.0003068000078201294,experiments/priority_ablation.py
+E10,"hub_and_spoke_12_1, restore 7",weights on,1,1,87.0,0.0,87.0,1,0.000193099956959486,experiments/priority_ablation.py
+E10,"hub_and_spoke_12_1, restore 7","weights off, best tie",1,1,87.0,0.0,87.0,1,0.00029180001001805067,experiments/priority_ablation.py
+E10,"hub_and_spoke_12_1, restore 7","weights off, worst tie",1,1,87.0,0.0,87.0,1,0.0006255999905988574,experiments/priority_ablation.py
+E10,"hub_and_spoke_12_1, restore 8",weights on,1,1,87.0,0.0,87.0,1,0.0005194999976083636,experiments/priority_ablation.py
+E10,"hub_and_spoke_12_1, restore 8","weights off, best tie",1,1,87.0,0.0,87.0,1,0.0004817000590264797,experiments/priority_ablation.py
+E10,"hub_and_spoke_12_1, restore 8","weights off, worst tie",1,1,87.0,0.0,87.0,1,0.0004270999925211072,experiments/priority_ablation.py
+E10,"hub_and_spoke_12_1, restore 9",weights on,1,1,87.0,0.0,87.0,1,0.000367900007404387,experiments/priority_ablation.py
+E10,"hub_and_spoke_12_1, restore 9","weights off, best tie",1,1,87.0,0.0,87.0,1,0.00035140011459589005,experiments/priority_ablation.py
+E10,"hub_and_spoke_12_1, restore 9","weights off, worst tie",1,1,87.0,0.0,87.0,1,0.00035530002787709236,experiments/priority_ablation.py
+E10,"hub_and_spoke_12_1, restore 10",weights on,1,1,87.0,0.0,87.0,1,0.00038080010563135147,experiments/priority_ablation.py
+E10,"hub_and_spoke_12_1, restore 10","weights off, best tie",1,1,87.0,0.0,87.0,1,0.0003583999350667,experiments/priority_ablation.py
+E10,"hub_and_spoke_12_1, restore 10","weights off, worst tie",1,1,87.0,0.0,87.0,1,0.0004260999849066138,experiments/priority_ablation.py
+E10,"hub_and_spoke_12_1, restore 11",weights on,1,1,87.0,0.0,87.0,1,0.0004613999044522643,experiments/priority_ablation.py
+E10,"hub_and_spoke_12_1, restore 11","weights off, best tie",1,1,87.0,0.0,87.0,1,0.00045030005276203156,experiments/priority_ablation.py
+E10,"hub_and_spoke_12_1, restore 11","weights off, worst tie",1,1,87.0,0.0,87.0,1,0.00043130002450197935,experiments/priority_ablation.py
+E10,"hub_and_spoke_12_2, restore 1",weights on,1,2,84.0,0.0,84.0,1,0.000505700008943677,experiments/priority_ablation.py
+E10,"hub_and_spoke_12_2, restore 1","weights off, best tie",1,2,84.0,0.0,84.0,1,0.00037050002720206976,experiments/priority_ablation.py
+E10,"hub_and_spoke_12_2, restore 1","weights off, worst tie",1,2,84.0,0.0,84.0,1,0.0004123999970033765,experiments/priority_ablation.py
+E10,"hub_and_spoke_12_2, restore 2",weights on,1,2,90.0,0.0,90.0,1,0.0004947999259456992,experiments/priority_ablation.py
+E10,"hub_and_spoke_12_2, restore 2","weights off, best tie",1,2,90.0,0.0,90.0,1,0.000394799979403615,experiments/priority_ablation.py
+E10,"hub_and_spoke_12_2, restore 2","weights off, worst tie",1,2,90.0,0.0,90.0,1,0.0004680999554693699,experiments/priority_ablation.py
+E10,"hub_and_spoke_12_2, restore 3",weights on,1,2,92.0,0.0,92.0,1,0.0003744999412447214,experiments/priority_ablation.py
+E10,"hub_and_spoke_12_2, restore 3","weights off, best tie",1,2,92.0,0.0,92.0,1,0.00032620003912597895,experiments/priority_ablation.py
+E10,"hub_and_spoke_12_2, restore 3","weights off, worst tie",1,2,92.0,0.0,92.0,1,0.00041089998558163643,experiments/priority_ablation.py
+E10,"hub_and_spoke_12_2, restore 4",weights on,1,2,92.0,0.0,92.0,1,0.0003549999091774225,experiments/priority_ablation.py
+E10,"hub_and_spoke_12_2, restore 4","weights off, best tie",1,2,92.0,0.0,92.0,1,0.00036319997161626816,experiments/priority_ablation.py
+E10,"hub_and_spoke_12_2, restore 4","weights off, worst tie",1,2,92.0,0.0,92.0,1,0.00038569991011172533,experiments/priority_ablation.py
+E10,"hub_and_spoke_12_2, restore 5",weights on,1,2,92.0,0.0,92.0,1,0.00037400005385279655,experiments/priority_ablation.py
+E10,"hub_and_spoke_12_2, restore 5","weights off, best tie",1,2,92.0,0.0,92.0,1,0.00039380008820444345,experiments/priority_ablation.py
+E10,"hub_and_spoke_12_2, restore 5","weights off, worst tie",1,2,92.0,0.0,92.0,1,0.0003608000697568059,experiments/priority_ablation.py
+E10,"hub_and_spoke_12_2, restore 6",weights on,1,2,92.0,0.0,92.0,1,0.0003829000052064657,experiments/priority_ablation.py
+E10,"hub_and_spoke_12_2, restore 6","weights off, best tie",1,2,92.0,0.0,92.0,1,0.0003599999472498894,experiments/priority_ablation.py
+E10,"hub_and_spoke_12_2, restore 6","weights off, worst tie",1,2,92.0,0.0,92.0,1,0.0003797999816015363,experiments/priority_ablation.py
+E10,"hub_and_spoke_12_2, restore 7",weights on,1,2,92.0,0.0,92.0,1,0.00039569998625665903,experiments/priority_ablation.py
+E10,"hub_and_spoke_12_2, restore 7","weights off, best tie",1,2,92.0,0.0,92.0,1,0.0003304000711068511,experiments/priority_ablation.py
+E10,"hub_and_spoke_12_2, restore 7","weights off, worst tie",1,2,92.0,0.0,92.0,1,0.00035099999513477087,experiments/priority_ablation.py
+E10,"hub_and_spoke_12_2, restore 8",weights on,1,2,92.0,0.0,92.0,1,0.0004884999943897128,experiments/priority_ablation.py
+E10,"hub_and_spoke_12_2, restore 8","weights off, best tie",1,2,92.0,0.0,92.0,1,0.0004205000586807728,experiments/priority_ablation.py
+E10,"hub_and_spoke_12_2, restore 8","weights off, worst tie",1,2,92.0,0.0,92.0,1,0.0004534999607130885,experiments/priority_ablation.py
+E10,"hub_and_spoke_12_2, restore 9",weights on,1,2,92.0,0.0,92.0,1,0.00036969990469515324,experiments/priority_ablation.py
+E10,"hub_and_spoke_12_2, restore 9","weights off, best tie",1,2,92.0,0.0,92.0,1,0.0003966999938711524,experiments/priority_ablation.py
+E10,"hub_and_spoke_12_2, restore 9","weights off, worst tie",1,2,92.0,0.0,92.0,1,0.00034300005063414574,experiments/priority_ablation.py
+E10,"hub_and_spoke_12_2, restore 10",weights on,1,2,92.0,0.0,92.0,1,0.00021630001720041037,experiments/priority_ablation.py
+E10,"hub_and_spoke_12_2, restore 10","weights off, best tie",1,2,92.0,0.0,92.0,1,0.00015239999629557133,experiments/priority_ablation.py
+E10,"hub_and_spoke_12_2, restore 10","weights off, worst tie",1,2,92.0,0.0,92.0,1,0.00013569998554885387,experiments/priority_ablation.py
+E10,"hub_and_spoke_12_2, restore 11",weights on,1,2,92.0,0.0,92.0,1,0.00014020001981407404,experiments/priority_ablation.py
+E10,"hub_and_spoke_12_2, restore 11","weights off, best tie",1,2,92.0,0.0,92.0,1,0.0001273000380024314,experiments/priority_ablation.py
+E10,"hub_and_spoke_12_2, restore 11","weights off, worst tie",1,2,92.0,0.0,92.0,1,0.00012420001439750195,experiments/priority_ablation.py
+E10,"random_geometric_16_0, restore 1",weights on,1,0,55.0,0.0,55.0,1,0.006444200058467686,experiments/priority_ablation.py
+E10,"random_geometric_16_0, restore 1","weights off, best tie",1,0,55.0,0.0,55.0,1,0.006591600016690791,experiments/priority_ablation.py
+E10,"random_geometric_16_0, restore 1","weights off, worst tie",1,0,55.0,0.0,55.0,1,0.006450699991546571,experiments/priority_ablation.py
+E10,"random_geometric_16_0, restore 2",weights on,1,0,71.0,0.0,71.0,1,0.004832300008274615,experiments/priority_ablation.py
+E10,"random_geometric_16_0, restore 2","weights off, best tie",1,0,71.0,0.0,71.0,1,0.00473240006249398,experiments/priority_ablation.py
+E10,"random_geometric_16_0, restore 2","weights off, worst tie",1,0,71.0,0.0,71.0,1,0.005055100074969232,experiments/priority_ablation.py
+E10,"random_geometric_16_0, restore 3",weights on,1,0,77.0,0.0,77.0,1,0.005740600056014955,experiments/priority_ablation.py
+E10,"random_geometric_16_0, restore 3","weights off, best tie",1,0,77.0,0.0,77.0,1,0.004796899971552193,experiments/priority_ablation.py
+E10,"random_geometric_16_0, restore 3","weights off, worst tie",1,0,77.0,0.0,77.0,1,0.005301999975927174,experiments/priority_ablation.py
+E10,"random_geometric_16_0, restore 4",weights on,1,0,77.0,0.0,77.0,1,0.004713099915534258,experiments/priority_ablation.py
+E10,"random_geometric_16_0, restore 4","weights off, best tie",1,0,77.0,0.0,77.0,1,0.0045643000630661845,experiments/priority_ablation.py
+E10,"random_geometric_16_0, restore 4","weights off, worst tie",1,0,77.0,0.0,77.0,1,0.004747799946926534,experiments/priority_ablation.py
+E10,"random_geometric_16_0, restore 5",weights on,1,0,77.0,0.0,77.0,1,0.0046273000771179795,experiments/priority_ablation.py
+E10,"random_geometric_16_0, restore 5","weights off, best tie",1,0,77.0,0.0,77.0,1,0.004517700057476759,experiments/priority_ablation.py
+E10,"random_geometric_16_0, restore 5","weights off, worst tie",1,0,77.0,0.0,77.0,1,0.004518000059761107,experiments/priority_ablation.py
+E10,"random_geometric_16_0, restore 6",weights on,1,0,77.0,0.0,77.0,1,0.004755700007081032,experiments/priority_ablation.py
+E10,"random_geometric_16_0, restore 6","weights off, best tie",1,0,77.0,0.0,77.0,1,0.005278499913401902,experiments/priority_ablation.py
+E10,"random_geometric_16_0, restore 6","weights off, worst tie",1,0,77.0,0.0,77.0,1,0.008082299958914518,experiments/priority_ablation.py
+E10,"random_geometric_16_0, restore 7",weights on,1,0,77.0,0.0,77.0,1,0.005420500063337386,experiments/priority_ablation.py
+E10,"random_geometric_16_0, restore 7","weights off, best tie",1,0,77.0,0.0,77.0,1,0.005076100002042949,experiments/priority_ablation.py
+E10,"random_geometric_16_0, restore 7","weights off, worst tie",1,0,77.0,0.0,77.0,1,0.005742700072005391,experiments/priority_ablation.py
+E10,"random_geometric_16_0, restore 8",weights on,1,0,77.0,0.0,77.0,1,0.004833900020457804,experiments/priority_ablation.py
+E10,"random_geometric_16_0, restore 8","weights off, best tie",1,0,77.0,0.0,77.0,1,0.004909000010229647,experiments/priority_ablation.py
+E10,"random_geometric_16_0, restore 8","weights off, worst tie",1,0,77.0,0.0,77.0,1,0.004747700062580407,experiments/priority_ablation.py
+E10,"random_geometric_16_0, restore 9",weights on,1,0,77.0,0.0,77.0,1,0.004953499999828637,experiments/priority_ablation.py
+E10,"random_geometric_16_0, restore 9","weights off, best tie",1,0,77.0,0.0,77.0,1,0.004737200099043548,experiments/priority_ablation.py
+E10,"random_geometric_16_0, restore 9","weights off, worst tie",1,0,77.0,0.0,77.0,1,0.004771700012497604,experiments/priority_ablation.py
+E10,"random_geometric_16_0, restore 10",weights on,1,0,77.0,0.0,77.0,1,0.005032400018535554,experiments/priority_ablation.py
+E10,"random_geometric_16_0, restore 10","weights off, best tie",1,0,77.0,0.0,77.0,1,0.005160100059583783,experiments/priority_ablation.py
+E10,"random_geometric_16_0, restore 10","weights off, worst tie",1,0,77.0,0.0,77.0,1,0.004605500027537346,experiments/priority_ablation.py
+E10,"random_geometric_16_0, restore 11",weights on,1,0,77.0,0.0,77.0,1,0.004900099942460656,experiments/priority_ablation.py
+E10,"random_geometric_16_0, restore 11","weights off, best tie",1,0,77.0,0.0,77.0,1,0.004457899951376021,experiments/priority_ablation.py
+E10,"random_geometric_16_0, restore 11","weights off, worst tie",1,0,77.0,0.0,77.0,1,0.004502199939452112,experiments/priority_ablation.py
+E10,"random_geometric_16_0, restore 12",weights on,1,0,77.0,0.0,77.0,1,0.004540699999779463,experiments/priority_ablation.py
+E10,"random_geometric_16_0, restore 12","weights off, best tie",1,0,77.0,0.0,77.0,1,0.004362599924206734,experiments/priority_ablation.py
+E10,"random_geometric_16_0, restore 12","weights off, worst tie",1,0,77.0,0.0,77.0,1,0.004391800030134618,experiments/priority_ablation.py
+E10,"random_geometric_16_0, restore 13",weights on,1,0,77.0,0.0,77.0,1,0.004656600067391992,experiments/priority_ablation.py
+E10,"random_geometric_16_0, restore 13","weights off, best tie",1,0,77.0,0.0,77.0,1,0.004381899954751134,experiments/priority_ablation.py
+E10,"random_geometric_16_0, restore 13","weights off, worst tie",1,0,77.0,0.0,77.0,1,0.00494420004542917,experiments/priority_ablation.py
+E10,"random_geometric_16_0, restore 14",weights on,1,0,77.0,0.0,77.0,1,0.004741300013847649,experiments/priority_ablation.py
+E10,"random_geometric_16_0, restore 14","weights off, best tie",1,0,77.0,0.0,77.0,1,0.004941499908454716,experiments/priority_ablation.py
+E10,"random_geometric_16_0, restore 14","weights off, worst tie",1,0,77.0,0.0,77.0,1,0.004628199967555702,experiments/priority_ablation.py
+E10,"random_geometric_16_0, restore 15",weights on,1,0,77.0,0.0,77.0,1,0.004756700014695525,experiments/priority_ablation.py
+E10,"random_geometric_16_0, restore 15","weights off, best tie",1,0,77.0,0.0,77.0,1,0.004912400036118925,experiments/priority_ablation.py
+E10,"random_geometric_16_0, restore 15","weights off, worst tie",1,0,77.0,0.0,77.0,1,0.004667400033213198,experiments/priority_ablation.py
+E10,"random_geometric_16_1, restore 1",weights on,1,1,32.0,0.0,32.0,1,0.0053672000067308545,experiments/priority_ablation.py
+E10,"random_geometric_16_1, restore 1","weights off, best tie",1,1,22.0,0.3125,22.0,1,0.007019700016826391,experiments/priority_ablation.py
+E10,"random_geometric_16_1, restore 1","weights off, worst tie",1,1,22.0,0.3125,22.0,1,0.006396300042979419,experiments/priority_ablation.py
+E10,"random_geometric_16_1, restore 2",weights on,1,1,44.0,0.0,44.0,1,0.005779600003734231,experiments/priority_ablation.py
+E10,"random_geometric_16_1, restore 2","weights off, best tie",1,1,42.0,0.045454545454545456,42.0,1,0.005878000054508448,experiments/priority_ablation.py
+E10,"random_geometric_16_1, restore 2","weights off, worst tie",1,1,40.0,0.09090909090909091,40.0,1,0.005721700028516352,experiments/priority_ablation.py
+E10,"random_geometric_16_1, restore 3",weights on,1,1,54.0,0.0,54.0,1,0.005631999927572906,experiments/priority_ablation.py
+E10,"random_geometric_16_1, restore 3","weights off, best tie",1,1,54.0,0.0,54.0,1,0.005273099988698959,experiments/priority_ablation.py
+E10,"random_geometric_16_1, restore 3","weights off, worst tie",1,1,54.0,0.0,54.0,1,0.005085099954158068,experiments/priority_ablation.py
+E10,"random_geometric_16_1, restore 4",weights on,1,1,68.0,0.0,68.0,1,0.005156600032933056,experiments/priority_ablation.py
+E10,"random_geometric_16_1, restore 4","weights off, best tie",1,1,68.0,0.0,68.0,1,0.0051460000686347485,experiments/priority_ablation.py
+E10,"random_geometric_16_1, restore 4","weights off, worst tie",1,1,56.0,0.17647058823529413,56.0,1,0.005042299977503717,experiments/priority_ablation.py
+E10,"random_geometric_16_1, restore 5",weights on,1,1,78.0,0.0,78.0,1,0.004912300035357475,experiments/priority_ablation.py
+E10,"random_geometric_16_1, restore 5","weights off, best tie",1,1,78.0,0.0,78.0,1,0.004694800009019673,experiments/priority_ablation.py
+E10,"random_geometric_16_1, restore 5","weights off, worst tie",1,1,76.0,0.02564102564102564,76.0,1,0.004869099939242005,experiments/priority_ablation.py
+E10,"random_geometric_16_1, restore 6",weights on,1,1,84.0,0.0,84.0,1,0.005374000058509409,experiments/priority_ablation.py
+E10,"random_geometric_16_1, restore 6","weights off, best tie",1,1,84.0,0.0,84.0,1,0.004968099994584918,experiments/priority_ablation.py
+E10,"random_geometric_16_1, restore 6","weights off, worst tie",1,1,84.0,0.0,84.0,1,0.004850699915550649,experiments/priority_ablation.py
+E10,"random_geometric_16_1, restore 7",weights on,1,1,84.0,0.0,84.0,1,0.004749199957586825,experiments/priority_ablation.py
+E10,"random_geometric_16_1, restore 7","weights off, best tie",1,1,84.0,0.0,84.0,1,0.004668800043873489,experiments/priority_ablation.py
+E10,"random_geometric_16_1, restore 7","weights off, worst tie",1,1,84.0,0.0,84.0,1,0.004877200000919402,experiments/priority_ablation.py
+E10,"random_geometric_16_1, restore 8",weights on,1,1,84.0,0.0,84.0,1,0.004570099990814924,experiments/priority_ablation.py
+E10,"random_geometric_16_1, restore 8","weights off, best tie",1,1,84.0,0.0,84.0,1,0.004558499902486801,experiments/priority_ablation.py
+E10,"random_geometric_16_1, restore 8","weights off, worst tie",1,1,84.0,0.0,84.0,1,0.0046660000225529075,experiments/priority_ablation.py
+E10,"random_geometric_16_1, restore 9",weights on,1,1,84.0,0.0,84.0,1,0.0044787999941036105,experiments/priority_ablation.py
+E10,"random_geometric_16_1, restore 9","weights off, best tie",1,1,84.0,0.0,84.0,1,0.005055900081060827,experiments/priority_ablation.py
+E10,"random_geometric_16_1, restore 9","weights off, worst tie",1,1,84.0,0.0,84.0,1,0.0049009999493137,experiments/priority_ablation.py
+E10,"random_geometric_16_1, restore 10",weights on,1,1,84.0,0.0,84.0,1,0.00467139994725585,experiments/priority_ablation.py
+E10,"random_geometric_16_1, restore 10","weights off, best tie",1,1,84.0,0.0,84.0,1,0.004915500059723854,experiments/priority_ablation.py
+E10,"random_geometric_16_1, restore 10","weights off, worst tie",1,1,84.0,0.0,84.0,1,0.005019500036723912,experiments/priority_ablation.py
+E10,"random_geometric_16_1, restore 11",weights on,1,1,84.0,0.0,84.0,1,0.00489380001090467,experiments/priority_ablation.py
+E10,"random_geometric_16_1, restore 11","weights off, best tie",1,1,84.0,0.0,84.0,1,0.005462100030854344,experiments/priority_ablation.py
+E10,"random_geometric_16_1, restore 11","weights off, worst tie",1,1,84.0,0.0,84.0,1,0.0050717000849545,experiments/priority_ablation.py
+E10,"random_geometric_16_1, restore 12",weights on,1,1,84.0,0.0,84.0,1,0.004698000033386052,experiments/priority_ablation.py
+E10,"random_geometric_16_1, restore 12","weights off, best tie",1,1,84.0,0.0,84.0,1,0.005054400069639087,experiments/priority_ablation.py
+E10,"random_geometric_16_1, restore 12","weights off, worst tie",1,1,84.0,0.0,84.0,1,0.004696400021202862,experiments/priority_ablation.py
+E10,"random_geometric_16_1, restore 13",weights on,1,1,84.0,0.0,84.0,1,0.005664299940690398,experiments/priority_ablation.py
+E10,"random_geometric_16_1, restore 13","weights off, best tie",1,1,84.0,0.0,84.0,1,0.005201499909162521,experiments/priority_ablation.py
+E10,"random_geometric_16_1, restore 13","weights off, worst tie",1,1,84.0,0.0,84.0,1,0.00472780002746731,experiments/priority_ablation.py
+E10,"random_geometric_16_1, restore 14",weights on,1,1,84.0,0.0,84.0,1,0.005058100097812712,experiments/priority_ablation.py
+E10,"random_geometric_16_1, restore 14","weights off, best tie",1,1,84.0,0.0,84.0,1,0.004806399927474558,experiments/priority_ablation.py
+E10,"random_geometric_16_1, restore 14","weights off, worst tie",1,1,84.0,0.0,84.0,1,0.0047605000436306,experiments/priority_ablation.py
+E10,"random_geometric_16_1, restore 15",weights on,1,1,84.0,0.0,84.0,1,0.004857299965806305,experiments/priority_ablation.py
+E10,"random_geometric_16_1, restore 15","weights off, best tie",1,1,84.0,0.0,84.0,1,0.00533069996163249,experiments/priority_ablation.py
+E10,"random_geometric_16_1, restore 15","weights off, worst tie",1,1,84.0,0.0,84.0,1,0.0051923999562859535,experiments/priority_ablation.py
+E10,"random_geometric_16_2, restore 1",weights on,1,2,106.0,0.0,106.0,1,0.005409699981100857,experiments/priority_ablation.py
+E10,"random_geometric_16_2, restore 1","weights off, best tie",1,2,106.0,0.0,106.0,1,0.005284899962134659,experiments/priority_ablation.py
+E10,"random_geometric_16_2, restore 1","weights off, worst tie",1,2,106.0,0.0,106.0,1,0.004494099994190037,experiments/priority_ablation.py
+E10,"random_geometric_16_2, restore 2",weights on,1,2,106.0,0.0,106.0,1,0.004581700079143047,experiments/priority_ablation.py
+E10,"random_geometric_16_2, restore 2","weights off, best tie",1,2,106.0,0.0,106.0,1,0.004281500005163252,experiments/priority_ablation.py
+E10,"random_geometric_16_2, restore 2","weights off, worst tie",1,2,106.0,0.0,106.0,1,0.004399699973873794,experiments/priority_ablation.py
+E10,"random_geometric_16_2, restore 3",weights on,1,2,106.0,0.0,106.0,1,0.005151999997906387,experiments/priority_ablation.py
+E10,"random_geometric_16_2, restore 3","weights off, best tie",1,2,106.0,0.0,106.0,1,0.005083699943497777,experiments/priority_ablation.py
+E10,"random_geometric_16_2, restore 3","weights off, worst tie",1,2,106.0,0.0,106.0,1,0.004697100026533008,experiments/priority_ablation.py
+E10,"random_geometric_16_2, restore 4",weights on,1,2,106.0,0.0,106.0,1,0.00464930001180619,experiments/priority_ablation.py
+E10,"random_geometric_16_2, restore 4","weights off, best tie",1,2,106.0,0.0,106.0,1,0.005077900015749037,experiments/priority_ablation.py
+E10,"random_geometric_16_2, restore 4","weights off, worst tie",1,2,106.0,0.0,106.0,1,0.005062800017185509,experiments/priority_ablation.py
+E10,"random_geometric_16_2, restore 5",weights on,1,2,106.0,0.0,106.0,1,0.00456040003336966,experiments/priority_ablation.py
+E10,"random_geometric_16_2, restore 5","weights off, best tie",1,2,106.0,0.0,106.0,1,0.0045591999078169465,experiments/priority_ablation.py
+E10,"random_geometric_16_2, restore 5","weights off, worst tie",1,2,106.0,0.0,106.0,1,0.004167200066149235,experiments/priority_ablation.py
+E10,"random_geometric_16_2, restore 6",weights on,1,2,106.0,0.0,106.0,1,0.007084299926646054,experiments/priority_ablation.py
+E10,"random_geometric_16_2, restore 6","weights off, best tie",1,2,106.0,0.0,106.0,1,0.0054302000207826495,experiments/priority_ablation.py
+E10,"random_geometric_16_2, restore 6","weights off, worst tie",1,2,106.0,0.0,106.0,1,0.004802300012670457,experiments/priority_ablation.py
+E10,"random_geometric_16_2, restore 7",weights on,1,2,106.0,0.0,106.0,1,0.004452899913303554,experiments/priority_ablation.py
+E10,"random_geometric_16_2, restore 7","weights off, best tie",1,2,106.0,0.0,106.0,1,0.004319500061683357,experiments/priority_ablation.py
+E10,"random_geometric_16_2, restore 7","weights off, worst tie",1,2,106.0,0.0,106.0,1,0.004243899951688945,experiments/priority_ablation.py
+E10,"random_geometric_16_2, restore 8",weights on,1,2,106.0,0.0,106.0,1,0.004731999943032861,experiments/priority_ablation.py
+E10,"random_geometric_16_2, restore 8","weights off, best tie",1,2,106.0,0.0,106.0,1,0.004356499994173646,experiments/priority_ablation.py
+E10,"random_geometric_16_2, restore 8","weights off, worst tie",1,2,106.0,0.0,106.0,1,0.0043141000205650926,experiments/priority_ablation.py
+E10,"random_geometric_16_2, restore 9",weights on,1,2,106.0,0.0,106.0,1,0.005128899938426912,experiments/priority_ablation.py
+E10,"random_geometric_16_2, restore 9","weights off, best tie",1,2,106.0,0.0,106.0,1,0.008371799951419234,experiments/priority_ablation.py
+E10,"random_geometric_16_2, restore 9","weights off, worst tie",1,2,106.0,0.0,106.0,1,0.004873999976553023,experiments/priority_ablation.py
+E10,"random_geometric_16_2, restore 10",weights on,1,2,106.0,0.0,106.0,1,0.007603800040669739,experiments/priority_ablation.py
+E10,"random_geometric_16_2, restore 10","weights off, best tie",1,2,106.0,0.0,106.0,1,0.005768699920736253,experiments/priority_ablation.py
+E10,"random_geometric_16_2, restore 10","weights off, worst tie",1,2,106.0,0.0,106.0,1,0.007066899910569191,experiments/priority_ablation.py
+E10,"random_geometric_16_2, restore 11",weights on,1,2,106.0,0.0,106.0,1,0.006442999932914972,experiments/priority_ablation.py
+E10,"random_geometric_16_2, restore 11","weights off, best tie",1,2,106.0,0.0,106.0,1,0.006276399944908917,experiments/priority_ablation.py
+E10,"random_geometric_16_2, restore 11","weights off, worst tie",1,2,106.0,0.0,106.0,1,0.006259700050577521,experiments/priority_ablation.py
+E10,"random_geometric_16_2, restore 12",weights on,1,2,106.0,0.0,106.0,1,0.005467299954034388,experiments/priority_ablation.py
+E10,"random_geometric_16_2, restore 12","weights off, best tie",1,2,106.0,0.0,106.0,1,0.005484099965542555,experiments/priority_ablation.py
+E10,"random_geometric_16_2, restore 12","weights off, worst tie",1,2,106.0,0.0,106.0,1,0.0056868999963626266,experiments/priority_ablation.py
+E10,"random_geometric_16_2, restore 13",weights on,1,2,106.0,0.0,106.0,1,0.006453200010582805,experiments/priority_ablation.py
+E10,"random_geometric_16_2, restore 13","weights off, best tie",1,2,106.0,0.0,106.0,1,0.005352500011213124,experiments/priority_ablation.py
+E10,"random_geometric_16_2, restore 13","weights off, worst tie",1,2,106.0,0.0,106.0,1,0.005410299985669553,experiments/priority_ablation.py
+E10,"random_geometric_16_2, restore 14",weights on,1,2,106.0,0.0,106.0,1,0.005079599912278354,experiments/priority_ablation.py
+E10,"random_geometric_16_2, restore 14","weights off, best tie",1,2,106.0,0.0,106.0,1,0.004968699999153614,experiments/priority_ablation.py
+E10,"random_geometric_16_2, restore 14","weights off, worst tie",1,2,106.0,0.0,106.0,1,0.005073699983768165,experiments/priority_ablation.py
+E10,"random_geometric_16_2, restore 15",weights on,1,2,106.0,0.0,106.0,1,0.004924800014123321,experiments/priority_ablation.py
+E10,"random_geometric_16_2, restore 15","weights off, best tie",1,2,106.0,0.0,106.0,1,0.004696299904026091,experiments/priority_ablation.py
+E10,"random_geometric_16_2, restore 15","weights off, worst tie",1,2,106.0,0.0,106.0,1,0.00481970002874732,experiments/priority_ablation.py
+E10,"ring_with_chords_16_0, restore 1",weights on,1,0,50.0,0.0,50.0,1,0.005268900073133409,experiments/priority_ablation.py
+E10,"ring_with_chords_16_0, restore 1","weights off, best tie",1,0,50.0,0.0,50.0,1,0.005578899988904595,experiments/priority_ablation.py
+E10,"ring_with_chords_16_0, restore 1","weights off, worst tie",1,0,50.0,0.0,50.0,1,0.006164599908515811,experiments/priority_ablation.py
+E10,"ring_with_chords_16_0, restore 2",weights on,1,0,54.0,0.0,54.0,1,0.005258799996227026,experiments/priority_ablation.py
+E10,"ring_with_chords_16_0, restore 2","weights off, best tie",1,0,54.0,0.0,54.0,1,0.005196099984459579,experiments/priority_ablation.py
+E10,"ring_with_chords_16_0, restore 2","weights off, worst tie",1,0,54.0,0.0,54.0,1,0.0050749999936670065,experiments/priority_ablation.py
+E10,"ring_with_chords_16_0, restore 3",weights on,1,0,60.0,0.0,60.0,1,0.005794299999251962,experiments/priority_ablation.py
+E10,"ring_with_chords_16_0, restore 3","weights off, best tie",1,0,54.0,0.1,54.0,1,0.005356900044716895,experiments/priority_ablation.py
+E10,"ring_with_chords_16_0, restore 3","weights off, worst tie",1,0,54.0,0.1,54.0,1,0.005746399983763695,experiments/priority_ablation.py
+E10,"ring_with_chords_16_0, restore 4",weights on,1,0,70.0,0.0,70.0,1,0.0054015000350773335,experiments/priority_ablation.py
+E10,"ring_with_chords_16_0, restore 4","weights off, best tie",1,0,58.0,0.17142857142857143,58.0,1,0.005034300033003092,experiments/priority_ablation.py
+E10,"ring_with_chords_16_0, restore 4","weights off, worst tie",1,0,58.0,0.17142857142857143,58.0,1,0.004807600053027272,experiments/priority_ablation.py
+E10,"ring_with_chords_16_0, restore 5",weights on,1,0,74.0,0.0,74.0,1,0.00532190001104027,experiments/priority_ablation.py
+E10,"ring_with_chords_16_0, restore 5","weights off, best tie",1,0,74.0,0.0,74.0,1,0.005855399998836219,experiments/priority_ablation.py
+E10,"ring_with_chords_16_0, restore 5","weights off, worst tie",1,0,74.0,0.0,74.0,1,0.006730900029651821,experiments/priority_ablation.py
+E10,"ring_with_chords_16_0, restore 6",weights on,1,0,78.0,0.0,78.0,1,0.006292100064456463,experiments/priority_ablation.py
+E10,"ring_with_chords_16_0, restore 6","weights off, best tie",1,0,78.0,0.0,78.0,1,0.004883900051936507,experiments/priority_ablation.py
+E10,"ring_with_chords_16_0, restore 6","weights off, worst tie",1,0,78.0,0.0,78.0,1,0.0053310999646782875,experiments/priority_ablation.py
+E10,"ring_with_chords_16_0, restore 7",weights on,1,0,83.0,0.0,83.0,1,0.004890899988822639,experiments/priority_ablation.py
+E10,"ring_with_chords_16_0, restore 7","weights off, best tie",1,0,82.0,0.012048192771084338,82.0,1,0.0046860999427735806,experiments/priority_ablation.py
+E10,"ring_with_chords_16_0, restore 7","weights off, worst tie",1,0,82.0,0.012048192771084338,82.0,1,0.004507199977524579,experiments/priority_ablation.py
+E10,"ring_with_chords_16_0, restore 8",weights on,1,0,87.0,0.0,87.0,1,0.005230299895629287,experiments/priority_ablation.py
+E10,"ring_with_chords_16_0, restore 8","weights off, best tie",1,0,87.0,0.0,87.0,1,0.005030500004068017,experiments/priority_ablation.py
+E10,"ring_with_chords_16_0, restore 8","weights off, worst tie",1,0,87.0,0.0,87.0,1,0.0048735999735072255,experiments/priority_ablation.py
+E10,"ring_with_chords_16_0, restore 9",weights on,1,0,90.0,0.0,90.0,1,0.005016300012357533,experiments/priority_ablation.py
+E10,"ring_with_chords_16_0, restore 9","weights off, best tie",1,0,90.0,0.0,90.0,1,0.0047284000320360065,experiments/priority_ablation.py
+E10,"ring_with_chords_16_0, restore 9","weights off, worst tie",1,0,90.0,0.0,90.0,1,0.004598299972712994,experiments/priority_ablation.py
+E10,"ring_with_chords_16_0, restore 10",weights on,1,0,91.0,0.0,91.0,1,0.00485509994905442,experiments/priority_ablation.py
+E10,"ring_with_chords_16_0, restore 10","weights off, best tie",1,0,91.0,0.0,91.0,1,0.005784699926152825,experiments/priority_ablation.py
+E10,"ring_with_chords_16_0, restore 10","weights off, worst tie",1,0,91.0,0.0,91.0,1,0.004557200009003282,experiments/priority_ablation.py
+E10,"ring_with_chords_16_0, restore 11",weights on,1,0,91.0,0.0,91.0,1,0.004891499993391335,experiments/priority_ablation.py
+E10,"ring_with_chords_16_0, restore 11","weights off, best tie",1,0,91.0,0.0,91.0,1,0.004629699978977442,experiments/priority_ablation.py
+E10,"ring_with_chords_16_0, restore 11","weights off, worst tie",1,0,91.0,0.0,91.0,1,0.004534099949523807,experiments/priority_ablation.py
+E10,"ring_with_chords_16_0, restore 12",weights on,1,0,91.0,0.0,91.0,1,0.0047012000577524304,experiments/priority_ablation.py
+E10,"ring_with_chords_16_0, restore 12","weights off, best tie",1,0,91.0,0.0,91.0,1,0.004781800089403987,experiments/priority_ablation.py
+E10,"ring_with_chords_16_0, restore 12","weights off, worst tie",1,0,91.0,0.0,91.0,1,0.004571299999952316,experiments/priority_ablation.py
+E10,"ring_with_chords_16_0, restore 13",weights on,1,0,91.0,0.0,91.0,1,0.004501199931837618,experiments/priority_ablation.py
+E10,"ring_with_chords_16_0, restore 13","weights off, best tie",1,0,91.0,0.0,91.0,1,0.004409399931319058,experiments/priority_ablation.py
+E10,"ring_with_chords_16_0, restore 13","weights off, worst tie",1,0,91.0,0.0,91.0,1,0.004386599990539253,experiments/priority_ablation.py
+E10,"ring_with_chords_16_0, restore 14",weights on,1,0,91.0,0.0,91.0,1,0.00465690006967634,experiments/priority_ablation.py
+E10,"ring_with_chords_16_0, restore 14","weights off, best tie",1,0,91.0,0.0,91.0,1,0.005320799886249006,experiments/priority_ablation.py
+E10,"ring_with_chords_16_0, restore 14","weights off, worst tie",1,0,91.0,0.0,91.0,1,0.004445199971087277,experiments/priority_ablation.py
+E10,"ring_with_chords_16_0, restore 15",weights on,1,0,91.0,0.0,91.0,1,0.0045430000172927976,experiments/priority_ablation.py
+E10,"ring_with_chords_16_0, restore 15","weights off, best tie",1,0,91.0,0.0,91.0,1,0.004493999993428588,experiments/priority_ablation.py
+E10,"ring_with_chords_16_0, restore 15","weights off, worst tie",1,0,91.0,0.0,91.0,1,0.0044636999955400825,experiments/priority_ablation.py
+E10,"ring_with_chords_16_1, restore 1",weights on,1,1,55.0,0.0,55.0,1,0.005120899993926287,experiments/priority_ablation.py
+E10,"ring_with_chords_16_1, restore 1","weights off, best tie",1,1,54.0,0.01818181818181818,54.0,1,0.0051605000626295805,experiments/priority_ablation.py
+E10,"ring_with_chords_16_1, restore 1","weights off, worst tie",1,1,54.0,0.01818181818181818,54.0,1,0.005030700005590916,experiments/priority_ablation.py
+E10,"ring_with_chords_16_1, restore 2",weights on,1,1,65.0,0.0,65.0,1,0.004986500018276274,experiments/priority_ablation.py
+E10,"ring_with_chords_16_1, restore 2","weights off, best tie",1,1,62.0,0.046153846153846156,62.0,1,0.005554000032134354,experiments/priority_ablation.py
+E10,"ring_with_chords_16_1, restore 2","weights off, worst tie",1,1,60.0,0.07692307692307693,60.0,1,0.005096099921502173,experiments/priority_ablation.py
+E10,"ring_with_chords_16_1, restore 3",weights on,1,1,73.0,0.0,73.0,1,0.004775200039148331,experiments/priority_ablation.py
+E10,"ring_with_chords_16_1, restore 3","weights off, best tie",1,1,72.0,0.0136986301369863,72.0,1,0.004841599962674081,experiments/priority_ablation.py
+E10,"ring_with_chords_16_1, restore 3","weights off, worst tie",1,1,72.0,0.0136986301369863,72.0,1,0.005017900024540722,experiments/priority_ablation.py
+E10,"ring_with_chords_16_1, restore 4",weights on,1,1,80.0,0.0,80.0,1,0.005477300030179322,experiments/priority_ablation.py
+E10,"ring_with_chords_16_1, restore 4","weights off, best tie",1,1,80.0,0.0,80.0,1,0.004966999986208975,experiments/priority_ablation.py
+E10,"ring_with_chords_16_1, restore 4","weights off, worst tie",1,1,80.0,0.0,80.0,1,0.004654099931940436,experiments/priority_ablation.py
+E10,"ring_with_chords_16_1, restore 5",weights on,1,1,85.0,0.0,85.0,1,0.004456600057892501,experiments/priority_ablation.py
+E10,"ring_with_chords_16_1, restore 5","weights off, best tie",1,1,84.0,0.011764705882352941,84.0,1,0.004599900101311505,experiments/priority_ablation.py
+E10,"ring_with_chords_16_1, restore 5","weights off, worst tie",1,1,84.0,0.011764705882352941,84.0,1,0.004609200055710971,experiments/priority_ablation.py
+E10,"ring_with_chords_16_1, restore 6",weights on,1,1,92.0,0.0,92.0,1,0.005132799968123436,experiments/priority_ablation.py
+E10,"ring_with_chords_16_1, restore 6","weights off, best tie",1,1,92.0,0.0,92.0,1,0.005669499980285764,experiments/priority_ablation.py
+E10,"ring_with_chords_16_1, restore 6","weights off, worst tie",1,1,88.0,0.043478260869565216,88.0,1,0.004715500050224364,experiments/priority_ablation.py
+E10,"ring_with_chords_16_1, restore 7",weights on,1,1,96.0,0.0,96.0,1,0.004769399994984269,experiments/priority_ablation.py
+E10,"ring_with_chords_16_1, restore 7","weights off, best tie",1,1,96.0,0.0,96.0,1,0.005078200018033385,experiments/priority_ablation.py
+E10,"ring_with_chords_16_1, restore 7","weights off, worst tie",1,1,96.0,0.0,96.0,1,0.004846800002269447,experiments/priority_ablation.py
+E10,"ring_with_chords_16_1, restore 8",weights on,1,1,98.0,0.0,98.0,1,0.00558389991056174,experiments/priority_ablation.py
+E10,"ring_with_chords_16_1, restore 8","weights off, best tie",1,1,98.0,0.0,98.0,1,0.005029199994169176,experiments/priority_ablation.py
+E10,"ring_with_chords_16_1, restore 8","weights off, worst tie",1,1,98.0,0.0,98.0,1,0.004662699997425079,experiments/priority_ablation.py
+E10,"ring_with_chords_16_1, restore 9",weights on,1,1,98.0,0.0,98.0,1,0.0044689999194815755,experiments/priority_ablation.py
+E10,"ring_with_chords_16_1, restore 9","weights off, best tie",1,1,98.0,0.0,98.0,1,0.004603100009262562,experiments/priority_ablation.py
+E10,"ring_with_chords_16_1, restore 9","weights off, worst tie",1,1,98.0,0.0,98.0,1,0.004741900018416345,experiments/priority_ablation.py
+E10,"ring_with_chords_16_1, restore 10",weights on,1,1,98.0,0.0,98.0,1,0.005118099972605705,experiments/priority_ablation.py
+E10,"ring_with_chords_16_1, restore 10","weights off, best tie",1,1,98.0,0.0,98.0,1,0.005121099995449185,experiments/priority_ablation.py
+E10,"ring_with_chords_16_1, restore 10","weights off, worst tie",1,1,98.0,0.0,98.0,1,0.004953099996782839,experiments/priority_ablation.py
+E10,"ring_with_chords_16_1, restore 11",weights on,1,1,98.0,0.0,98.0,1,0.005185400019399822,experiments/priority_ablation.py
+E10,"ring_with_chords_16_1, restore 11","weights off, best tie",1,1,98.0,0.0,98.0,1,0.005545899970456958,experiments/priority_ablation.py
+E10,"ring_with_chords_16_1, restore 11","weights off, worst tie",1,1,98.0,0.0,98.0,1,0.005107800010591745,experiments/priority_ablation.py
+E10,"ring_with_chords_16_1, restore 12",weights on,1,1,98.0,0.0,98.0,1,0.004920999985188246,experiments/priority_ablation.py
+E10,"ring_with_chords_16_1, restore 12","weights off, best tie",1,1,98.0,0.0,98.0,1,0.004789200029335916,experiments/priority_ablation.py
+E10,"ring_with_chords_16_1, restore 12","weights off, worst tie",1,1,98.0,0.0,98.0,1,0.004727699910290539,experiments/priority_ablation.py
+E10,"ring_with_chords_16_1, restore 13",weights on,1,1,98.0,0.0,98.0,1,0.0049628999549895525,experiments/priority_ablation.py
+E10,"ring_with_chords_16_1, restore 13","weights off, best tie",1,1,98.0,0.0,98.0,1,0.004898600047454238,experiments/priority_ablation.py
+E10,"ring_with_chords_16_1, restore 13","weights off, worst tie",1,1,98.0,0.0,98.0,1,0.004842599970288575,experiments/priority_ablation.py
+E10,"ring_with_chords_16_1, restore 14",weights on,1,1,98.0,0.0,98.0,1,0.0048964000307023525,experiments/priority_ablation.py
+E10,"ring_with_chords_16_1, restore 14","weights off, best tie",1,1,98.0,0.0,98.0,1,0.004701900063082576,experiments/priority_ablation.py
+E10,"ring_with_chords_16_1, restore 14","weights off, worst tie",1,1,98.0,0.0,98.0,1,0.004882899927906692,experiments/priority_ablation.py
+E10,"ring_with_chords_16_1, restore 15",weights on,1,1,98.0,0.0,98.0,1,0.00456040003336966,experiments/priority_ablation.py
+E10,"ring_with_chords_16_1, restore 15","weights off, best tie",1,1,98.0,0.0,98.0,1,0.004525199998170137,experiments/priority_ablation.py
+E10,"ring_with_chords_16_1, restore 15","weights off, worst tie",1,1,98.0,0.0,98.0,1,0.004645199980586767,experiments/priority_ablation.py
+E10,"ring_with_chords_16_2, restore 1",weights on,1,2,18.0,0.0,18.0,1,0.00527149997651577,experiments/priority_ablation.py
+E10,"ring_with_chords_16_2, restore 1","weights off, best tie",1,2,18.0,0.0,18.0,1,0.005370499915443361,experiments/priority_ablation.py
+E10,"ring_with_chords_16_2, restore 1","weights off, worst tie",1,2,18.0,0.0,18.0,1,0.004759899922646582,experiments/priority_ablation.py
+E10,"ring_with_chords_16_2, restore 2",weights on,1,2,21.0,0.0,21.0,1,0.004843999980948865,experiments/priority_ablation.py
+E10,"ring_with_chords_16_2, restore 2","weights off, best tie",1,2,21.0,0.0,21.0,1,0.0047314000548794866,experiments/priority_ablation.py
+E10,"ring_with_chords_16_2, restore 2","weights off, worst tie",1,2,21.0,0.0,21.0,1,0.004818499903194606,experiments/priority_ablation.py
+E10,"ring_with_chords_16_2, restore 3",weights on,1,2,29.0,0.0,29.0,1,0.004914500052109361,experiments/priority_ablation.py
+E10,"ring_with_chords_16_2, restore 3","weights off, best tie",1,2,23.0,0.20689655172413793,23.0,1,0.004634600016288459,experiments/priority_ablation.py
+E10,"ring_with_chords_16_2, restore 3","weights off, worst tie",1,2,23.0,0.20689655172413793,23.0,1,0.004521699971519411,experiments/priority_ablation.py
+E10,"ring_with_chords_16_2, restore 4",weights on,1,2,47.0,0.0,47.0,1,0.0049400998977944255,experiments/priority_ablation.py
+E10,"ring_with_chords_16_2, restore 4","weights off, best tie",1,2,47.0,0.0,47.0,1,0.00466860004235059,experiments/priority_ablation.py
+E10,"ring_with_chords_16_2, restore 4","weights off, worst tie",1,2,26.0,0.44680851063829785,26.0,1,0.005128500051796436,experiments/priority_ablation.py
+E10,"ring_with_chords_16_2, restore 5",weights on,1,2,52.0,0.0,52.0,1,0.004640399944037199,experiments/priority_ablation.py
+E10,"ring_with_chords_16_2, restore 5","weights off, best tie",1,2,52.0,0.0,52.0,1,0.004567899974063039,experiments/priority_ablation.py
+E10,"ring_with_chords_16_2, restore 5","weights off, worst tie",1,2,52.0,0.0,52.0,1,0.004509699996560812,experiments/priority_ablation.py
+E10,"ring_with_chords_16_2, restore 6",weights on,1,2,56.0,0.0,56.0,1,0.00472459988668561,experiments/priority_ablation.py
+E10,"ring_with_chords_16_2, restore 6","weights off, best tie",1,2,54.0,0.03571428571428571,54.0,1,0.004570099990814924,experiments/priority_ablation.py
+E10,"ring_with_chords_16_2, restore 6","weights off, worst tie",1,2,54.0,0.03571428571428571,54.0,1,0.004854999948292971,experiments/priority_ablation.py
+E10,"ring_with_chords_16_2, restore 7",weights on,1,2,61.0,0.0,61.0,1,0.004782200092449784,experiments/priority_ablation.py
+E10,"ring_with_chords_16_2, restore 7","weights off, best tie",1,2,61.0,0.0,61.0,1,0.00443289999384433,experiments/priority_ablation.py
+E10,"ring_with_chords_16_2, restore 7","weights off, worst tie",1,2,54.0,0.11475409836065574,54.0,1,0.004523999989032745,experiments/priority_ablation.py
+E10,"ring_with_chords_16_2, restore 8",weights on,1,2,66.0,0.0,66.0,1,0.004675000091083348,experiments/priority_ablation.py
+E10,"ring_with_chords_16_2, restore 8","weights off, best tie",1,2,66.0,0.0,66.0,1,0.004578100051730871,experiments/priority_ablation.py
+E10,"ring_with_chords_16_2, restore 8","weights off, worst tie",1,2,63.0,0.045454545454545456,63.0,1,0.0047481999499723315,experiments/priority_ablation.py
+E10,"ring_with_chords_16_2, restore 9",weights on,1,2,70.0,0.0,70.0,1,0.0046909000957384706,experiments/priority_ablation.py
+E10,"ring_with_chords_16_2, restore 9","weights off, best tie",1,2,70.0,0.0,70.0,1,0.004661999992094934,experiments/priority_ablation.py
+E10,"ring_with_chords_16_2, restore 9","weights off, worst tie",1,2,70.0,0.0,70.0,1,0.004718099953606725,experiments/priority_ablation.py
+E10,"ring_with_chords_16_2, restore 10",weights on,1,2,70.0,0.0,70.0,1,0.004611700074747205,experiments/priority_ablation.py
+E10,"ring_with_chords_16_2, restore 10","weights off, best tie",1,2,70.0,0.0,70.0,1,0.004896500031463802,experiments/priority_ablation.py
+E10,"ring_with_chords_16_2, restore 10","weights off, worst tie",1,2,70.0,0.0,70.0,1,0.0059899999760091305,experiments/priority_ablation.py
+E10,"ring_with_chords_16_2, restore 11",weights on,1,2,70.0,0.0,70.0,1,0.004942800034768879,experiments/priority_ablation.py
+E10,"ring_with_chords_16_2, restore 11","weights off, best tie",1,2,70.0,0.0,70.0,1,0.004780799965374172,experiments/priority_ablation.py
+E10,"ring_with_chords_16_2, restore 11","weights off, worst tie",1,2,70.0,0.0,70.0,1,0.004955200012773275,experiments/priority_ablation.py
+E10,"ring_with_chords_16_2, restore 12",weights on,1,2,70.0,0.0,70.0,1,0.004766999976709485,experiments/priority_ablation.py
+E10,"ring_with_chords_16_2, restore 12","weights off, best tie",1,2,70.0,0.0,70.0,1,0.005210300092585385,experiments/priority_ablation.py
+E10,"ring_with_chords_16_2, restore 12","weights off, worst tie",1,2,70.0,0.0,70.0,1,0.004978899960406125,experiments/priority_ablation.py
+E10,"ring_with_chords_16_2, restore 13",weights on,1,2,70.0,0.0,70.0,1,0.005041600088588893,experiments/priority_ablation.py
+E10,"ring_with_chords_16_2, restore 13","weights off, best tie",1,2,70.0,0.0,70.0,1,0.004790000035427511,experiments/priority_ablation.py
+E10,"ring_with_chords_16_2, restore 13","weights off, worst tie",1,2,70.0,0.0,70.0,1,0.004678600002080202,experiments/priority_ablation.py
+E10,"ring_with_chords_16_2, restore 14",weights on,1,2,70.0,0.0,70.0,1,0.0054163000313565135,experiments/priority_ablation.py
+E10,"ring_with_chords_16_2, restore 14","weights off, best tie",1,2,70.0,0.0,70.0,1,0.0046703999396413565,experiments/priority_ablation.py
+E10,"ring_with_chords_16_2, restore 14","weights off, worst tie",1,2,70.0,0.0,70.0,1,0.00457380001898855,experiments/priority_ablation.py
+E10,"ring_with_chords_16_2, restore 15",weights on,1,2,70.0,0.0,70.0,1,0.004877200000919402,experiments/priority_ablation.py
+E10,"ring_with_chords_16_2, restore 15","weights off, best tie",1,2,70.0,0.0,70.0,1,0.004667899920605123,experiments/priority_ablation.py
+E10,"ring_with_chords_16_2, restore 15","weights off, worst tie",1,2,70.0,0.0,70.0,1,0.005279500037431717,experiments/priority_ablation.py
+E10,"hub_and_spoke_16_0, restore 1",weights on,1,0,42.0,0.0,42.0,1,0.0054015000350773335,experiments/priority_ablation.py
+E10,"hub_and_spoke_16_0, restore 1","weights off, best tie",1,0,42.0,0.0,42.0,1,0.00679480005055666,experiments/priority_ablation.py
+E10,"hub_and_spoke_16_0, restore 1","weights off, worst tie",1,0,42.0,0.0,42.0,1,0.006240700022317469,experiments/priority_ablation.py
+E10,"hub_and_spoke_16_0, restore 2",weights on,1,0,66.0,0.0,66.0,1,0.005329499952495098,experiments/priority_ablation.py
+E10,"hub_and_spoke_16_0, restore 2","weights off, best tie",1,0,62.0,0.06060606060606061,62.0,1,0.005613700021058321,experiments/priority_ablation.py
+E10,"hub_and_spoke_16_0, restore 2","weights off, worst tie",1,0,62.0,0.06060606060606061,62.0,1,0.005044199991971254,experiments/priority_ablation.py
+E10,"hub_and_spoke_16_0, restore 3",weights on,1,0,86.0,0.0,86.0,1,0.00750579999294132,experiments/priority_ablation.py
+E10,"hub_and_spoke_16_0, restore 3","weights off, best tie",1,0,74.0,0.13953488372093023,74.0,1,0.006756199989467859,experiments/priority_ablation.py
+E10,"hub_and_spoke_16_0, restore 3","weights off, worst tie",1,0,74.0,0.13953488372093023,74.0,1,0.005583399906754494,experiments/priority_ablation.py
+E10,"hub_and_spoke_16_0, restore 4",weights on,1,0,98.0,0.0,98.0,1,0.00493669998832047,experiments/priority_ablation.py
+E10,"hub_and_spoke_16_0, restore 4","weights off, best tie",1,0,98.0,0.0,98.0,1,0.0046749000903218985,experiments/priority_ablation.py
+E10,"hub_and_spoke_16_0, restore 4","weights off, worst tie",1,0,80.0,0.1836734693877551,80.0,1,0.004764700075611472,experiments/priority_ablation.py
+E10,"hub_and_spoke_16_0, restore 5",weights on,1,0,104.0,0.0,104.0,1,0.005173799931071699,experiments/priority_ablation.py
+E10,"hub_and_spoke_16_0, restore 5","weights off, best tie",1,0,104.0,0.0,104.0,1,0.005507199908606708,experiments/priority_ablation.py
+E10,"hub_and_spoke_16_0, restore 5","weights off, worst tie",1,0,104.0,0.0,104.0,1,0.006224100012332201,experiments/priority_ablation.py
+E10,"hub_and_spoke_16_0, restore 6",weights on,1,0,108.0,0.0,108.0,1,0.00760220002848655,experiments/priority_ablation.py
+E10,"hub_and_spoke_16_0, restore 6","weights off, best tie",1,0,108.0,0.0,108.0,1,0.005797300022095442,experiments/priority_ablation.py
+E10,"hub_and_spoke_16_0, restore 6","weights off, worst tie",1,0,104.0,0.037037037037037035,104.0,1,0.011331000016070902,experiments/priority_ablation.py
+E10,"hub_and_spoke_16_0, restore 7",weights on,1,0,108.0,0.0,108.0,1,0.0051932999631389976,experiments/priority_ablation.py
+E10,"hub_and_spoke_16_0, restore 7","weights off, best tie",1,0,108.0,0.0,108.0,1,0.00514130003284663,experiments/priority_ablation.py
+E10,"hub_and_spoke_16_0, restore 7","weights off, worst tie",1,0,104.0,0.037037037037037035,104.0,1,0.00597219995688647,experiments/priority_ablation.py
+E10,"hub_and_spoke_16_0, restore 8",weights on,1,0,108.0,0.0,108.0,1,0.0052556999726220965,experiments/priority_ablation.py
+E10,"hub_and_spoke_16_0, restore 8","weights off, best tie",1,0,108.0,0.0,108.0,1,0.0049570000264793634,experiments/priority_ablation.py
+E10,"hub_and_spoke_16_0, restore 8","weights off, worst tie",1,0,104.0,0.037037037037037035,104.0,1,0.004983999999240041,experiments/priority_ablation.py
+E10,"hub_and_spoke_16_0, restore 9",weights on,1,0,108.0,0.0,108.0,1,0.005479200044646859,experiments/priority_ablation.py
+E10,"hub_and_spoke_16_0, restore 9","weights off, best tie",1,0,108.0,0.0,108.0,1,0.005323900026269257,experiments/priority_ablation.py
+E10,"hub_and_spoke_16_0, restore 9","weights off, worst tie",1,0,104.0,0.037037037037037035,104.0,1,0.004936499986797571,experiments/priority_ablation.py
+E10,"hub_and_spoke_16_0, restore 10",weights on,1,0,108.0,0.0,108.0,1,0.004799799993634224,experiments/priority_ablation.py
+E10,"hub_and_spoke_16_0, restore 10","weights off, best tie",1,0,108.0,0.0,108.0,1,0.004593500052578747,experiments/priority_ablation.py
+E10,"hub_and_spoke_16_0, restore 10","weights off, worst tie",1,0,104.0,0.037037037037037035,104.0,1,0.004621600033715367,experiments/priority_ablation.py
+E10,"hub_and_spoke_16_0, restore 11",weights on,1,0,108.0,0.0,108.0,1,0.005420500063337386,experiments/priority_ablation.py
+E10,"hub_and_spoke_16_0, restore 11","weights off, best tie",1,0,108.0,0.0,108.0,1,0.005562699981965125,experiments/priority_ablation.py
+E10,"hub_and_spoke_16_0, restore 11","weights off, worst tie",1,0,104.0,0.037037037037037035,104.0,1,0.004893300007097423,experiments/priority_ablation.py
+E10,"hub_and_spoke_16_0, restore 12",weights on,1,0,108.0,0.0,108.0,1,0.005675400025211275,experiments/priority_ablation.py
+E10,"hub_and_spoke_16_0, restore 12","weights off, best tie",1,0,108.0,0.0,108.0,1,0.004898400045931339,experiments/priority_ablation.py
+E10,"hub_and_spoke_16_0, restore 12","weights off, worst tie",1,0,104.0,0.037037037037037035,104.0,1,0.004734000074677169,experiments/priority_ablation.py
+E10,"hub_and_spoke_16_0, restore 13",weights on,1,0,108.0,0.0,108.0,1,0.00495299999602139,experiments/priority_ablation.py
+E10,"hub_and_spoke_16_0, restore 13","weights off, best tie",1,0,108.0,0.0,108.0,1,0.004642299958504736,experiments/priority_ablation.py
+E10,"hub_and_spoke_16_0, restore 13","weights off, worst tie",1,0,104.0,0.037037037037037035,104.0,1,0.004566499963402748,experiments/priority_ablation.py
+E10,"hub_and_spoke_16_0, restore 14",weights on,1,0,108.0,0.0,108.0,1,0.004601699998602271,experiments/priority_ablation.py
+E10,"hub_and_spoke_16_0, restore 14","weights off, best tie",1,0,108.0,0.0,108.0,1,0.0045204999623820186,experiments/priority_ablation.py
+E10,"hub_and_spoke_16_0, restore 14","weights off, worst tie",1,0,104.0,0.037037037037037035,104.0,1,0.0043481000466272235,experiments/priority_ablation.py
+E10,"hub_and_spoke_16_0, restore 15",weights on,1,0,108.0,0.0,108.0,1,0.004540499998256564,experiments/priority_ablation.py
+E10,"hub_and_spoke_16_0, restore 15","weights off, best tie",1,0,108.0,0.0,108.0,1,0.004469100036658347,experiments/priority_ablation.py
+E10,"hub_and_spoke_16_0, restore 15","weights off, worst tie",1,0,104.0,0.037037037037037035,104.0,1,0.004462199984118342,experiments/priority_ablation.py
+E10,"hub_and_spoke_16_1, restore 1",weights on,1,1,40.0,0.0,40.0,1,0.006982899969443679,experiments/priority_ablation.py
+E10,"hub_and_spoke_16_1, restore 1","weights off, best tie",1,1,40.0,0.0,40.0,1,0.0049001999432221055,experiments/priority_ablation.py
+E10,"hub_and_spoke_16_1, restore 1","weights off, worst tie",1,1,40.0,0.0,40.0,1,0.005288599990308285,experiments/priority_ablation.py
+E10,"hub_and_spoke_16_1, restore 2",weights on,1,1,48.0,0.0,48.0,1,0.008697299985215068,experiments/priority_ablation.py
+E10,"hub_and_spoke_16_1, restore 2","weights off, best tie",1,1,45.0,0.0625,45.0,1,0.00791459996253252,experiments/priority_ablation.py
+E10,"hub_and_spoke_16_1, restore 2","weights off, worst tie",1,1,45.0,0.0625,45.0,1,0.005397100001573563,experiments/priority_ablation.py
+E10,"hub_and_spoke_16_1, restore 3",weights on,1,1,53.0,0.0,53.0,1,0.005605199956335127,experiments/priority_ablation.py
+E10,"hub_and_spoke_16_1, restore 3","weights off, best tie",1,1,53.0,0.0,53.0,1,0.005496500059962273,experiments/priority_ablation.py
+E10,"hub_and_spoke_16_1, restore 3","weights off, worst tie",1,1,53.0,0.0,53.0,1,0.0050969000440090895,experiments/priority_ablation.py
+E10,"hub_and_spoke_16_1, restore 4",weights on,1,1,53.0,0.0,53.0,1,0.004942400031723082,experiments/priority_ablation.py
+E10,"hub_and_spoke_16_1, restore 4","weights off, best tie",1,1,53.0,0.0,53.0,1,0.005127999931573868,experiments/priority_ablation.py
+E10,"hub_and_spoke_16_1, restore 4","weights off, worst tie",1,1,53.0,0.0,53.0,1,0.005301999975927174,experiments/priority_ablation.py
+E10,"hub_and_spoke_16_1, restore 5",weights on,1,1,53.0,0.0,53.0,1,0.005168000003322959,experiments/priority_ablation.py
+E10,"hub_and_spoke_16_1, restore 5","weights off, best tie",1,1,53.0,0.0,53.0,1,0.005027500097639859,experiments/priority_ablation.py
+E10,"hub_and_spoke_16_1, restore 5","weights off, worst tie",1,1,53.0,0.0,53.0,1,0.004872100078500807,experiments/priority_ablation.py
+E10,"hub_and_spoke_16_1, restore 6",weights on,1,1,53.0,0.0,53.0,1,0.0047845999943092465,experiments/priority_ablation.py
+E10,"hub_and_spoke_16_1, restore 6","weights off, best tie",1,1,53.0,0.0,53.0,1,0.0048986999318003654,experiments/priority_ablation.py
+E10,"hub_and_spoke_16_1, restore 6","weights off, worst tie",1,1,53.0,0.0,53.0,1,0.004521199967712164,experiments/priority_ablation.py
+E10,"hub_and_spoke_16_1, restore 7",weights on,1,1,53.0,0.0,53.0,1,0.00466689991299063,experiments/priority_ablation.py
+E10,"hub_and_spoke_16_1, restore 7","weights off, best tie",1,1,53.0,0.0,53.0,1,0.004912000033073127,experiments/priority_ablation.py
+E10,"hub_and_spoke_16_1, restore 7","weights off, worst tie",1,1,53.0,0.0,53.0,1,0.00485509994905442,experiments/priority_ablation.py
+E10,"hub_and_spoke_16_1, restore 8",weights on,1,1,53.0,0.0,53.0,1,0.005049299914389849,experiments/priority_ablation.py
+E10,"hub_and_spoke_16_1, restore 8","weights off, best tie",1,1,53.0,0.0,53.0,1,0.005054799956269562,experiments/priority_ablation.py
+E10,"hub_and_spoke_16_1, restore 8","weights off, worst tie",1,1,53.0,0.0,53.0,1,0.004700699937529862,experiments/priority_ablation.py
+E10,"hub_and_spoke_16_1, restore 9",weights on,1,1,53.0,0.0,53.0,1,0.004735599970445037,experiments/priority_ablation.py
+E10,"hub_and_spoke_16_1, restore 9","weights off, best tie",1,1,53.0,0.0,53.0,1,0.004869199940003455,experiments/priority_ablation.py
+E10,"hub_and_spoke_16_1, restore 9","weights off, worst tie",1,1,53.0,0.0,53.0,1,0.004627099959179759,experiments/priority_ablation.py
+E10,"hub_and_spoke_16_1, restore 10",weights on,1,1,53.0,0.0,53.0,1,0.0045044999569654465,experiments/priority_ablation.py
+E10,"hub_and_spoke_16_1, restore 10","weights off, best tie",1,1,53.0,0.0,53.0,1,0.004444399964995682,experiments/priority_ablation.py
+E10,"hub_and_spoke_16_1, restore 10","weights off, worst tie",1,1,53.0,0.0,53.0,1,0.0050342000322416425,experiments/priority_ablation.py
+E10,"hub_and_spoke_16_1, restore 11",weights on,1,1,53.0,0.0,53.0,1,0.0045134000247344375,experiments/priority_ablation.py
+E10,"hub_and_spoke_16_1, restore 11","weights off, best tie",1,1,53.0,0.0,53.0,1,0.00450249994173646,experiments/priority_ablation.py
+E10,"hub_and_spoke_16_1, restore 11","weights off, worst tie",1,1,53.0,0.0,53.0,1,0.004833500017412007,experiments/priority_ablation.py
+E10,"hub_and_spoke_16_1, restore 12",weights on,1,1,53.0,0.0,53.0,1,0.004830199992284179,experiments/priority_ablation.py
+E10,"hub_and_spoke_16_1, restore 12","weights off, best tie",1,1,53.0,0.0,53.0,1,0.005961399991065264,experiments/priority_ablation.py
+E10,"hub_and_spoke_16_1, restore 12","weights off, worst tie",1,1,53.0,0.0,53.0,1,0.00472490000538528,experiments/priority_ablation.py
+E10,"hub_and_spoke_16_1, restore 13",weights on,1,1,53.0,0.0,53.0,1,0.004537399974651635,experiments/priority_ablation.py
+E10,"hub_and_spoke_16_1, restore 13","weights off, best tie",1,1,53.0,0.0,53.0,1,0.00444350007455796,experiments/priority_ablation.py
+E10,"hub_and_spoke_16_1, restore 13","weights off, worst tie",1,1,53.0,0.0,53.0,1,0.004651499912142754,experiments/priority_ablation.py
+E10,"hub_and_spoke_16_1, restore 14",weights on,1,1,53.0,0.0,53.0,1,0.004673399962484837,experiments/priority_ablation.py
+E10,"hub_and_spoke_16_1, restore 14","weights off, best tie",1,1,53.0,0.0,53.0,1,0.0050765000050887465,experiments/priority_ablation.py
+E10,"hub_and_spoke_16_1, restore 14","weights off, worst tie",1,1,53.0,0.0,53.0,1,0.004746500053443015,experiments/priority_ablation.py
+E10,"hub_and_spoke_16_1, restore 15",weights on,1,1,53.0,0.0,53.0,1,0.004377100034616888,experiments/priority_ablation.py
+E10,"hub_and_spoke_16_1, restore 15","weights off, best tie",1,1,53.0,0.0,53.0,1,0.004521099966950715,experiments/priority_ablation.py
+E10,"hub_and_spoke_16_1, restore 15","weights off, worst tie",1,1,53.0,0.0,53.0,1,0.004257599939592183,experiments/priority_ablation.py
+E10,"hub_and_spoke_16_2, restore 1",weights on,1,2,73.0,0.0,73.0,1,0.007957300054840744,experiments/priority_ablation.py
+E10,"hub_and_spoke_16_2, restore 1","weights off, best tie",1,2,73.0,0.0,73.0,1,0.005697999964468181,experiments/priority_ablation.py
+E10,"hub_and_spoke_16_2, restore 1","weights off, worst tie",1,2,73.0,0.0,73.0,1,0.00542709999717772,experiments/priority_ablation.py
+E10,"hub_and_spoke_16_2, restore 2",weights on,1,2,73.0,0.0,73.0,1,0.005085799959488213,experiments/priority_ablation.py
+E10,"hub_and_spoke_16_2, restore 2","weights off, best tie",1,2,73.0,0.0,73.0,1,0.0050403999630361795,experiments/priority_ablation.py
+E10,"hub_and_spoke_16_2, restore 2","weights off, worst tie",1,2,73.0,0.0,73.0,1,0.00493819999974221,experiments/priority_ablation.py
+E10,"hub_and_spoke_16_2, restore 3",weights on,1,2,76.0,0.0,76.0,1,0.004740300006233156,experiments/priority_ablation.py
+E10,"hub_and_spoke_16_2, restore 3","weights off, best tie",1,2,76.0,0.0,76.0,1,0.004607000038959086,experiments/priority_ablation.py
+E10,"hub_and_spoke_16_2, restore 3","weights off, worst tie",1,2,76.0,0.0,76.0,1,0.004616199992597103,experiments/priority_ablation.py
+E10,"hub_and_spoke_16_2, restore 4",weights on,1,2,76.0,0.0,76.0,1,0.004523699986748397,experiments/priority_ablation.py
+E10,"hub_and_spoke_16_2, restore 4","weights off, best tie",1,2,76.0,0.0,76.0,1,0.004800700000487268,experiments/priority_ablation.py
+E10,"hub_and_spoke_16_2, restore 4","weights off, worst tie",1,2,76.0,0.0,76.0,1,0.004868999938480556,experiments/priority_ablation.py
+E10,"hub_and_spoke_16_2, restore 5",weights on,1,2,76.0,0.0,76.0,1,0.005070399958640337,experiments/priority_ablation.py
+E10,"hub_and_spoke_16_2, restore 5","weights off, best tie",1,2,76.0,0.0,76.0,1,0.004809299949556589,experiments/priority_ablation.py
+E10,"hub_and_spoke_16_2, restore 5","weights off, worst tie",1,2,76.0,0.0,76.0,1,0.004664500011131167,experiments/priority_ablation.py
+E10,"hub_and_spoke_16_2, restore 6",weights on,1,2,76.0,0.0,76.0,1,0.004796799970790744,experiments/priority_ablation.py
+E10,"hub_and_spoke_16_2, restore 6","weights off, best tie",1,2,76.0,0.0,76.0,1,0.004848400014452636,experiments/priority_ablation.py
+E10,"hub_and_spoke_16_2, restore 6","weights off, worst tie",1,2,76.0,0.0,76.0,1,0.0044213999062776566,experiments/priority_ablation.py
+E10,"hub_and_spoke_16_2, restore 7",weights on,1,2,76.0,0.0,76.0,1,0.004376999917440116,experiments/priority_ablation.py
+E10,"hub_and_spoke_16_2, restore 7","weights off, best tie",1,2,76.0,0.0,76.0,1,0.004287400050088763,experiments/priority_ablation.py
+E10,"hub_and_spoke_16_2, restore 7","weights off, worst tie",1,2,76.0,0.0,76.0,1,0.004266600008122623,experiments/priority_ablation.py
+E10,"hub_and_spoke_16_2, restore 8",weights on,1,2,76.0,0.0,76.0,1,0.005260000005364418,experiments/priority_ablation.py
+E10,"hub_and_spoke_16_2, restore 8","weights off, best tie",1,2,76.0,0.0,76.0,1,0.005002900026738644,experiments/priority_ablation.py
+E10,"hub_and_spoke_16_2, restore 8","weights off, worst tie",1,2,76.0,0.0,76.0,1,0.00468619994353503,experiments/priority_ablation.py
+E10,"hub_and_spoke_16_2, restore 9",weights on,1,2,76.0,0.0,76.0,1,0.006038099993020296,experiments/priority_ablation.py
+E10,"hub_and_spoke_16_2, restore 9","weights off, best tie",1,2,76.0,0.0,76.0,1,0.004924400011077523,experiments/priority_ablation.py
+E10,"hub_and_spoke_16_2, restore 9","weights off, worst tie",1,2,76.0,0.0,76.0,1,0.0044787999941036105,experiments/priority_ablation.py
+E10,"hub_and_spoke_16_2, restore 10",weights on,1,2,76.0,0.0,76.0,1,0.004540800000540912,experiments/priority_ablation.py
+E10,"hub_and_spoke_16_2, restore 10","weights off, best tie",1,2,76.0,0.0,76.0,1,0.004551199963316321,experiments/priority_ablation.py
+E10,"hub_and_spoke_16_2, restore 10","weights off, worst tie",1,2,76.0,0.0,76.0,1,0.005715699982829392,experiments/priority_ablation.py
+E10,"hub_and_spoke_16_2, restore 11",weights on,1,2,76.0,0.0,76.0,1,0.004642299958504736,experiments/priority_ablation.py
+E10,"hub_and_spoke_16_2, restore 11","weights off, best tie",1,2,76.0,0.0,76.0,1,0.0046307999873533845,experiments/priority_ablation.py
+E10,"hub_and_spoke_16_2, restore 11","weights off, worst tie",1,2,76.0,0.0,76.0,1,0.0042224000208079815,experiments/priority_ablation.py
+E10,"hub_and_spoke_16_2, restore 12",weights on,1,2,76.0,0.0,76.0,1,0.00522249995265156,experiments/priority_ablation.py
+E10,"hub_and_spoke_16_2, restore 12","weights off, best tie",1,2,76.0,0.0,76.0,1,0.005054400069639087,experiments/priority_ablation.py
+E10,"hub_and_spoke_16_2, restore 12","weights off, worst tie",1,2,76.0,0.0,76.0,1,0.004608800052665174,experiments/priority_ablation.py
+E10,"hub_and_spoke_16_2, restore 13",weights on,1,2,76.0,0.0,76.0,1,0.004909899900667369,experiments/priority_ablation.py
+E10,"hub_and_spoke_16_2, restore 13","weights off, best tie",1,2,76.0,0.0,76.0,1,0.004486300051212311,experiments/priority_ablation.py
+E10,"hub_and_spoke_16_2, restore 13","weights off, worst tie",1,2,76.0,0.0,76.0,1,0.004636500030755997,experiments/priority_ablation.py
+E10,"hub_and_spoke_16_2, restore 14",weights on,1,2,76.0,0.0,76.0,1,0.004430500091984868,experiments/priority_ablation.py
+E10,"hub_and_spoke_16_2, restore 14","weights off, best tie",1,2,76.0,0.0,76.0,1,0.004207300022244453,experiments/priority_ablation.py
+E10,"hub_and_spoke_16_2, restore 14","weights off, worst tie",1,2,76.0,0.0,76.0,1,0.004298300016671419,experiments/priority_ablation.py
+E10,"hub_and_spoke_16_2, restore 15",weights on,1,2,76.0,0.0,76.0,1,0.004459199961274862,experiments/priority_ablation.py
+E10,"hub_and_spoke_16_2, restore 15","weights off, best tie",1,2,76.0,0.0,76.0,1,0.004272199934348464,experiments/priority_ablation.py
+E10,"hub_and_spoke_16_2, restore 15","weights off, worst tie",1,2,76.0,0.0,76.0,1,0.004346300032921135,experiments/priority_ablation.py

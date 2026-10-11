@@ -9,7 +9,9 @@ import numpy as np
 from scipy.optimize import linprog
 from scipy.sparse import coo_matrix
 
+from .benchmark import plan_indices
 from .feeder import all_plans
+from .instances import Instance
 
 FAMILIES = ("random_geometric", "ring_with_chords", "hub_and_spoke")
 DAMAGED_COUNTS = (12, 16)  # plan section 2.4
@@ -235,3 +237,8 @@ def stored_value_table(instance):
     write_atomically(path, lambda handle: np.savez(handle, table=table, fingerprint=fingerprint(instance),
                                                    seconds=seconds))
     return table, seconds
+
+
+def restoration(instance, table, count):
+    return Instance(f"{instance['name']}, restore {count}", len(instance["elements"]), "max",
+                    lambda plans: table[plan_indices(plans)], count, {"family": instance["family"]})

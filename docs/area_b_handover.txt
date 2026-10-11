@@ -1,5 +1,106 @@
-AREA B HANDOVER: FLOW NETWORKS (B1-B4, B6)
+AREA B HANDOVER: FLOW NETWORKS (B1-B10)
 Author: Johnathan. Code review findings are referred to as R1 to R9.
+
+
+FILES OF AREA B
+
+Every file that belongs to area B, or that area B changed, with its task. Paths are from the repo root. "Run" means python -m <module> from the repo root, or python run_experiments.py <name>, which also saves the printed output to results/<name>.txt.
+
+Library
+   briskit/flow.py (B1-B4, shared by every flow script)
+      B1: instance format and storage. handmade_instance, save_instance, load_instance, stored_instance, instance_names, instance_paths, write_atomically.
+      B2: generator. random_geometric_network, ring_with_chords_network, hub_and_spoke_network, connected, damage_disk, random_demands, generate_instance.
+      B3: scoring model. FlowProgram (the multi-commodity flow linear program) and undamaged_value.
+      B4: value tables. value_table, fingerprint, stored_value_table.
+      Harness link: restoration(instance, table, count) wraps a value table as a briskit/instances.py Instance for the A1 harness.
+   briskit/solvers.py (Niko's; changed for B7): cost_at_bound and qaoa(depth, at_bound=True), the count penalty in the standard form raised to the bound. The default qaoa(depth) is unchanged.
+   briskit/trained.py (Niko's; changed for B10): record_value scores from a record's "values" list when it has one (flow records).
+
+Experiment scripts (each has a saved output results/<name>.txt)
+   experiments/flow_instances.py (B1, B2): writes the 19 instance files.
+   experiments/flow_model_checks.py (B3): checks the hand-made values 0, 6, 4, 9, that all restored equals undamaged, and monotonicity on 200 random pairs.
+   experiments/flow_value_tables.py (B4, E1): builds and checks every value table and counts idle links.
+   experiments/flow_fitted_pair_cost.py (B6, E3, E4): single-link and pair fits on the tables, against fit size.
+   experiments/flow_budget_experiment.py (B7, E8): the budget experiment on the flow networks through the harness. Penalty at the bound, at most 6 workers.
+   experiments/priority_ablation.py (B8, E10; Jithesh's, rebuilt on the harness): priority weights on and off.
+   experiments/flow_ladder.py (B9): rungs 2 and 4 of the ladder (single-link control, pair fit, sparse pair fits), with gate counts.
+   experiments/flow_trained_circuit.py (B10): writes the E8 flow records to qollab/trained_circuits.json.
+   experiments/trained_circuits.py (Niko's A7; changed for B10): now replaces only its own records in the shared file.
+
+Checks
+   checks/flow_trained_checks.py and checks/flow_trained_checks.csv (B10): the record's circuit, its replay of the harness run, and its scoring. Run: python -m checks.flow_trained_checks.
+
+Data (committed)
+   data/flow/handmade.json (B1) and data/flow/<family>_<12|16>_<seed>.json (B2), 19 files in all.
+
+Results (committed)
+   results/flow_instances.txt, results/flow_model_checks.txt, results/flow_value_tables.txt, results/flow_fitted_pair_cost.txt, results/flow_budget_experiment.txt, results/priority_ablation.txt, results/flow_ladder.txt, results/flow_trained_circuit.txt: printed output of each script, with the package versions and commit in the header.
+   results/flow/program_time.csv (B3): time of one flow program per instance.
+   results/flow/value_tables.csv (B4): plans, values, time and idle links per table.
+   results/flow/fitted_pair_cost.csv (B6): result rows of E3 and E4.
+   results/flow/budget_experiment.csv (B7): result rows of E8.
+   results/flow/priority_ablation.csv and results/flow/priority_ablation_ties.csv (B8): result rows and tie counts of E10.
+   results/flow/ladder.csv (B9): result rows of the ladder.
+   qollab/trained_circuits.json (B10, shared with A7): the two E8 flow records sit after Niko's three feeder records.
+
+Results (not committed)
+   results/flow/tables/<instance>.npz and <instance>_unweighted.npz (B4, B8): the value tables. They are in .gitignore and are rebuilt on first use, which takes about 4 minutes on 32 cores.
+
+Not area B, committed alongside it (area C, Qollab project and figures)
+   qollab/main.py, qollab/run_local.py, qollab/project_figures.py, qollab/figure_data.json, figures/, results/qollab/, and the figures/quick_path/ line in .gitignore. SOURCES.md and syllabus.md also hold area C entries, under their own heading in SOURCES.md and under qollab/ in syllabus.md.
+
+Documents
+   docs/area_b_handover.txt: this file.
+   SOURCES.md (area B part): every source read for area B, and every constant without a source.
+   syllabus.md: one entry per file above, in Niko's format.
+
+
+FILES OF AREA C (C1-C4, made by Johnathan on 2026-10-10 and 2026-10-11)
+
+Area C is Jithesh's. Johnathan built C1 to C4 at his request; C5 to C7 are untouched. Every file below, with its task. Paths are from the repo root.
+
+Qollab project (upload these three files, all at the top level of the Qollab project)
+   qollab/main.py (C1, C2, C4; the file Qollab runs, changed from the A7 version):
+      run_circuit(device, shots, depth, keep): one run of the 12-repair crew-assignment circuit on the backend Qollab supplies, one job. Returns the report as lines of text: backend (with the IonQ noise model when the backend names one), UTC date, shots, depth, share of pair terms kept, two-qubit gates before and after compiling, best plan, classical rule, best of the shots, averages, share of shots on a best plan, the three best plans, seconds. Kept separate from main() so the C2 page can call it.
+      save_record: on Qollab, sendFile puts the record qollab_run_<backend>_keep<keep>_depth<depth>.txt in the console to download. Locally it writes the record to the folder run_local.py supplies.
+      main(shots=2000, depth=2, keep=100, figures=True): the settings form on Qollab. keep is 100, 50 or 25 (angles trained for each). With figures on, it draws the four figures from figure_data.json, which is the quick path. It prints the seconds for the circuit, for the figures and in total.
+   qollab/project_figures.py (C3): draws the pipeline, interaction spectrum, budget curves and gate counts from figure_data.json. Each figure gets a caption whose numbers are computed from the data, a short alt text and a long description as a text table. Colours from Matplotlib's tableau-colorblind10, plus a hatch, marker or line style per series, so colour is never the only cue. Imports Matplotlib only, which Qollab loads without a requirements.txt.
+   qollab/figure_data.json (C3, C4): the cached data the figures need, about 109 kB. Written by figures/build.py; do not edit by hand.
+   Not uploaded: qollab/trained_circuits.json (A7, B10). main.py does not read it. Running the flow record on Qollab (the B10 action for area C) is not built.
+
+Local tools
+   qollab/run_local.py (C1, C4): runs main.py the way Qollab does, with BasicSimulator or an IBM fake backend as backend. Options --shots, --depth, --keep (one or more), --devices (basic and IBM fake backend names such as fez), --no-figures, --save. Figures go to figures/quick_path/ (ignored by git); records go to results/qollab/local/ with --save.
+      Run: python qollab/run_local.py --devices basic fez --keep 100 50 --no-figures --save
+   figures/build.py (C3; the full path for the figures): reads results/interaction_spectrum.txt, results/gate_counts.txt and results/feeder/budget_experiment_*.csv, writes qollab/figure_data.json when it changes, and draws the four figures into figures/ with figures/captions.md. Fails if a result file no longer has the expected lines.
+      Run, after run_experiments.py: python -m figures.build
+
+Figures (committed)
+   figures/pipeline.png, figures/interaction_spectrum.png, figures/budget_curves.png, figures/gate_counts.png (C3).
+   figures/captions.md (C3, for C5): alt text, caption and description table of each figure, ready for the project page.
+
+Results
+   results/qollab/local/qollab_run_<basic_simulator|fake_fez>_keep<100|50>_depth2.txt (C1 pre-check, committed): local runs that checked the code before the hosted runs. They are not the C1 outputs.
+   results/qollab/qollab_run_<backend>_keep<100|50>_depth2.txt (C1, not made yet): the six hosted runs, downloaded from the Qollab console. Built-in simulator, IBM Fez and IonQ Forte 1, at keep 100 and 50, 2000 shots, depth 2, figures off.
+
+Measured so far (local; 2000 shots, depth 2; share of shots on a best plan, random 0.098%)
+   basic simulator: keep 100 0.55% (132 two-qubit gates), keep 50 1.05% (66).
+   IBM Fez noise model: keep 100 0.35% (741 gates after compiling), keep 50 0.45% (357).
+   Quick path with figures on the basic simulator: 3.6 s end to end, against the 10-minute target of section 13.
+
+Environment
+   Matplotlib 3.11.2 (figures/build.py, run_local.py with figures), qiskit-ibm-runtime and qiskit-aer (IBM fake backends in run_local.py) were installed in .venv. None is in requirements.txt yet.
+   Action (Niko and Johnathan, who own requirements.txt): decide whether to pin them.
+
+Open for area C
+   1. The six hosted C1 runs, on the captain's project, after C2 is settled. The records go in results/qollab/.
+   2. C2 changed to a page (index.html, main.js) with the Python behind it. Qollab runs the page when both files are at the top level, so the project then holds the page and no bare main.py run. Python is called through .callPromising on IonQ backends. Remove the template's filter that deletes outcomes under 5%. Not built. run_circuit is ready to be called from the page.
+   3. C3 addition: two tables as figures with alt text, the ladder and the four backends of section 4. Not built; needs the document with section 4 and the four screenshots.
+   4. The IonQ run is untested. If compiling for IonQ fails, main.py sends the circuit as written and the record says "not compiled locally".
+
+Documents
+   syllabus.md: entries for qollab/main.py, qollab/project_figures.py, qollab/run_local.py, qollab/figure_data.json and figures/build.py.
+   SOURCES.md, section "Area C: Qollab project and figures": every source read for area C (the three Qollab pages, Matplotlib style sheets and backends, Okabe and Ito, W3C WAI complex images, Python runpy) and every constant without a source.
+   Comment exception, as for area B: the area C files carry one-line comments giving the source URL on lines that rely on Qollab, Matplotlib or runpy behaviour.
 
 
 FOR JITHESH: AREA B HANDOVER (B1-B4, B6)
@@ -9,6 +110,11 @@ How to run, from the repo root. Each script makes what it needs, so any order wo
     python -m experiments.flow_model_checks
     python -m experiments.flow_value_tables
     python -m experiments.flow_fitted_pair_cost
+    python -m experiments.flow_budget_experiment
+    python -m experiments.priority_ablation
+    python -m experiments.flow_ladder
+    python -m experiments.flow_trained_circuit
+    python -m checks.flow_trained_checks
 
 
 B1: INSTANCE FORMAT (we own this jointly)
@@ -138,6 +244,63 @@ B6: FITTED PAIR COSTS (pattern to copy for B7)
     Action: copy this shape for B7.
 
 
+B7 AND B8: CHANGES TO YOUR SCRIPTS (made 2026-10-10)
+
+Both scripts crashed on a default run. budget in the instance JSON is now a list ([4, 6] for 12 links, [5, 8] for 16), but both used it as one number. I fixed that and moved both onto Niko's harness (briskit/benchmark.py, solvers.py, instances.py, summary.py), which is now on main.
+
+B7 experiments/flow_budget_experiment.py (it was briskit/flow_budget_experiment.py)
+   - Moved to experiments/. run_experiments.py only runs experiments/<name>, and the library shouldn't import from experiments.
+   - Rebuilt on Niko's experiments/budget_experiment.py, as he asked. It now writes the 11-column row (value, returned, evaluations, seconds) to results/flow/budget_experiment.csv.
+   - Every number restored in budget runs, with 30 seeds.
+   - Fitted methods are now credited with their fitting sample. The old version charged fit + budget evaluations but scored only the surrogate's picks, which made fitted, thermal and QAOA look worse than the baselines.
+   - Methods mapped across:
+       exact search -> fitted cost, best first
+       QAOA depth 1 and 2 -> Niko's qaoa(1), qaoa(2)
+       fixed-beta thermal -> Niko's thermal beta 2 and 5
+       swap annealing -> kept
+       greedy -> Niko's greedy
+       random -> random plans
+   - Fit sizes: 150 for 12 links (as in Niko's feeder run) and 400 for 16 (your middle size).
+   - Dropped:
+       thermal at the best beta, because it picks beta using the true regret, so it's an oracle;
+       the penalty-scale sweep, because Niko's penalised_cost sets the penalty;
+       matched thermal, because the harness has no way to share a trained QAOA with a second method.
+   - Swap annealing: the temperature is now a share of the current value, not of the optimum, so it no longer needs the optimum. Your 0.1 to 0.005 schedule is kept. Every plan it scores is returned, so its rows sit on the same evaluation axis as random plans.
+   - Jobs run in parallel per instance, number restored and seed, capped by FLOW_PROCESSES. It is about 2 CPU hours, most of it QAOA depth 2 on 16 links (about 12 s per seed). Each worker loads Qiskit, so use a lower FLOW_PROCESSES on a machine with little memory.
+   - These cover review findings 1 to 10. Findings 2, 3, 5, 6, 7, 9 and 10 disappeared with the harness code they were about.
+   Action: check that the method list is what you want for E8, and say if you want the dropped ones back.
+
+B8 experiments/priority_ablation.py
+   - Uses stored_value_table for both the weighted and the unweighted tables. The unweighted ones are cached as results/flow/tables/<instance>_unweighted.npz. The private cache folder and its Pool code are gone.
+   - Covers every number restored from 1 to damaged - 1 on all 18 instances in one run. Your two tagged runs (n12, n16) are replaced by results/flow/priority_ablation.csv (harness rows, method "weights on", "weights off, best tie" and "weights off, worst tie") and results/flow/priority_ablation_ties.csv (your summary columns, with budget renamed to count).
+   - Checked: all 756 tie values from your saved n12 and n16 files are reproduced exactly.
+   - It prints a summary table, so the runner saves results/priority_ablation.txt.
+
+
+B9, B10 AND B7 CHANGED (plan addendum, section 6.2; made 2026-10-10)
+
+B7 changed: count penalty in the standard form, at the bound
+   - Problem found: with the feeder's penalty (strength = standard deviation of the fitted value), QAOA put only 0.4 to 0.7% of its probability on plans with the right count on random_geometric_12_0, restore 6. The cause is that restoring more links always serves more demand, so wrong counts score high.
+   - Fix: the penalty keeps the standard form A(K - number chosen)^2 (Lucas, section 2.3), but A is raised to the bound when it is below it. At the bound, the best plan of the right count is a lowest state of the cost. On that instance the right-count share goes to about 50%.
+   - Code: briskit/solvers.py gets cost_at_bound and qaoa(depth, at_bound=True). Niko's default qaoa(depth) is unchanged, so A2 and the feeder results don't move.
+   - Workers capped at 6, as in Niko's standard_qaoa.py. The earlier full run was stopped for low memory with 32 workers, each loading Qiskit.
+   - If a mixer that keeps the count (A9) is built, it becomes its own rung on the flow networks.
+
+B9 experiments/flow_ladder.py: rungs 2 and 4
+   - Setup: 12-link instances, both restore counts, 30 seeds, fit on 150 plans. QAOA depths 1 and 2 run on four fits: single-link (control), pair, pair with 50% of pair terms, and pair with 25%. Exact search on each fit and random plans are the references. Rows go to results/flow/ladder.csv. It runs in about 2 minutes on 6 processes.
+   - Result: QAOA on the pair fit does not clearly beat QAOA on the single-link fit or random plans at equal evaluations. All of them sit within about 1 percentage point of mean regret at 200 evaluations. Exact search on the pair fit is the best method: it reaches the optimum on 270 of 270 runs for restore 6 and 249 of 270 for restore 4.
+   - Result: rung 4 saves no gates here. The count penalty adds a term to every pair, so every fit has 66 pair gates per layer. Without the penalty (for example with a count-keeping mixer) the cost layer would need 66, 33 and 16 pair gates for 100%, 50% and 25% of terms, and 0 for the single-link fit.
+   - Left out: 16 links (QAOA depth 2 takes about 12 s per run at 16 qubits). Rungs 0, 1 and 3 don't apply on flow networks.
+   Action (Niko): this goes into the ladder write-up. Rung 4 needs the count-keeping mixer before it can save gates on any decision with a fixed count.
+
+B10 experiments/flow_trained_circuit.py
+   - What it writes: E8 records for random_geometric_12_0, restore 6, seed 0, depths 1 and 2, in qollab/trained_circuits.json in the A7 format. The records replay the B7 QAOA runs exactly.
+   - Scoring: each record stores the value of all 4,096 plans ("values"), so Qollab can score shots without SciPy. briskit/trained.py record_value uses it. The file is now 86 KB, under the 2 MB limit.
+   - experiments/trained_circuits.py now replaces only its own records, so it no longer erases the flow ones. Run the two scripts one after the other, not as parallel runner jobs.
+   - checks/flow_trained_checks.py: the circuit gives the trained distribution, the replay matches the harness solver, and scoring from values matches the table. Each check passes, and fails on its broken version.
+   Action (area C): to run a flow circuit on Qollab, read the E8 record and score with record["values"][plan index].
+
+
 DOCS
 
 19. syllabus.md has an entry for each new file, in Niko's format. SOURCES.md lists each source that was opened, what was taken from it, and every constant that has no source. The new code has short comments giving the source of each constant, or "project choice, no source".
@@ -176,13 +339,11 @@ FOR NIKO: RESULT ROWS, RUNNER, SHARED FILES
    - The first flow_value_tables run takes about 4 minutes on 32 cores, using every core.
    - --threads doesn't reach it, because it uses processes, not numerical threads.
    - FLOW_PROCESSES caps it. FLOW_PROCESSES=1 runs strictly serial, which takes roughly 30 minutes the first time.
-   Action: you might have run_experiments.py set FLOW_PROCESSES from --threads. That's a one-line change in your file, so I haven't touched it.
+   Done (commit 56a018a, with your clearance): run_experiments.py has a --processes option, defaulting to the core count divided by --jobs, and passes it to the scripts as FLOW_PROCESSES.
 
-7. Runner crash without Qiskit. run_experiments.py crashes on a machine without Qiskit: version("qiskit") raises PackageNotFoundError.
-   Action: catch that error and print "not installed", or document pip install -r requirements.txt as a required first step.
+7. Runner crash without Qiskit. Done (56a018a): a missing package is recorded as "not installed". The saved outputs should still be made after pip install -r requirements.txt; flow_fitted_pair_cost differs by 0.1 in one cell between numpy 2.1.3 and the pinned 2.5.2.
 
-8. Missing files. briskit/summary.py and experiments/budget_experiment.py aren't on GitHub. origin/main ends at "Add fitted pair cost result".
-   Action: please push them. B7 copies budget_experiment.py.
+8. Missing files. Done: summary.py and budget_experiment.py are on main, and B7 is built on them.
 
 9. B6 depends on your code. It calls selection_features and ridge_coefficients from briskit/pair_cost.py, with the default ridge strength of 1e-3.
    Action: tell us if you change either one, because the B6 numbers will change.

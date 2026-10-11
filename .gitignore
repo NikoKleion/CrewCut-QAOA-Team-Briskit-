@@ -4,3 +4,4 @@ __pycache__/
 .vscode/
 .idea/
 results/flow/tables/
+figures/quick_path/

@@ -1,0 +1,17 @@
+project file: qollab/main.py
+backend: basic_simulator
+date: 2026-10-11T02:45:29Z
+shots: 2000   depth: 2   share of pair terms kept: 100%
+repairs: 12   plans: 4096   shots returned: 2000   distinct plans measured: 1104
+pair terms in the cost layer: 66 of 66
+two-qubit gates as written: 132   after compiling for this backend: 132
+best possible plan                    67.362
+classical rule                        67.362   (+0.00%)
+best plan among the shots             67.362   (+0.00%)
+average over the shots                69.257
+average over all plans (random)       73.788
+shots that are a best plan             0.55%   (random: 0.098%)
+plan ABAABBBBAAAA   cost 67.362
+plan BABBAAAABBBB   cost 67.362
+plan BAAAABBBBBBA   cost 67.362
+seconds for circuit, job and scoring: 1.5
