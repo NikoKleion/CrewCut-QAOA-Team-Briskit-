@@ -1,11 +1,11 @@
 command: python -m experiments.fit_size
-code: 05889f9 (clean)
+code: e7a85a4 (clean)
 python: 3.13.14
 packages: numpy 2.5.2  scipy 1.18.1  qiskit 2.5.2
 platform: Windows-11-10.0.26200-SP0, AMD64
 threads: 1
-started: 2026-10-10T21:14:26Z
-seconds: 2
+started: 2026-10-11T00:34:50Z
+seconds: 4
 exit: 0
 
 IEEE 13 node feeder, restore 4 of 12 lines, 495 plans of that size, 30 instances

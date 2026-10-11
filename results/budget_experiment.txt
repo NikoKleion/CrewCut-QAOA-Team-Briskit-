@@ -1,11 +1,11 @@
 command: python -m experiments.budget_experiment
-code: 41d8be8 (clean)
+code: e7a85a4 (clean)
 python: 3.13.14
 packages: numpy 2.5.2  scipy 1.18.1  qiskit 2.5.2
 platform: Windows-11-10.0.26200-SP0, AMD64
 threads: 1
-started: 2026-10-10T21:10:16Z
-seconds: 57
+started: 2026-10-11T00:33:20Z
+seconds: 90
 exit: 0
 
 IEEE 13 node feeder, restore 6 of 12 lines, 30 instances, fit on 150 plans
