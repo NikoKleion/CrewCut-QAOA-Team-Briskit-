@@ -17,9 +17,11 @@ sys.path.insert(0, str(ROOT))
 from run_experiments import environment_lines
 
 
-def folder_state():
-    done = subprocess.run(["git", "status", "--porcelain", "--", "future"], cwd=ROOT, capture_output=True, text=True)
-    return "unknown" if done.returncode else ("modified" if done.stdout.strip() else "clean")
+def scripts_state():
+    done = subprocess.run(["git", "status", "--porcelain", "--untracked-files=all", "--", "future"], cwd=ROOT,
+                          capture_output=True, text=True)
+    changed = [line for line in done.stdout.splitlines() if line.strip().endswith(".py")]
+    return "unknown" if done.returncode else ("modified" if changed else "clean")
 
 
 def saved_run(script, main):
@@ -31,7 +33,7 @@ def saved_run(script, main):
         main()
     header = [f"command: python {script.relative_to(ROOT).as_posix()}",
               *environment_lines(os.environ["OMP_NUM_THREADS"]),
-              f"future folder: {folder_state()}",
+              f"future scripts: {scripts_state()}",
               f"started: {started.strftime('%Y-%m-%dT%H:%M:%SZ')}",
               f"seconds: {time.perf_counter() - clock:.0f}"]
     saved = script.with_suffix(".txt")
