@@ -1,0 +1,40 @@
+command: python -m experiments.priority_ablation
+code: 2374eda (clean)
+python: 3.13.5
+packages: numpy 2.5.2  scipy 1.18.1  qiskit 2.5.2
+platform: Windows-11-10.0.26200-SP0, AMD64
+threads: 1
+started: 2026-10-11T02:40:13Z
+seconds: 5
+exit: 0
+
+flow networks, priority weights on and off (E10): for each instance and number of links restored, the
+plans that are optimal with every commodity weight set to 1, scored with the real weights
+   damaged restore instances share a plan  weighted loss, best tie  weighted loss, worst tie
+        12       1         9            8                    1.37%                     1.59%
+        12       2         9            8                    2.22%                     9.07%
+        12       3         9            8                    1.23%                     3.08%
+        12       4         9            8                    2.65%                     6.81%
+        12       5         9            7                    1.91%                     5.44%
+        12       6         9            7                    1.47%                     8.83%
+        12       7         9            6                    3.81%                     5.65%
+        12       8         9            8                    0.56%                     2.25%
+        12       9         9            9                    0.00%                     2.50%
+        12      10         9            9                    0.00%                     2.23%
+        12      11         9            9                    0.00%                     2.11%
+        16       1         9            7                    3.67%                     3.67%
+        16       2         9            5                    2.39%                     3.23%
+        16       3         9            5                    5.11%                     5.11%
+        16       4         9            8                    1.90%                    10.87%
+        16       5         9            8                    0.13%                     0.42%
+        16       6         9            8                    0.40%                     1.29%
+        16       7         9            8                    0.13%                     1.82%
+        16       8         9            9                    0.00%                     0.92%
+        16       9         9            9                    0.00%                     0.41%
+        16      10         9            9                    0.00%                     0.41%
+        16      11         9            9                    0.00%                     0.41%
+        16      12         9            9                    0.00%                     0.41%
+        16      13         9            9                    0.00%                     0.41%
+        16      14         9            9                    0.00%                     0.41%
+        16      15         9            9                    0.00%                     0.41%
+rows in results/flow/priority_ablation.csv, tie counts in results/flow/priority_ablation_ties.csv

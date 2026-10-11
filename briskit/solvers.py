@@ -93,9 +93,19 @@ def penalised_cost(merit, rows, instance):
     return cost, float(penalty)
 
 
-def qaoa(depth, starts=2, maxiter=None):
+def cost_at_bound(merit, rows, instance):
+    cost, penalty = penalised_cost(merit, rows, instance)
+    chosen = all_plans(instance.size).sum(axis=1)
+    outside = chosen != instance.count
+    bound = float(np.max((merit[outside] - merit[rows].max()) / (chosen[outside] - instance.count) ** 2))
+    if bound <= penalty:
+        return cost, penalty
+    return -merit + bound * (chosen - instance.count) ** 2, bound
+
+
+def qaoa(depth, starts=2, maxiter=None, at_bound=False):
     def select(merit, rows, instance, budget, rng):
-        cost, _ = penalised_cost(merit, rows, instance)
+        cost, _ = (cost_at_bound if at_bound else penalised_cost)(merit, rows, instance)
         _, probability = train_qaoa(cost, depth, rng, starts=starts, maxiter=maxiter)
         inside = probability[rows] / probability[rows].sum()
         return rows[rng.choice(len(rows), size=budget, p=inside)]

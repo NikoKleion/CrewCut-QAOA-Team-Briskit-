@@ -61,9 +61,11 @@ def main():
         print(f"   {depth}       {100 * probability[rows].sum():6.1f}%       {100 * inside[best].sum():6.2f}%"
               f"                      {100 * float(inside @ (1 - table[rows] / optimum)):6.2f}%")
         records.append(record)
-    saved = read_records(OUTPUT) if OUTPUT.exists() else None
-    if saved is None or without_code(saved) != records:
-        write_records(OUTPUT, [dict(record, code=code_version()) for record in records])
+    saved = read_records(OUTPUT) if OUTPUT.exists() else []
+    own = [record for record in saved if record["experiment"] == EXPERIMENT]
+    others = [record for record in saved if record["experiment"] != EXPERIMENT]
+    if without_code(own) != records:
+        write_records(OUTPUT, [dict(record, code=code_version()) for record in records] + others)
     print(f"   records for depths 1, 2 and 3 are in {OUTPUT.relative_to(ROOT).as_posix()}")
 
 

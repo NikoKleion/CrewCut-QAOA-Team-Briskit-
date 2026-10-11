@@ -20,8 +20,8 @@ def fitted_methods(samples):
         "fitted cost, best first": fitted(samples, best_first),
         "fitted cost, thermal beta 2": fitted(samples, thermal(2.0)),
         "fitted cost, thermal beta 5": fitted(samples, thermal(5.0)),
-        "fitted cost, QAOA depth 1": fitted(samples, qaoa(1)),
-        "fitted cost, QAOA depth 2": fitted(samples, qaoa(2)),
+        "fitted cost, QAOA depth 1": fitted(samples, qaoa(1, at_bound=True)),
+        "fitted cost, QAOA depth 2": fitted(samples, qaoa(2, at_bound=True)),
     }
 
 
@@ -57,27 +57,27 @@ def collect(job):
     return benchmark.changes_only(rows)
 
 
-def report(title, rows, methods, totals):
+def report(title, rows, methods, totals, width=30):
     runs = summary.by_run(rows)
     print(title)
     print("regret at a total number of evaluations: median (lower to upper quartile), mean, in percent")
-    print(f"   {'method':30s}" + "".join(f"{total:>34d}" for total in totals))
+    print(f"   {'method':{width}s}" + "".join(f"{total:>34d}" for total in totals))
     for method in methods:
         cells = []
         for total in totals:
             s = summary.regret_summary(runs, method, total)
             cells.append(f"{'none':>34s}" if s is None else
                          f"{100 * s['median']:9.2f} ({100 * s['lower']:5.2f} to {100 * s['upper']:6.2f}) {100 * s['mean']:6.2f}")
-        print(f"   {method:30s}" + "".join(cells))
+        print(f"   {method:{width}s}" + "".join(cells))
     print("runs that reach a regret target, and average runtime in evaluations")
-    print(f"   {'method':30s}" + "".join(f"{f'regret <= {100 * target:g}%':>24s}" for target in TARGETS))
+    print(f"   {'method':{width}s}" + "".join(f"{f'regret <= {100 * target:g}%':>24s}" for target in TARGETS))
     for method in methods:
         cells = []
         for target in TARGETS:
             r = summary.runtime_to_target(runs, method, target)
             average = "none" if r["average"] is None else f"{r['average']:.0f}"
             cells.append(f"{r['reached']:>11d} of {r['runs']:3d}, {average:>6s}")
-        print(f"   {method:30s}" + "".join(cells))
+        print(f"   {method:{width}s}" + "".join(cells))
 
 
 def main():
@@ -90,9 +90,13 @@ def main():
                 print(f"skipped {name}, restore {count}: no plan of this size serves any demand")
             else:
                 jobs += [(stored, table, count, seed) for seed in range(SEEDS)]
-    processes = int(os.environ.get("FLOW_PROCESSES", os.cpu_count()))
-    with Pool(processes) as pool:
-        collected = pool.map(collect, jobs, chunksize=1)
+    # project choice: at most 6 workers, each loads NumPy, SciPy and Qiskit, as in experiments/standard_qaoa.py
+    processes = min(int(os.environ.get("FLOW_PROCESSES", 1)), 6)
+    if processes == 1:
+        collected = [collect(job) for job in jobs]
+    else:
+        with Pool(processes) as pool:
+            collected = pool.map(collect, jobs, chunksize=1)
     rows = [row for part in collected for row in part]
     benchmark.write_rows(rows, RESULTS_DIR / "budget_experiment.csv")
     groups = sorted({(len(stored["elements"]), count) for stored, _, count, _ in jobs})

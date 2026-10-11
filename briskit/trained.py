@@ -2,6 +2,7 @@ import json
 
 import numpy as np
 
+from .benchmark import plan_indices
 from .cost_circuit import cost_circuit, ising_terms
 from .feeder import restoration_value
 
@@ -26,6 +27,8 @@ def record_circuit(record, measure=True):
 
 
 def record_value(record, plans):
+    if "values" in record:
+        return np.array(record["values"])[plan_indices(plans)]
     return restoration_value(np.atleast_2d(plans), np.array(record["weights"]), record["parent"])
 
 

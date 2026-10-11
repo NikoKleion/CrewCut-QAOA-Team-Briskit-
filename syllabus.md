@@ -132,7 +132,9 @@ Integer program solver: SciPy `milp`, https://docs.scipy.org/doc/scipy/reference
 
 ## briskit/solvers.py
 
-Solvers for the harness. `random_plans` draws plans with the right count uniformly, `largest_weights` takes the largest weights, `conversion` is the conversion algorithm of Tan et al. for two crews, and `greedy` adds one element at a time, the one whose addition scores best on the true model. `fitted(samples, select)` scores a random sample of plans, fits single and pair terms to the scores by ridge regression, and passes the fitted value of every plan to a selector: `best_first` returns the best fitted plans by exact search, `thermal(beta)` draws plans with probability proportional to the exponential of beta times the standardised fitted value, and `qaoa(depth)` trains QAOA on the fitted cost with a penalty on the count and draws plans of the right count from its distribution.
+Solvers for the harness. `random_plans` draws plans with the right count uniformly, `largest_weights` takes the largest weights, `conversion` is the conversion algorithm of Tan et al. for two crews, and `greedy` adds one element at a time, the one whose addition scores best on the true model. `fitted(samples, select)` scores a random sample of plans, fits single and pair terms to the scores by ridge regression, and passes the fitted value of every plan to a selector: `best_first` returns the best fitted plans by exact search, `thermal(beta)` draws plans with probability proportional to the exponential of beta times the standardised fitted value, and `qaoa(depth)` trains QAOA on the fitted cost with a penalty on the count and draws plans of the right count from its distribution. The penalty is the standard form A(K - number chosen)^2 with A the standard deviation of the fitted value over plans of the right count; `qaoa(depth, at_bound=True)` raises A to the bound when it is below it (`cost_at_bound`). The bound is the largest gain of a plan of another count over the best fitted plan of the right count, divided by the squared difference in count, so that at the bound the best plan of the right count is a lowest state of the cost.
+
+The count as a squared penalty, and the condition that the penalty be large enough for the lowest states to have the right count: Lucas, Ising formulations of many NP problems, section 2.3, equations 13 and 14, https://arxiv.org/abs/1302.5843
 
 QAOA: Farhi, Goldstone and Gutmann, https://arxiv.org/abs/1411.4028
 
@@ -148,7 +150,7 @@ Median and quartiles in place of the mean alone: Doerr et al., IOHprofiler, http
 
 ## briskit/trained.py
 
-Reads and writes the file of trained circuits, `qollab/trained_circuits.json`, and rebuilds from one record the QAOA circuit and the true value of measured plans. A record holds what the circuit needs (size, sense, count, coefficients of the fitted cost, penalty strength, angles), what scoring needs (weights and the line upstream of each line), and where it came from (experiment, instance, method, seed, number of fitting plans, depth, commit of the code). It imports NumPy, Qiskit and `json` only, so a run on Qollab trains nothing and loads no SciPy, and `within_limits` tests the platform's limits of 2 MB for a file and 24 qubits for the built-in simulator. The records hold restoration on the feeder only, and no record has been run on Qollab.
+Reads and writes the file of trained circuits, `qollab/trained_circuits.json`, and rebuilds from one record the QAOA circuit and the true value of measured plans. A record holds what the circuit needs (size, sense, count, coefficients of the fitted cost, penalty strength, angles), what scoring needs (weights and the line upstream of each line), and where it came from (experiment, instance, method, seed, number of fitting plans, depth, commit of the code). It imports NumPy, Qiskit and `json` only, so a run on Qollab trains nothing and loads no SciPy, and `within_limits` tests the platform's limits of 2 MB for a file and 24 qubits for the built-in simulator. A flow record holds the value of every plan (`values`, in the plan order of `briskit/feeder.py`) in place of the weights and the tree, and `record_value` scores from it, since the flow program needs SciPy. No record has been run on Qollab.
 
 Files named by a plain string, and the 2 MB limit: Qollab, Runtime environment, https://qollab.xyz/learn/docs/runtime-environment
 
@@ -226,7 +228,9 @@ Farhi, Goldstone and Gutmann, https://arxiv.org/abs/1411.4028
 
 ## experiments/flow_budget_experiment.py
 
-The budget experiment of `experiments/budget_experiment.py` on the flow networks (E8): every instance, each number of links in its `budget`, 30 seeds. Methods that fit a pair cost score 150 random plans of the right size (12 damaged links) or 400 (16), then return up to 50 more by best first, thermal sampling at beta 2 and 5, or QAOA at depth 1 and 2. Random plans and swap annealing on the true values run to the same total; greedy runs once. Swap annealing starts from a random plan of the right size, swaps one restored link for one unrestored link each step, and accepts a worse plan with probability exp(-loss / (T x current value)), T falling geometrically from 0.1 to 0.005 over the run; every plan it scores is returned. Rows go to `results/flow/budget_experiment.csv`, keeping a row only where a run's value changes, and it prints regret at fixed totals and the average runtime to regret targets of 5%, 1% and 0 for each number of damaged links and number restored. Jobs run in parallel, one per instance, number restored and seed, up to `FLOW_PROCESSES`.
+The budget experiment of `experiments/budget_experiment.py` on the flow networks (E8): every instance, each number of links in its `budget`, 30 seeds. Methods that fit a pair cost score 150 random plans of the right size (12 damaged links) or 400 (16), then return up to 50 more by best first, thermal sampling at beta 2 and 5, or QAOA at depth 1 and 2. Random plans and swap annealing on the true values run to the same total; greedy runs once. Swap annealing starts from a random plan of the right size, swaps one restored link for one unrestored link each step, and accepts a worse plan with probability exp(-loss / (T x current value)), T falling geometrically from 0.1 to 0.005 over the run; every plan it scores is returned. Rows go to `results/flow/budget_experiment.csv`, keeping a row only where a run's value changes, and it prints regret at fixed totals and the average runtime to regret targets of 5%, 1% and 0 for each number of damaged links and number restored. The QAOA methods use the count penalty in the standard form with the penalty raised to the bound (`qaoa(depth, at_bound=True)` in `briskit/solvers.py`): with the feeder's penalty, the standard deviation of the fitted value, under 1% of the probability fell on plans of the right count on some flow instances, because restoring more links always serves more demand. A mixer that keeps the count would remove the penalty and would be a rung of its own. Jobs run in parallel, one per instance, number restored and seed, on at most 6 processes and at most `FLOW_PROCESSES`, since each loads Qiskit.
+
+The count penalty: Lucas, section 2.3, https://arxiv.org/abs/1302.5843
 
 Comparing methods only up to the smallest budget any of them was given: Hansen et al., COCO: The Experimental Procedure, https://arxiv.org/abs/1603.08776
 
@@ -244,9 +248,23 @@ Ridge fit: `briskit/pair_cost.py`.
 
 Writes the hand-made instance and the 18 generated instances (three families, 12 and 16 damaged links, seeds 0 to 2) to `data/flow/`.
 
+## experiments/flow_ladder.py
+
+Rungs 2 and 4 of the ladder of the plan addendum (section 5.2) on the flow networks (B9), through the harness. On the nine instances with 12 damaged links, each number of links in their `budget`, 30 seeds, the cost is fitted on 150 plans of the right size, as in the budget experiment, and QAOA at depths 1 and 2 runs on: single-link terms only (the control), single and pair terms (rung 2), and single and pair terms with only the 50% or 25% of pair terms of largest magnitude kept (rung 4, as in the `keep` setting of `qollab/main.py`). Exact search on each fit (best first) and random plans give the classical references. The count penalty is at the bound, as in `experiments/flow_budget_experiment.py`; plans are always scored on the true value table. Rows go to `results/flow/ladder.csv`; it prints regret at fixed totals and runtime to regret targets, and the pair gates per cost layer of each fit with and without the count penalty, counted from the circuit's terms on a fit of each instance. Instances with 16 links are left out: QAOA at depth 2 on 16 qubits takes about 12 seconds per run, against well under one at 12. Rungs 0, 1 and 3 do not apply here: no standard formulation with penalty terms exists for the flow networks (addendum, section 6.2), and connectivity is compared in area A.
+
+Comparing methods only up to the smallest budget any of them was given: Hansen et al., COCO: The Experimental Procedure, https://arxiv.org/abs/1603.08776
+
+The count penalty: Lucas, section 2.3, https://arxiv.org/abs/1302.5843
+
 ## experiments/flow_model_checks.py
 
 Checks the flow program: the hand-made instance gives 0, 6, 4 and 9; restoring every damaged link gives the value of the undamaged network; for 200 random pairs of plans, adding links never lowers the value. Writes the time of one program to `results/flow/program_time.csv`, so the printed output is the same on every run.
+
+## experiments/flow_trained_circuit.py
+
+One flow instance in the file of trained circuits (B10), in the format of `experiments/trained_circuits.py`: restore 6 of the 12 damaged links of `random_geometric_12_0`, pair cost fitted on 150 plans, seed 0, QAOA at depths 1 and 2 with the count penalty at the bound. It replays the random stream of the budget experiment's QAOA runs, so the fit and the angles are the ones behind the saved E8 rows for that instance and seed. The record carries the value of every plan in place of the weights and the tree, so a run on Qollab can score measured plans without the flow program. It replaces only its own records (experiment `E8`) in `qollab/trained_circuits.json`. `trained_circuits.py` and this script both rewrite that file, so run them one after the other, not in the same `run_experiments.py --jobs` batch.
+
+Farhi, Goldstone and Gutmann, https://arxiv.org/abs/1411.4028
 
 ## experiments/flow_value_tables.py
 
@@ -324,7 +342,7 @@ Qiskit `Statevector`, https://quantum.cloud.ibm.com/docs/api/qiskit/qiskit.quant
 
 ## experiments/trained_circuits.py
 
-Replays the random stream of the budget experiment's QAOA runs on its first instance (restore 6 of 12 lines, pair cost fitted on 150 plans, depths 1 to 3), so the fit and the angles are the ones behind the saved benchmark rows, and writes them to `qollab/trained_circuits.json`. Prints for each depth the share of probability on plans with the right count, the share of those on the optimum, and their mean regret. The file is rewritten only when a record changes.
+Replays the random stream of the budget experiment's QAOA runs on its first instance (restore 6 of 12 lines, pair cost fitted on 150 plans, depths 1 to 3), so the fit and the angles are the ones behind the saved benchmark rows, and writes them to `qollab/trained_circuits.json`. Prints for each depth the share of probability on plans with the right count, the share of those on the optimum, and their mean regret. The file is rewritten only when one of its records changes, and records of other experiments in the file are kept.
 
 Farhi, Goldstone and Gutmann, https://arxiv.org/abs/1411.4028
 
@@ -356,9 +374,9 @@ Every script seeds NumPy's generator with the constant `SEED` at the top of the 
 
 ## checks/
 
-`benchmark_checks.py`, `budget_checks.py`, `collective_checks.py`, `cost_circuit_checks.py`, `dispatch_checks.py`, `fit_checks.py`, `solver_checks.py`, `summary_checks.py`, `syllabus_checks.py`, `trained_checks.py` and `tree_knapsack_checks.py` hold one named function per check, each taking the piece under test and returning what it expected, what it got and whether they agree. `record.py` runs every check twice, on the real code and on a broken version written beside it, and writes both outcomes to a `.csv` file next to the checks: a check counts only if it passes on the real code and fails on the broken one.
+`benchmark_checks.py`, `budget_checks.py`, `collective_checks.py`, `cost_circuit_checks.py`, `dispatch_checks.py`, `fit_checks.py`, `flow_trained_checks.py`, `solver_checks.py`, `summary_checks.py`, `syllabus_checks.py`, `trained_checks.py` and `tree_knapsack_checks.py` hold one named function per check, each taking the piece under test and returning what it expected, what it got and whether they agree. `record.py` runs every check twice, on the real code and on a broken version written beside it, and writes both outcomes to a `.csv` file next to the checks: a check counts only if it passes on the real code and fails on the broken one.
 
-`budget_checks.py` audits the saved rows of the budget experiment against the exact expectation for the best of a number of distinct random plans. `fit_checks.py` compares the fit with a second way of solving the same least squares problem and with the saved result of `experiments/feeder_fitted_models.py`. `dispatch_checks.py` compares the rho factors with a second listing of subtrees by bit masks, the dispatch with `priority_dispatch`, and both with Theorem 5 of Tan et al.: with rho factors as priorities the dispatch must equal the conversion algorithm on every one of 300 feeder instances. `collective_checks.py` compares a block with the matrix exponential of its definition, the block layers with the pair by pair layer by `Operator.equiv`, the whole circuit with the table simulator, and the XX form with the ZZ form. `cost_circuit_checks.py` compares the rewritten terms with the cost table of the QAOA selector, the scale with the standard deviation of that table, and the circuit's probabilities with `qaoa_probabilities` at 8 and 12 qubits and depths 1 to 3, and with the distribution `train_qaoa` returns for a fit on the feeder. `trained_checks.py` checks that a record read back from the file equals the one written, that its circuit gives the trained distribution, that the plans drawn after replaying the stream are the plans the harness's solver returns for the same seed, instance, method and budget, that scoring from the record equals the feeder model, and that the size limits are tested. `tree_knapsack_checks.py` compares the exact tree method with enumeration on 60 feeder cases and 10 random trees of 16 lines, and with brute force over closed sets for a budget in repair hours, and checks that the plan it returns has the right number of lines when weights are zero. `syllabus_checks.py` checks that every code file in the repository has an entry in this file.
+`budget_checks.py` audits the saved rows of the budget experiment against the exact expectation for the best of a number of distinct random plans. `fit_checks.py` compares the fit with a second way of solving the same least squares problem and with the saved result of `experiments/feeder_fitted_models.py`. `dispatch_checks.py` compares the rho factors with a second listing of subtrees by bit masks, the dispatch with `priority_dispatch`, and both with Theorem 5 of Tan et al.: with rho factors as priorities the dispatch must equal the conversion algorithm on every one of 300 feeder instances. `collective_checks.py` compares a block with the matrix exponential of its definition, the block layers with the pair by pair layer by `Operator.equiv`, the whole circuit with the table simulator, and the XX form with the ZZ form. `cost_circuit_checks.py` compares the rewritten terms with the cost table of the QAOA selector, the scale with the standard deviation of that table, and the circuit's probabilities with `qaoa_probabilities` at 8 and 12 qubits and depths 1 to 3, and with the distribution `train_qaoa` returns for a fit on the feeder. `trained_checks.py` checks that a record read back from the file equals the one written, that its circuit gives the trained distribution, that the plans drawn after replaying the stream are the plans the harness's solver returns for the same seed, instance, method and budget, that scoring from the record equals the feeder model, and that the size limits are tested. `flow_trained_checks.py` does the same for the flow record of `experiments/flow_trained_circuit.py`: its circuit gives the trained distribution, the plans drawn after replaying the stream are the plans of the budget experiment's QAOA solver with the penalty at the bound, and scoring from the stored values equals the flow table. `tree_knapsack_checks.py` compares the exact tree method with enumeration on 60 feeder cases and 10 random trees of 16 lines, and with brute force over closed sets for a budget in repair hours, and checks that the plan it returns has the right number of lines when weights are zero. `syllabus_checks.py` checks that every code file in the repository has an entry in this file.
 
     python -m checks.benchmark_checks
     python -m checks.budget_checks
@@ -366,6 +384,7 @@ Every script seeds NumPy's generator with the constant `SEED` at the top of the 
     python -m checks.cost_circuit_checks
     python -m checks.dispatch_checks
     python -m checks.fit_checks
+    python -m checks.flow_trained_checks
     python -m checks.solver_checks
     python -m checks.summary_checks
     python -m checks.syllabus_checks
@@ -378,19 +397,45 @@ Theorem 5: Tan et al., sections 5.3 to 5.5, https://arxiv.org/abs/1702.08382
 
 ## qollab/main.py
 
-The file Qollab runs. Builds the QAOA circuit for one 12 repair instance with angles trained beforehand, compiles it for the `backend` Qollab supplies, sends one job, and scores the measured plans with the classical cost table. The `keep` setting (100, 50 or 25) is the percentage of pair terms left in the cost layer, largest first, with angles trained for each; scoring always uses the full cost.
+The file Qollab runs. Builds the QAOA circuit for one 12 repair instance with angles trained beforehand, compiles it for the `backend` Qollab supplies, sends one job, and scores the measured plans with the classical cost table. The `keep` setting (100, 50 or 25) is the percentage of pair terms left in the cost layer, largest first, with angles trained for each; scoring always uses the full cost. `run_circuit` does one run and returns its report as lines of text: backend (with the IonQ noise model when the backend names one), UTC date, shots, depth, share of pair terms kept, gate counts before and after compiling, the plan quality figures and the seconds taken, so the same function can serve the console and a page. Every run is saved as a record, `qollab_run_<backend>_keep<keep>_depth<depth>.txt`, headed by the project file name. On Qollab `sendFile` places the record in the console to download; these downloaded records are the outputs of task C1, kept in `results/qollab/`. Locally the record is written to the folder `run_local.py` supplies. With the `figures` setting on (the default) it then reads `figure_data.json` and draws the four figures of `qollab/project_figures.py` with their captions, alt text and tables. That is the quick path of section 13 of the plan: cached results, the final circuit on the chosen backend, the figures regenerated. It prints the time spent on the circuit and scoring, on the figures, and in total. The settings are annotated `int` and `bool` because Qollab builds its settings form only from `int`, `float`, `str` and `bool` and does not call `main()` otherwise. The data file is opened by a plain string path because Qollab loads only files named that way. The files to upload to the Qollab project are `main.py`, `project_figures.py` and `figure_data.json`.
 
 Qollab, Python Qiskit projects, https://qollab.xyz/learn/docs/python-qiskit-projects
 
-Qollab, Runtime environment, https://qollab.xyz/learn/docs/runtime-environment
+Qollab, Runtime environment (settings form, plain string paths, one job per run on IonQ, figures shown in the console, `sendFile`), https://qollab.xyz/learn/docs/runtime-environment
+
+Qollab, Compute backends, https://qollab.xyz/learn/docs/compute-backends
+
+## qollab/project_figures.py
+
+Draws the four static figures of section 13 of the plan from the cached data in `figure_data.json`: the pipeline, the interaction spectrum, the budget curves and the gate counts. Each figure comes with a caption whose numbers are computed from the cached data, a short alt text, and a long description as a text table, as the W3C guidance for complex images asks. Colours come from Matplotlib's `tableau-colorblind10` style, and every series also differs by hatching, marker or line style, so no figure depends on colour alone. The budget curves show the mean regret at every total from 1 to 200 evaluations for random plans, the fitted cost with best-first selection, the thermal sampler at beta 2, QAOA at depth 3 and the rule of each decision. The table gives every method, including largest weights, which is off the chart at 64% mean regret. On Qollab `savefig` shows each figure in the console and offers the PNG; locally the figures are written to a folder. It imports Matplotlib only, which Qollab loads on import without a `requirements.txt` entry.
+
+Matplotlib style sheets reference (`tableau-colorblind10`), https://matplotlib.org/stable/gallery/style_sheets/style_sheets_reference.html
+
+Okabe and Ito, Color Universal Design: show differences in colour and in shape (line style, symbols, hatching), https://jfly.uni-koeln.de/color/
+
+W3C WAI, Complex images: short alt text and a long description, https://www.w3.org/WAI/tutorials/images/complex/
+
+Qollab, Runtime environment (Matplotlib loads on import; `plt.savefig` shows the figure and offers a PNG), https://qollab.xyz/learn/docs/runtime-environment
 
 ## qollab/run_local.py
 
-Runs `main.py` on a laptop by supplying Qiskit's `BasicSimulator`, or an IBM fake backend, as `backend`, which is what Qollab does for a built-in run.
+Runs `main.py` on a laptop the way Qollab does. It supplies Qiskit's `BasicSimulator`, or an IBM fake backend, as `backend`, works from the `qollab/` folder so `figure_data.json` is found by the same plain path, and writes the figures to `figures/quick_path/`, which git ignores. Options: `--shots` (2000), `--depth` (2), `--keep` with one or more shares of pair terms (100), `--devices` with `basic` and any IBM fake backend names such as `fez` (`basic`), `--no-figures`, and `--save`, which writes each run's record to `results/qollab/local/`. These local records check the code before the hosted runs and are not the outputs of task C1. The figures are drawn on the first run only. It prints the wall time of each run including backend setup.
+
+    python qollab/run_local.py --devices basic fez --keep 100 50 --no-figures --save
+
+Python `runpy.run_path` and `init_globals`, https://docs.python.org/3/library/runpy.html
 
 Qollab, Python Qiskit projects, https://qollab.xyz/learn/docs/python-qiskit-projects
 
 Qiskit `BasicSimulator`, https://quantum.cloud.ibm.com/docs/api/qiskit/qiskit.providers.basic_provider.BasicSimulator
+
+## qollab/figure_data.json
+
+The cached data behind the figures, written by `figures/build.py`. It holds the interaction spectrum and the gate counts as printed in `results/interaction_spectrum.txt` and `results/gate_counts.txt`. For each method of the budget experiment it holds the mean regret at every total from 1 to 200 evaluations, and the median, quartiles and mean at 50, 100, 150 and 200, computed with `briskit/summary.py` from the row files in `results/feeder/`. Each part records its source file and the commit of the code that made it.
+
+## figures/build.py
+
+The full path for the figures, run after `run_experiments.py` as `python -m figures.build`. Reads the result files, writes `qollab/figure_data.json` only when it changes, and draws the four figures into `figures/` with `figures/captions.md`, which holds each figure's alt text, caption and description for the project page. It fails if a result file no longer has the expected lines.
 
 ## data/flow/
 

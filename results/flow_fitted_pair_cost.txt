@@ -1,11 +1,11 @@
 command: python -m experiments.flow_fitted_pair_cost
-code: 56a018a (clean)
+code: 2374eda (clean)
 python: 3.13.5
-packages: numpy 2.1.3  scipy 1.15.3  qiskit not installed
+packages: numpy 2.5.2  scipy 1.18.1  qiskit 2.5.2
 platform: Windows-11-10.0.26200-SP0, AMD64
 threads: 1
-started: 2026-10-10T22:36:14Z
-seconds: 3
+started: 2026-10-11T02:09:47Z
+seconds: 2
 exit: 0
 
 flow networks, restore a fixed number of damaged links; value lost against the optimum, mean over 3 seeds and 10 draws
@@ -46,7 +46,7 @@ each cell: plan the fit returns / best plan scored in the run (budget 1) / fitti
       method                                              hub_and_spoke         random_geometric         ring_with_chords
       single-link terms, fit on all plans            4.5 /  0.0 /  0.0%      10.3 /  0.0 /  0.0%      30.8 /  0.0 /  0.0%
       single and pair terms, fit on all plans        0.0 /  0.0 /  0.0%      10.3 /  0.0 /  0.0%       3.0 /  0.0 /  0.0%
-      single-link terms, fit on 10 plans            11.0 /  8.2 /  9.9%      17.8 / 13.1 / 13.1%      36.2 / 27.0 / 28.4%
+      single-link terms, fit on 10 plans            11.0 /  8.2 /  9.9%      17.9 / 13.1 / 13.1%      36.2 / 27.0 / 28.4%
       single and pair terms, fit on 10 plans        12.6 /  9.7 /  9.9%      14.2 / 13.1 / 13.1%      28.9 / 27.8 / 28.4%
       single-link terms, fit on 20 plans             7.6 /  3.0 /  4.9%      14.4 /  8.1 /  8.1%      37.8 / 25.3 / 25.6%
       single and pair terms, fit on 20 plans         7.6 /  3.9 /  4.9%       7.9 /  7.1 /  8.1%      28.4 / 25.3 / 25.6%
