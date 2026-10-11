@@ -8,32 +8,33 @@
   </header>
 
   <section aria-labelledby="t-answers" class="answers">
-    <h2 id="t-answers">In four answers</h2>
+    <h2 id="t-answers">About</h2>
     <div class="tiles heads groups">
-      <div class="tile"><h3>What is it?</h3>
-        <span>CrewCut-QAOA is a quantum circuit that assigns storm repairs to two crews, with one qubit for each
-          repair. This page is a game on one small storm that shows how it works, and then what was
-          measured.</span></div>
-      <div class="tile"><h3>Why does it matter, and who is it for?</h3>
-        <span>Which crew takes which repair decides how long people wait for power. The work gives researchers a
-          measured price for the penalty of standard QAOA, teachers a problem that needs no quantum background,
-          and industry a small test workload with a known answer. It is not a claim that QAOA should restore
-          power today. More under "Beyond the hackathon".</span></div>
-      <div class="tile"><h3>How does the quantum part work?</h3>
-        <span>Each repair is one qubit: crew A or crew B. Two repairs on the same crew make one of them wait,
-          and the circuit has one two-qubit gate for each such pair and one rotation for each qubit, with no
-          penalty. Each shot is one plan, and the best of the shots is kept. Steps 3 to 5 below show
-          it.</span></div>
-      <div class="tile"><h3>How do I run it?</h3>
-        <span>On Qollab: press Run and choose the built-in simulator in Select QPU. It is free, as are the IBM
-          noise models and the IonQ noise simulators; leave the entries marked "Credits apply". Then play from
-          the top: hand out the sites, send the crews, search every plan, run the circuits. On a laptop, with
-          the packages of requirements.txt:</span>
+      <div class="tile"><h3>What it is</h3>
+        <span>CrewCut-QAOA is a quantum circuit that assigns storm repairs to two repair crews. It uses one
+          qubit for each repair. This page is a small game with eight repairs. You send the crews out, the
+          page scores every plan, and two circuits sample plans for the same storm.</span></div>
+      <div class="tile"><h3>Why it matters and who it is for</h3>
+        <span>After a storm, the crew that each repair goes to decides how long customers stay without power.
+          Researchers can use the comparison with standard QAOA. Teachers can use the problem because it needs
+          no quantum background. Engineers can use it as a small test job with a known best answer. Classical
+          methods still do better at this size, so we do not suggest QAOA for real power restoration
+          today.</span></div>
+      <div class="tile"><h3>How the quantum part works</h3>
+        <span>Each repair gets one qubit, and its value picks crew A or crew B. Two repairs on the same crew
+          make one of them wait. The circuit has one two qubit gate for every pair of repairs and one rotation
+          for every qubit. Each measurement gives one plan, and the best of them is kept. Steps 3 to 5 below
+          show this.</span></div>
+      <div class="tile"><h3>How to run it</h3>
+        <span>On Qollab, click Run Project and choose the built-in simulator in Select QPU. Every simulator
+          there is free. The entries marked "Credits apply" are real quantum computers. Then click the sites,
+          send the crews, search every plan and run the circuits. On a laptop, install the packages in
+          requirements.txt and run these commands.</span>
         <ul class="commands">
           <li><code>python qollab/run_local.py --no-figures</code> runs the 12 repair circuit of the report</li>
-          <li><code>python -m checks.dispatch_game_checks</code> checks this page's Python</li>
-          <li><code>python run_experiments.py dispatch_game_instance</code> retrains the circuits of this
-            night</li>
+          <li><code>python -m checks.dispatch_game_checks</code> checks the Python code of this page</li>
+          <li><code>python run_experiments.py dispatch_game_instance</code> trains the circuits of this page
+            again</li>
         </ul></div>
     </div>
   </section>
@@ -104,7 +105,7 @@
       <div class="meter cut"><span class="cap">waiting cut away</span><b id="l-cut">-</b></div>
     </div>
     <h3>One layer of the circuit, on the same picture</h3>
-    <p>The CrewCut circuit has one qubit for each site and one two-qubit gate for each link, turned by an angle
+    <p>The CrewCut circuit has one qubit for each site and one two qubit gate for each link, turned by an angle
       in proportion to the link's weight. That gives every plan a phase set by the links it pays. One rotation on
       each qubit then lets the phases of neighbouring plans add or cancel. Two such layers, a measurement, and
       each shot is one plan.</p>

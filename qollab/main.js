@@ -445,7 +445,7 @@ element('layer').addEventListener('click', async () => {
   element('layer-note').textContent = `then one rotation on each of the ${n} qubits`;
   for (const node of nodes) node.classList.add('pulse');
   await sleep(1100);
-  element('layer-note').textContent = `One layer: ${links.length} two-qubit gates and ${n} rotations on ${n} qubits. The standard form needs ${data.standard_gates} two-qubit gates on ${2 * n} qubits for the same layer.`;
+  element('layer-note').textContent = `One layer: ${links.length} two qubit gates and ${n} rotations on ${n} qubits. The standard form needs ${data.standard_gates} two qubit gates on ${2 * n} qubits for the same layer.`;
   await sleep(900);
   drawLinks(shown);
   for (const button of buttons) button.disabled = false;
@@ -580,13 +580,13 @@ function show(result) {
   const tiles = element('tiles');
   tiles.replaceChildren(
     tile(`${n} vs ${2 * n}`, 'qubits: CrewCut against standard QAOA', 'ours'),
-    tile(`${data.crewcut_gates} vs ${data.standard_gates}`, 'two-qubit gates in one layer'),
+    tile(`${data.crewcut_gates} vs ${data.standard_gates}`, 'two qubit gates in one layer'),
     tile(`${percent(data.exact.crewcut.best)} vs ${percent(data.exact.standard.best)}`, `shots that are a best plan, exact for the trained circuits; picking at random gives ${percent(chance.best)}`, 'ours'),
     tile(`${shotsFor(data.exact.crewcut.best)} vs ${shotsFor(data.exact.standard.best)}`, `shots for a 95% chance of a best plan; picking at random needs ${shotsFor(chance.best)}`),
   );
 
   const rows = [
-    ['two-qubit gates after compiling for this backend', String(result.crewcut.compiled), result.standard ? String(result.standard.compiled) : skipped, '-'],
+    ['two qubit gates after compiling for this backend', String(result.crewcut.compiled), result.standard ? String(result.standard.compiled) : skipped, '-'],
     ['shots that are a valid plan, this run', percent(measured.crewcut.valid), measured.standard ? percent(measured.standard.valid) : skipped, '100.00%'],
     ['shots that are a best plan, this run', percent(measured.crewcut.best), measured.standard ? percent(measured.standard.best) : skipped, percent(measured.random.best)],
     ['the same without sampling error', percent(data.exact.crewcut.best), percent(data.exact.standard.best), percent(chance.best)],
