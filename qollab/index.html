@@ -1,42 +1,181 @@
-<main>
-  <h1>Crew assignment with QAOA</h1>
-  <p>Twelve repairs on a damaged feeder go to two crews. Each repair is one qubit: A for crew 1, B for crew 2. The
-    circuit samples plans from a pair cost with angles trained in advance, and every shot is scored on the true cost
-    (weighted completion time). The backend is the one picked in Select QPU.</p>
+<main class="cc">
+  <header class="hero">
+    <p class="kicker">RestoreBench-Q</p>
+    <h1>Storm dispatch</h1>
+    <p class="lead">A storm has knocked out eight sites and you have two crews. Every hour a site stays dark costs
+      its urgency. Send the crews. Then watch a classical search and two quantum circuits take on the same night.</p>
+    <p id="selfcheck" class="small" role="status">Loading the night...</p>
+  </header>
 
-  <form id="settings">
-    <label>Shots <input id="shots" type="number" min="1" max="10000" step="1" value="2000"></label>
-    <label>Depth
-      <select id="depth"><option>1</option><option selected>2</option><option>3</option></select>
-    </label>
-    <label>Pair terms kept
-      <select id="keep"><option value="100" selected>100%</option><option value="50">50%</option>
-        <option value="25">25%</option></select>
-    </label>
-    <button id="run" type="button">Run the circuit</button>
-  </form>
-  <p id="status" role="status">Pick the settings, then press Run the circuit. IonQ backends take one job per run.</p>
+  <section aria-labelledby="t-night">
+    <h2 id="t-night"><span class="step">1</span> The night</h2>
+    <p class="small" id="hint">Select a site to hand it to crew A; select it again for crew B. Each crew works its
+      most urgent site per hour first. Travel between sites is not part of the model.</p>
+    <div id="map" class="map" role="group" aria-label="Map of the eight damaged sites"></div>
+    <div id="lanes" class="lanes" aria-label="Order of work of each crew"></div>
+    <div class="controls">
+      <button id="lucky" type="button">Pick for me at random</button>
+      <button id="send" type="button" disabled>Send the crews</button>
+    </div>
+    <div class="meters" role="status" aria-live="polite">
+      <div class="meter"><span class="cap">hour</span><b id="clock">0</b></div>
+      <div class="meter"><span class="cap">your night: urgency left dark, hour by hour</span><b id="mine">-</b></div>
+      <div class="meter" id="best-meter" hidden><span class="cap">the best possible night</span><b id="best">-</b></div>
+    </div>
+  </section>
 
-  <section id="result" hidden>
-    <h2>Report</h2>
-    <pre id="report"></pre>
-    <p><a id="download" href="#" download>Download the record</a></p>
+  <section id="s-search" aria-labelledby="t-search" hidden>
+    <h2 id="t-search"><span class="step">2</span> Classical brute force: try every plan</h2>
+    <p>Eight sites, two crews: 2<sup>8</sup> = 256 ways to split them. Brute force scores each one. Every bar below
+      is one plan; its height is how much worse it is than the best.</p>
+    <div class="controls"><button id="scan" type="button">Search every plan</button>
+      <span id="scan-count" class="count" role="status"></span></div>
+    <div id="landscape" class="board" role="img" aria-label="One bar for each of the 256 plans"></div>
+    <p id="verdict" class="callout" role="status" hidden></p>
+    <div class="controls"><button id="replay" type="button" hidden>Play the best plan on the map</button></div>
+    <div id="growth" hidden>
+      <p>Brute force is exact, and at this size nothing beats it: this page just did it in
+        <span id="search-time">-</span> milliseconds. Its catch is that every added site doubles the bars.</p>
+      <div class="doubling" role="img" aria-label="Plans to score: 8 sites 256; 12 sites 4,096; 16 sites 65,536; 20 sites 1,048,576; 30 sites about a billion; 40 sites about a trillion">
+        <div><b>8</b><i style="width:0.4%"></i><span>256 plans</span></div>
+        <div><b>12</b><i style="width:1.2%"></i><span>4,096 · 1.00 ms measured</span></div>
+        <div><b>16</b><i style="width:4%"></i><span>65,536 · 18.41 ms measured</span></div>
+        <div><b>20</b><i style="width:14%"></i><span>1,048,576 · 1,450.67 ms measured</span></div>
+        <div><b>30</b><i style="width:48%"></i><span>1,073,741,824 · not run; about 25 minutes at that rate</span></div>
+        <div><b>40</b><i style="width:100%"></i><span>1,099,511,627,776 · not run; about 18 days at that rate</span></div>
+      </div>
+      <p class="small">Bar lengths are not to scale beyond 20 sites. Measured times: one laptop,
+        future/timing/search_and_training_times.txt in the repository. Brute force is the simplest exact method,
+        not the best classical one.</p>
+    </div>
+  </section>
 
-    <h2>Shots by distance from the best plan</h2>
-    <table id="bands">
-      <thead><tr><th scope="col">cost above the best plan</th><th scope="col">shots</th>
-        <th scope="col">share of shots</th></tr></thead>
-      <tbody></tbody>
-    </table>
+  <section id="s-links" aria-labelledby="t-links" hidden>
+    <h2 id="t-links"><span class="step">3</span> How Crew-Cut reads the night: every pair of sites is a link</h2>
+    <p>Put two sites on the same crew and the less pressing one waits while the other is repaired. That wait is a
+      link between the two, and its thickness is what the wait costs. Split the two across the crews and the link
+      is cut: nobody waits. A plan is a cut through the links, and the best plan is the one that cuts away the
+      most weight.</p>
+    <div class="controls">
+      <button id="links-mine" type="button" aria-pressed="true">Your plan</button>
+      <button id="links-best" type="button" aria-pressed="false">The best plan</button>
+    </div>
+    <div id="graph" class="board" role="img" aria-label="The eight sites and the links between them"></div>
+    <p id="links-note" class="small" role="status"></p>
+    <div class="meters">
+      <div class="meter"><span class="cap">work no plan avoids</span><b id="l-fixed">-</b></div>
+      <div class="meter"><span class="cap">+ waiting on the links kept</span><b id="l-paid">-</b></div>
+      <div class="meter"><span class="cap">= the night's cost</span><b id="l-total">-</b></div>
+      <div class="meter cut"><span class="cap">waiting cut away</span><b id="l-cut">-</b></div>
+    </div>
+    <h3>One layer of the circuit, on the same picture</h3>
+    <p>The Crew-Cut circuit has one qubit for each site and one two-qubit gate for each link, turned by an angle
+      in proportion to the link's weight. That gives every plan a phase set by the links it pays. One rotation on
+      each qubit then lets the phases of neighbouring plans add or cancel. Two such layers, a measurement, and
+      each shot is one plan.</p>
+    <div class="controls"><button id="layer" type="button">Play one layer</button>
+      <span id="layer-note" class="count" role="status"></span></div>
+  </section>
 
-    <h2 id="plans-title">Every plan measured</h2>
-    <p>All plans the shots returned, most frequent first, with none left out. The plan lists the crew of repairs 1 to 12.</p>
-    <div class="scroll">
-      <table id="plans">
-        <thead><tr><th scope="col">plan</th><th scope="col">shots</th><th scope="col">share</th>
-          <th scope="col">cost</th><th scope="col">above the best plan</th></tr></thead>
+  <section id="s-qubits" aria-labelledby="t-qubits" hidden>
+    <h2 id="t-qubits"><span class="step">4</span> Two ways to write a plan in qubits</h2>
+    <div class="registers">
+      <div>
+        <h3>Standard QAOA: 16 qubits</h3>
+        <p class="small">One qubit for each site and crew. A site with both lit, or neither, is not a plan, so a
+          penalty has to push the circuit away from those patterns.</p>
+        <div id="reg-standard" class="register" role="img" aria-label="Sixteen qubits, two for each site"></div>
+        <p id="flicker" class="small" role="status"></p>
+      </div>
+      <div>
+        <h3>Crew-Cut QAOA: 8 qubits</h3>
+        <p class="small">One qubit for each site: it says which crew. Every pattern is a plan. No penalty, half
+          the qubits, and one gate for each link: 28 in a layer. The standard form needs every link twice, once
+          for each crew, and a penalty gate for each site: 64.</p>
+        <div id="reg-crewcut" class="register" role="img" aria-label="Eight qubits, one for each site"></div>
+        <p class="small">The form comes from the scheduling literature. What is measured here is what it buys.</p>
+      </div>
+    </div>
+  </section>
+
+  <section id="s-circuits" aria-labelledby="t-circuits" hidden>
+    <h2 id="t-circuits"><span class="step">5</span> Run the circuits</h2>
+    <p>Both circuits have two layers and angles trained beforehand, and both now sample plans for your night on
+      the backend picked in Select QPU. Each shot lands on the bar of its plan: the left edge is the best plan.</p>
+    <div class="controls">
+      <label>Shots for each circuit <input id="game-shots" type="number" min="100" max="10000" step="100" value="2000"></label>
+      <button id="game-run" type="button">Run the circuits</button>
+      <span id="game-status" class="count" role="status">Simulators and noise models are free. This page needs no quantum computer.</span>
+    </div>
+    <div id="rain" hidden>
+      <div class="rainrow"><h3>Plans picked at random</h3><div id="row-random" class="board" role="img"></div><p id="cap-random" class="small"></p></div>
+      <div class="rainrow"><h3>Standard QAOA</h3><div id="row-standard" class="board" role="img"></div><p id="cap-standard" class="small"></p></div>
+      <div class="rainrow ours"><h3>Crew-Cut QAOA</h3><div id="row-crewcut" class="board" role="img"></div><p id="cap-crewcut" class="small"></p></div>
+      <div class="tiles" id="tiles"></div>
+      <table id="compare">
+        <thead><tr><th scope="col">measure</th><th scope="col">Crew-Cut QAOA</th><th scope="col">standard QAOA</th>
+          <th scope="col">picked at random</th></tr></thead>
         <tbody></tbody>
       </table>
+      <p id="run-note" class="small"></p>
+    </div>
+  </section>
+
+  <section aria-labelledby="t-limits">
+    <h2 id="t-limits">What this shows and what it does not</h2>
+    <ul>
+      <li>It shows Crew-Cut QAOA against standard QAOA on equal terms: same sites, same number of layers, same
+        training. Over 30 nights of this size Crew-Cut returned a best plan 4 times as often (3.63% of shots
+        against 0.90%) with half the qubits; results/standard_qaoa.txt in the repository.</li>
+      <li>It does not show a quantum speedup. Brute force above is exact and takes a fraction of a millisecond
+        here; training the circuit's angles takes longer than that in simulation.</li>
+      <li>With 256 plans and thousands of shots every sampler sees the best plan, picking at random included. What
+        tells the circuits apart is where the shots pile up.</li>
+      <li id="rule-note">On 16 of the 30 test nights of this size the simple dispatch rule is already a best plan.</li>
+      <li>Standard QAOA is given the penalty that suits it best on this night, of four tried.</li>
+      <li>Everything runs on simulators and noise models, and one night is one night.</li>
+    </ul>
+  </section>
+
+  <section aria-labelledby="t-report" class="report">
+    <h2 id="t-report">The 12 repair circuit and its full report</h2>
+    <p>Twelve repairs go to two crews. Each repair is one qubit: A for crew 1, B for crew 2. The circuit samples
+      plans from a pair cost with angles trained in advance, and every shot is scored on the true cost (weighted
+      completion time). The backend is the one picked in Select QPU.</p>
+    <form id="settings">
+      <label>Shots <input id="shots" type="number" min="1" max="10000" step="1" value="2000"></label>
+      <label>Depth
+        <select id="depth"><option>1</option><option selected>2</option><option>3</option></select>
+      </label>
+      <label>Pair terms kept
+        <select id="keep"><option value="100" selected>100%</option><option value="50">50%</option>
+          <option value="25">25%</option></select>
+      </label>
+      <button id="run" type="button">Run the circuit</button>
+    </form>
+    <p id="status" role="status">Pick the settings, then press Run the circuit. IonQ backends take one job per run.</p>
+
+    <div id="result" hidden>
+      <h3>Report</h3>
+      <pre id="report"></pre>
+      <p><a id="download" href="#" download>Download the record</a></p>
+
+      <h3>Shots by distance from the best plan</h3>
+      <table id="bands">
+        <thead><tr><th scope="col">cost above the best plan</th><th scope="col">shots</th>
+          <th scope="col">share of shots</th></tr></thead>
+        <tbody></tbody>
+      </table>
+
+      <h3 id="plans-title">Every plan measured</h3>
+      <p>All plans the shots returned, most frequent first, with none left out. The plan lists the crew of repairs 1 to 12.</p>
+      <div class="scroll">
+        <table id="plans">
+          <thead><tr><th scope="col">plan</th><th scope="col">shots</th><th scope="col">share</th>
+            <th scope="col">cost</th><th scope="col">above the best plan</th></tr></thead>
+          <tbody></tbody>
+        </table>
+      </div>
     </div>
   </section>
 </main>

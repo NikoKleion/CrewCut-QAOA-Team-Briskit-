@@ -14,7 +14,7 @@ INSTANCE = 0
 INSTANCES = 30
 DEPTH = 2
 PENALTIES = [("uniform", 1.0), ("uniform", 2.0), ("uniform", 4.0), ("own", 1.0)]
-OUTPUT = Path(__file__).resolve().parent.parent / "qollab" / "game" / "game_instance.py"
+OUTPUT = Path(__file__).resolve().parent.parent / "qollab" / "game_instance.py"
 
 
 def rule_gap(weights, hours):
@@ -68,7 +68,6 @@ def main():
         mark = "   picked" if variant == picked else ""
         print(f"   standard, {VARIANTS[variant][1]:38s}{100 * share:7.2f}%   {100 * hit:14.2f}%   {100 * kept:8.1f}%{mark}")
     print("the standard form's penalty is picked by the share of best plan shots, which uses the answer")
-    OUTPUT.parent.mkdir(exist_ok=True)
     OUTPUT.write_text("\n".join([
         "# written by experiments/dispatch_game_instance.py",
         f"REPAIRS = {REPAIRS}",
@@ -83,7 +82,7 @@ def main():
         f"INSTANCES = {INSTANCES}",
         f"RULE_GAP = {gaps[INSTANCE]!r}",
     ]) + "\n", encoding="utf-8", newline="\n")
-    print(f"written: qollab/game/{OUTPUT.name}")
+    print(f"written: qollab/{OUTPUT.name}")
 
 
 if __name__ == "__main__":

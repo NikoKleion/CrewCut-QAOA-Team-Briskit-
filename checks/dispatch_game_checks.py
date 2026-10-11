@@ -5,7 +5,7 @@ import numpy as np
 from qiskit.quantum_info import Statevector
 
 ROOT = Path(__file__).resolve().parent.parent
-sys.path.insert(0, str(ROOT / "qollab" / "game"))
+sys.path.insert(0, str(ROOT / "qollab"))
 
 import dispatch_game as game
 import game_instance as saved

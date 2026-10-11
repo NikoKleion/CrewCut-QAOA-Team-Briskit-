@@ -1,72 +1,773 @@
-main {
-  max-width: 60rem;
+.cc {
+  --page: #0c0c0d;
+  --panel: #161617;
+  --line: #3a3836;
+  --ink: #f3efe9;
+  --soft: #c9c3ba;
+  --dim: #8a847c;
+  --low: #57534e;
+  --ours: #ff5a0a;
+  --gold: #fdb515;
+  max-width: 62rem;
   margin: 0 auto;
-  padding: 0 16px;
-  font-family: system-ui, sans-serif;
+  padding: 1.5rem 16px 3rem;
+  background: var(--page);
+  color: var(--ink);
+  font-family: "Sitka Text", Georgia, serif;
   line-height: 1.5;
-  color: #1a1a1a;
-  background: #ffffff;
 }
 
-form {
+.cc [hidden] {
+  display: none !important;
+}
+
+.cc h1, .cc h2, .cc h3, .cc button, .cc .kicker, .cc .cap, .cc .meter b, .cc .tile b, .cc .step, .cc .count,
+.cc .lane-name, .cc th, .cc label {
+  font-family: Bahnschrift, "Segoe UI", sans-serif;
+}
+
+.cc h1 {
+  font-size: clamp(2.6rem, 8vw, 4.6rem);
+  line-height: 0.95;
+  margin: 0 0 0.6rem;
+  font-stretch: 82%;
+  letter-spacing: -0.01em;
+  color: #ffffff;
+}
+
+.cc h2 {
+  font-size: 1.6rem;
+  margin: 2.6rem 0 0.6rem;
+  padding-top: 1rem;
+  border-top: 1px solid var(--line);
+  color: #ffffff;
+}
+
+.cc h3 {
+  font-size: 1.05rem;
+  margin: 1rem 0 0.3rem;
+  color: #ffffff;
+}
+
+.cc .kicker {
+  color: var(--ours);
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  margin: 0 0 0.4rem;
+}
+
+.cc .lead {
+  font-size: 1.15rem;
+  max-width: 44rem;
+}
+
+.cc .small {
+  color: var(--soft);
+  font-size: 0.92rem;
+}
+
+.cc .step {
+  display: inline-grid;
+  place-items: center;
+  width: 1.9rem;
+  height: 1.9rem;
+  margin-right: 0.5rem;
+  border-radius: 50%;
+  background: var(--ours);
+  color: var(--page);
+  font-size: 1.1rem;
+}
+
+.cc button {
+  font-size: 1rem;
+  font-weight: 700;
+  padding: 0.5rem 1rem;
+  border: 2px solid var(--ours);
+  background: var(--ours);
+  color: var(--page);
+  cursor: pointer;
+}
+
+.cc button:disabled {
+  border-color: var(--line);
+  background: transparent;
+  color: var(--dim);
+  cursor: not-allowed;
+}
+
+.cc #lucky {
+  background: transparent;
+  color: var(--ink);
+  border-color: var(--dim);
+}
+
+.cc button:focus-visible, .cc input:focus-visible, .cc select:focus-visible, .cc a:focus-visible {
+  outline: 3px solid var(--gold);
+  outline-offset: 3px;
+}
+
+.cc .controls {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75rem 1rem;
+  align-items: center;
+  margin: 0.9rem 0;
+}
+
+.cc .count {
+  color: var(--soft);
+}
+
+.cc .map {
+  position: relative;
+  height: clamp(15rem, 42vw, 26rem);
+  margin: 0.8rem 0;
+  border: 1px solid var(--line);
+  background: radial-gradient(ellipse at 50% 0%, #1d1d20 0%, var(--page) 75%);
+  overflow: hidden;
+}
+
+.cc .sky {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+}
+
+.cc .road {
+  stroke: #232325;
+  stroke-width: 1.6;
+  fill: none;
+}
+
+.cc .rain {
+  stroke: var(--low);
+  stroke-width: 0.25;
+  animation: cc-rain 0.9s linear infinite;
+}
+
+@keyframes cc-rain {
+  from { transform: translate(2px, -8px); opacity: 0; }
+  30% { opacity: 1; }
+  to { transform: translate(-2px, 8px); opacity: 0; }
+}
+
+.cc .flash {
+  position: absolute;
+  inset: 0;
+  background: #ffffff;
+  opacity: 0;
+  pointer-events: none;
+}
+
+.cc .flash.on {
+  opacity: 0.55;
+}
+
+.cc .depot {
+  position: absolute;
+  transform: translate(-50%, -50%);
+  padding: 0.2rem 0.5rem;
+  border: 1px dashed var(--dim);
+  color: var(--dim);
+  font-family: Bahnschrift, "Segoe UI", sans-serif;
+  font-size: 0.8rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.cc .site {
+  position: absolute;
+  transform: translate(-50%, -50%);
+  width: calc(3.1rem * var(--size, 1));
+  height: calc(3.1rem * var(--size, 1));
+  min-width: 2.6rem;
+  min-height: 2.6rem;
+  padding: 0;
+  border-radius: 50%;
+  border: 3px solid var(--low);
+  background: #1b1b1d;
+  color: var(--soft);
+  display: grid;
+  place-content: center;
+  line-height: 1;
+  transition: background 0.25s, border-color 0.25s, box-shadow 0.25s, color 0.25s;
+}
+
+.cc .site .num {
+  font-size: 1.15rem;
+}
+
+.cc .site .hrs {
+  font-size: 0.7rem;
+  font-weight: 400;
+}
+
+.cc .site .tag {
+  position: absolute;
+  right: -0.45rem;
+  top: -0.45rem;
+  min-width: 1.2rem;
+  height: 1.2rem;
+  border-radius: 50%;
+  font-size: 0.75rem;
+  display: grid;
+  place-items: center;
+}
+
+.cc .site.ok, .cc .site.lit {
+  background: var(--gold);
+  border-color: var(--gold);
+  color: var(--page);
+  box-shadow: 0 0 1.4rem rgba(253, 181, 21, 0.55);
+}
+
+.cc .site.critical {
+  outline: 2px dashed var(--ours);
+  outline-offset: 4px;
+}
+
+.cc .site.of-a {
+  border-color: var(--ink);
+}
+
+.cc .site.of-b {
+  border-color: var(--dim);
+  border-style: double;
+  border-width: 5px;
+}
+
+.cc .site.of-a .tag {
+  background: var(--ink);
+  color: var(--page);
+}
+
+.cc .site.of-b .tag {
+  background: var(--dim);
+  color: var(--page);
+}
+
+.cc .crew {
+  position: absolute;
+  transform: translate(-50%, -50%);
+  width: 1.7rem;
+  height: 1.7rem;
+  display: grid;
+  place-items: center;
+  font-family: Bahnschrift, "Segoe UI", sans-serif;
+  font-weight: 700;
+  border: 2px solid var(--page);
+  transition: left 0.14s linear, top 0.14s linear;
+  pointer-events: none;
+}
+
+.cc .crew-a {
+  background: var(--ink);
+  color: var(--page);
+}
+
+.cc .crew-b {
+  background: var(--dim);
+  color: var(--page);
+}
+
+.cc .lanes {
+  display: grid;
+  grid-template-columns: 4.2rem 1fr;
+  gap: 0.15rem 0.6rem;
+  align-items: center;
+}
+
+.cc .lane {
+  position: relative;
+  display: flex;
+  min-height: 2rem;
+  border: 1px solid var(--line);
+  background: var(--panel);
+}
+
+.cc .lane-name {
+  font-weight: 700;
+}
+
+.cc .lane-text {
+  grid-column: 2;
+  color: var(--dim);
+  font-size: 0.85rem;
+  margin-bottom: 0.35rem;
+}
+
+.cc .job {
+  display: grid;
+  place-items: center;
+  font-family: Bahnschrift, "Segoe UI", sans-serif;
+  font-weight: 700;
+  border-right: 2px solid var(--page);
+  box-sizing: border-box;
+}
+
+.cc .playhead {
+  position: absolute;
+  top: -3px;
+  bottom: -3px;
+  left: 0;
+  width: 3px;
+  background: var(--ours);
+  transition: left 0.14s linear;
+}
+
+.cc .meters {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem 2.2rem;
+  margin-top: 0.8rem;
+}
+
+.cc .meter {
+  display: grid;
+}
+
+.cc .cap {
+  color: var(--dim);
+  font-size: 0.85rem;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+}
+
+.cc .meter b {
+  font-size: 2.6rem;
+  line-height: 1;
+  color: #ffffff;
+  font-stretch: 82%;
+}
+
+.cc #best-meter b {
+  color: var(--gold);
+}
+
+.cc .board {
+  border: 1px solid var(--line);
+  background: var(--panel);
+  margin: 0.6rem 0;
+  min-height: 3rem;
+}
+
+.cc .bars {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+
+.cc .bar {
+  fill: var(--low);
+  transition: transform 1.3s ease-in-out;
+}
+
+.cc .bar.lead {
+  fill: var(--gold);
+}
+
+.cc .bar.you {
+  fill: #ffffff;
+}
+
+.cc .bar.random {
+  fill: var(--low);
+}
+
+.cc .bar.standard {
+  fill: var(--soft);
+}
+
+.cc .bar.crewcut {
+  fill: var(--ours);
+}
+
+.cc .bar.random.lead, .cc .bar.standard.lead, .cc .bar.crewcut.lead {
+  fill: var(--gold);
+}
+
+.cc .bar.miss {
+  fill: none;
+  stroke: var(--soft);
+  stroke-width: 1;
+}
+
+.cc .flag {
+  font-family: Bahnschrift, "Segoe UI", sans-serif;
+  font-size: 11px;
+}
+
+.cc .flag.gold, .cc .flagline.gold {
+  fill: var(--gold);
+  stroke: var(--gold);
+}
+
+.cc .flag.white, .cc .flagline.white {
+  fill: #ffffff;
+  stroke: #ffffff;
+}
+
+.cc .flag.grey, .cc .flagline.grey {
+  fill: var(--soft);
+  stroke: var(--soft);
+}
+
+.cc .flag {
+  stroke: none;
+}
+
+.cc .flagline {
+  stroke-width: 1;
+  stroke-dasharray: 3 2;
+}
+
+.cc .callout {
+  border-left: 6px solid var(--gold);
+  background: var(--panel);
+  padding: 0.7rem 1rem;
+  font-size: 1.1rem;
+}
+
+.cc .doubling {
+  display: grid;
+  gap: 0.3rem;
+  margin: 0.6rem 0;
+}
+
+.cc .doubling div {
+  display: grid;
+  grid-template-columns: 2.2rem minmax(0, 14rem) 1fr;
+  gap: 0.6rem;
+  align-items: center;
+}
+
+.cc .doubling b {
+  font-family: Bahnschrift, "Segoe UI", sans-serif;
+  text-align: right;
+}
+
+.cc .doubling i {
+  display: block;
+  height: 0.8rem;
+  min-width: 2px;
+  background: var(--soft);
+}
+
+.cc .doubling span {
+  color: var(--soft);
+  font-size: 0.9rem;
+}
+
+.cc button[aria-pressed="false"] {
+  background: transparent;
+  color: var(--ink);
+  border-color: var(--dim);
+}
+
+.cc button[aria-pressed]:disabled {
+  border-color: var(--line);
+  background: transparent;
+  color: var(--dim);
+}
+
+.cc .route {
+  fill: none;
+  stroke-width: 2;
+  stroke-linecap: round;
+  vector-effect: non-scaling-stroke;
+}
+
+.cc .route-a {
+  stroke: var(--ink);
+}
+
+.cc .route-b {
+  stroke: var(--dim);
+  stroke-dasharray: 7 5;
+}
+
+.cc .graph {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+
+.cc .link {
+  stroke: var(--low);
+  stroke-width: 1px;
+  stroke-linecap: round;
+  transition: stroke-width 0.5s, stroke 0.5s, opacity 0.5s;
+}
+
+.cc .link.paid, .cc .link.all {
+  stroke-width: var(--w);
+}
+
+.cc .link.paid.of-a {
+  stroke: var(--ink);
+}
+
+.cc .link.paid.of-b {
+  stroke: var(--dim);
+}
+
+.cc .link.cut {
+  stroke-dasharray: 3 6;
+  opacity: 0.75;
+}
+
+.cc .link.all {
+  transition: none;
+}
+
+.cc .link.fire {
+  stroke: #ffffff;
+}
+
+.cc .link.fired {
+  stroke: var(--ours);
+}
+
+.cc .node circle {
+  fill: #1b1b1d;
+  stroke: var(--soft);
+  stroke-width: 2px;
+  transform-box: fill-box;
+  transform-origin: center;
+}
+
+.cc .node text {
+  font-family: Bahnschrift, "Segoe UI", sans-serif;
+  font-weight: 700;
+  text-anchor: middle;
+  fill: var(--ink);
+}
+
+.cc .node .num {
+  font-size: 17px;
+}
+
+.cc .node .who {
+  font-size: 13px;
+  fill: var(--soft);
+  stroke: var(--panel);
+  stroke-width: 4px;
+  paint-order: stroke;
+}
+
+.cc .node.of-a circle {
+  fill: var(--ink);
+  stroke: var(--page);
+}
+
+.cc .node.of-b circle {
+  fill: var(--dim);
+  stroke: var(--page);
+}
+
+.cc .node.of-a .num, .cc .node.of-b .num, .cc .node.pulse .num {
+  fill: var(--page);
+}
+
+.cc .node.critical circle {
+  stroke: var(--ours);
+  stroke-width: 3px;
+  stroke-dasharray: 5 3;
+}
+
+.cc .node.pulse circle {
+  fill: var(--ours);
+  animation: cc-pulse 0.5s ease-in-out 2;
+}
+
+@keyframes cc-pulse {
+  50% { transform: scale(1.4); }
+}
+
+.cc .meter.cut b {
+  color: var(--dim);
+}
+
+.cc .registers {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(17rem, 1fr));
+  gap: 1.5rem;
+}
+
+.cc .register {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.3rem;
+  margin: 0.6rem 0;
+}
+
+.cc #reg-standard {
+  display: grid;
+  grid-template-columns: repeat(4, max-content);
+}
+
+.cc .pair {
+  display: grid;
+  grid-auto-flow: column;
+  gap: 0.15rem;
+  align-items: center;
+  padding: 0.2rem;
+  border: 1px solid var(--line);
+  position: relative;
+}
+
+.cc .pair small {
+  grid-column: 1 / -1;
+  grid-row: 2;
+  text-align: center;
+  color: var(--dim);
+  font-size: 0.7rem;
+}
+
+.cc .pair.bad {
+  border-color: var(--ours);
+  border-style: dashed;
+}
+
+.cc .q {
+  width: 1.5rem;
+  height: 1.5rem;
+  border-radius: 50%;
+  display: grid;
+  place-items: center;
+  font-family: Bahnschrift, "Segoe UI", sans-serif;
+  font-size: 0.75rem;
+  font-weight: 700;
+  border: 2px solid var(--low);
+  box-sizing: border-box;
+  color: var(--low);
+}
+
+.cc .q.on.of-a {
+  background: var(--ink);
+  border-color: var(--ink);
+  color: var(--page);
+}
+
+.cc .q.on.of-b {
+  background: var(--dim);
+  border-color: var(--dim);
+  color: var(--page);
+}
+
+.cc .rainrow h3 {
+  margin-bottom: 0;
+}
+
+.cc .rainrow.ours h3 {
+  color: var(--ours);
+}
+
+.cc .tiles {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 0.8rem;
+  margin: 1.2rem 0;
+}
+
+@media (max-width: 44rem) {
+  .cc .tiles { grid-template-columns: repeat(2, 1fr); }
+}
+
+.cc .tile {
+  border: 1px solid var(--line);
+  background: var(--panel);
+  padding: 0.8rem;
+  display: grid;
+  gap: 0.3rem;
+  align-content: start;
+}
+
+.cc .tile b {
+  font-size: 1.8rem;
+  line-height: 1;
+  font-stretch: 82%;
+  color: #ffffff;
+}
+
+.cc .tile.ours b {
+  color: var(--ours);
+}
+
+.cc .tile span {
+  color: var(--soft);
+  font-size: 0.88rem;
+}
+
+.cc table {
+  border-collapse: collapse;
+  font-variant-numeric: tabular-nums;
+  margin: 0.75rem 0;
+}
+
+.cc #compare {
+  display: block;
+  max-width: 100%;
+  overflow-x: auto;
+}
+
+.cc th, .cc td {
+  border: 1px solid var(--line);
+  padding: 0.25rem 0.6rem;
+  text-align: right;
+}
+
+.cc th[scope="row"] {
+  font-weight: 400;
+  text-align: left;
+}
+
+.cc thead th {
+  background: var(--panel);
+  color: #ffffff;
+}
+
+.cc label {
+  display: grid;
+  gap: 0.2rem;
+  color: var(--soft);
+  font-size: 0.9rem;
+}
+
+.cc input, .cc select {
+  font: inherit;
+  padding: 0.3rem 0.5rem;
+  background: var(--panel);
+  color: var(--ink);
+  border: 1px solid var(--dim);
+}
+
+.cc .report form {
   display: flex;
   flex-wrap: wrap;
   gap: 0.75rem 1.5rem;
   align-items: end;
 }
 
-label {
-  display: flex;
-  flex-direction: column;
-  font-weight: 600;
-}
-
-input, select, button {
-  font: inherit;
-  padding: 0.3rem 0.5rem;
-}
-
-button {
-  border: 2px solid #1a1a1a;
-  background: #1a1a1a;
-  color: #ffffff;
-  cursor: pointer;
-}
-
-button:disabled {
-  background: #ffffff;
-  color: #555555;
-  cursor: not-allowed;
-}
-
-pre {
+.cc pre {
   overflow-x: auto;
   padding: 0.75rem;
-  background: #f2f2f2;
+  background: var(--panel);
+  border: 1px solid var(--line);
 }
 
-table {
-  border-collapse: collapse;
-  font-variant-numeric: tabular-nums;
+.cc a {
+  color: var(--gold);
 }
 
-th, td {
-  border: 1px solid #888888;
-  padding: 0.2rem 0.6rem;
-  text-align: right;
-}
-
-th[scope="row"] {
-  font-family: ui-monospace, monospace;
-  font-weight: normal;
-  text-align: left;
-}
-
-thead th {
-  background: #e8e8e8;
-}
-
-.scroll {
-  max-height: 28rem;
+.cc .scroll {
+  max-height: 24rem;
   overflow: auto;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .cc .rain, .cc .node.pulse circle { animation: none; }
+  .cc .bar, .cc .crew, .cc .playhead, .cc .site, .cc .link { transition: none; }
 }
