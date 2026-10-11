@@ -26,13 +26,20 @@ function svg(tag, attributes = {}, text) {
   return item;
 }
 
-// https://qollab.xyz/learn/docs/js-qiskit-projects: Qollab replaces setTimeout, so waiting is done on animation frames
+// Waiting is done on a timer, because browsers stop animation frames in a tab that is not in front.
+// https://qollab.xyz/learn/docs/js-qiskit-projects: Qollab's setTimeout returns a promise. If that promise settles
+// before the time has passed (a setTimeout that takes no callback), the rest of the wait is done on animation frames.
 function sleep(ms) {
-  if (typeof requestAnimationFrame !== 'function') return Promise.resolve(setTimeout(() => {}, ms));
   return new Promise((resolve) => {
+    let done = false;
     const end = performance.now() + ms;
-    const tick = () => (performance.now() >= end ? resolve() : requestAnimationFrame(tick));
-    requestAnimationFrame(tick);
+    const finish = () => { if (!done) { done = true; resolve(); } };
+    const onFrames = () => (performance.now() >= end ? finish() : requestAnimationFrame(onFrames));
+    let returned;
+    try { returned = setTimeout(finish, ms); } catch (error) { returned = null; }
+    if (returned && typeof returned.then === 'function') {
+      returned.then(() => (performance.now() >= end - 5 ? finish() : requestAnimationFrame(onFrames)), onFrames);
+    }
   });
 }
 
