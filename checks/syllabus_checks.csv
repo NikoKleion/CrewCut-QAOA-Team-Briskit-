@@ -1,0 +1,7 @@
+check,version,expected,got,verdict,required,as_required
+every_code_file_has_an_entry,real,no file without an entry,no file without an entry,PASS,PASS,yes
+every_code_file_has_an_entry,broken: the entry of one library file removed,no file without an entry,['briskit/feeder.py'],FAIL,FAIL,yes
+every_check_file_is_named,real,no check file left out,no check file left out,PASS,PASS,yes
+every_check_file_is_named,broken: one check file not named,no check file left out,['record.py'],FAIL,FAIL,yes
+every_entry_names_a_file_that_exists,real,no entry without a file,no entry without a file,PASS,PASS,yes
+every_entry_names_a_file_that_exists,broken: an entry for a file that is not there,no entry without a file,['briskit/not_there.py'],FAIL,FAIL,yes

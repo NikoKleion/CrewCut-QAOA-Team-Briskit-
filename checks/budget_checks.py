@@ -23,7 +23,7 @@ def best_of_half_the_draws(regrets, draws):
 
 
 def sample_phase_agrees(expectation, file, make_instance, methods, total=100):
-    runs = summary.by_run(benchmark.read_rows(ROOT / "results" / file))
+    runs = summary.by_run(benchmark.read_rows(ROOT / "results" / "feeder" / file))
     measured = [summary.regret_at(run, total) for (instance, method, seed), run in runs.items() if method in methods]
     exact = []
     for k in sorted({seed for (instance, method, seed) in runs}):

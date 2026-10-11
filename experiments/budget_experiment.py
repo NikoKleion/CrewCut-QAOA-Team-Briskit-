@@ -12,7 +12,7 @@ SAMPLES = 150
 FINAL = 50
 TOTALS = (50, 100, 150, 151, 160, 175, 200)
 TARGETS = (0.05, 0.01, 0.0)
-RESULTS = Path(__file__).resolve().parent.parent / "results"
+RESULTS = Path(__file__).resolve().parent.parent / "results" / "feeder"
 SCRIPT = "experiments/budget_experiment.py"
 
 FITTED = {

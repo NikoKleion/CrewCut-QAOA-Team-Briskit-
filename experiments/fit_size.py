@@ -11,7 +11,7 @@ from briskit.solvers import best_first, fitted, random_plans
 SEED = 20261010
 SIZES = (20, 40, 60, 80, 100, 150, 200, 300)
 EXTRA = 10
-RESULTS = Path(__file__).resolve().parent.parent / "results"
+RESULTS = Path(__file__).resolve().parent.parent / "results" / "feeder"
 SCRIPT = "experiments/fit_size.py"
 
 
