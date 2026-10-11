@@ -1,0 +1,22 @@
+command: python -m experiments.dispatch_game_instance
+code: 1c75dde (clean)
+python: 3.13.14
+packages: numpy 2.5.2  scipy 1.18.1  qiskit 2.5.2
+platform: Windows-11-10.0.26200-SP0, AMD64
+threads: 1
+started: 2026-10-11T20:40:51Z
+seconds: 161
+exit: 0
+
+8 repairs, two crews, instance 0 of the 30 of experiments/standard_qaoa.py, depth 2, 6 starts
+   the simple dispatch rule is a best plan on 16 of 30 instances; on instance 0 it is 1.37% above the best plan
+   hours [6, 4, 8, 1, 6, 5, 6, 8]
+   urgency [0.8648, 0.0888, 5.0, 0.9679, 0.0993, 0.6227, 0.9805, 0.937]
+   form                                          valid shots   best plan shots   gain kept, valid shots
+   one qubit per repair                              100.00%             2.63%       69.7%
+   standard, one penalty at the bound                98.94%             0.78%        1.4%
+   standard, one penalty at 2 times the bound        99.27%             0.84%        7.8%   picked
+   standard, one penalty at 4 times the bound        99.94%             0.81%        4.0%
+   standard, each repair's penalty at its own bound  11.04%             0.11%       20.9%
+the standard form's penalty is picked by the share of best plan shots, which uses the answer
+written: qollab/game_instance.py
