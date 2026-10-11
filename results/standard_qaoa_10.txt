@@ -1,0 +1,38 @@
+command: python -m experiments.standard_qaoa_10
+code: c00d07d (clean)
+python: 3.13.5
+packages: numpy 2.5.2  scipy 1.18.1  qiskit 2.5.2
+platform: Windows-11-10.0.26200-SP0, AMD64
+threads: 1
+started: 2026-10-11T05:13:26Z
+seconds: 10966
+exit: 0
+
+10 repairs, two crews, 10 instances, depth 1, 6 starts, median over instances [quartiles]
+   form                                               qubits  pair gates    valid   best plan shots            shots for   gain kept,
+                                                               per layer    shots                              95%         valid shots
+   one qubit per repair                                   10          45   100.00%     0.62% [ 0.52,  0.63]         485     55.6%
+   one qubit per repair and crew:
+      one penalty at the bound                            20         100    37.25%     0.08% [ 0.06,  0.09]        3806      4.5%
+      one penalty at 2 times the bound                    20         100    75.88%     0.15% [ 0.14,  0.16]        1985      0.9%
+      one penalty at 4 times the bound                    20         100    93.19%     0.18% [ 0.18,  0.18]        1639      0.1%
+      each repair's penalty at its own bound              20         100     0.93%     0.00% [ 0.00,  0.00]      103856     11.8%
+      best of all penalties for each instance             20         100    93.19%     0.18% [ 0.18,  0.18]        1639      0.1%
+   more best plan shots with one qubit per repair: 10 of 10 instances against one penalty at the bound, 10 of 10 against the best of all
+   picked for the best of all: one penalty at the bound: 0; one penalty at 2 times the bound: 0; one penalty at 4 times the bound: 10; each repair's penalty at its own bound: 0
+10 repairs, two crews, 10 instances, depth 2, 6 starts, median over instances [quartiles]
+   form                                               qubits  pair gates    valid   best plan shots            shots for   gain kept,
+                                                               per layer    shots                              95%         valid shots
+   one qubit per repair                                   10          45   100.00%     1.01% [ 0.86,  1.06]         296     68.8%
+   one qubit per repair and crew:
+      one penalty at the bound                            20         100    93.86%     0.20% [ 0.20,  0.23]        1519      3.3%
+      one penalty at 2 times the bound                    20         100    99.27%     0.22% [ 0.21,  0.22]        1388      4.9%
+      one penalty at 4 times the bound                    20         100    99.94%     0.21% [ 0.20,  0.21]        1443      3.4%
+      each repair's penalty at its own bound              20         100     9.65%     0.03% [ 0.02,  0.04]       10427     17.6%
+      best of all penalties for each instance             20         100    99.23%     0.22% [ 0.21,  0.23]        1372      6.4%
+   more best plan shots with one qubit per repair: 10 of 10 instances against one penalty at the bound, 10 of 10 against the best of all
+   picked for the best of all: one penalty at the bound: 2; one penalty at 2 times the bound: 7; one penalty at 4 times the bound: 1; each repair's penalty at its own bound: 0
+   at 10 repairs the penalties below the bound and at half of each repair's own bound are not run
+12 repairs, counted from the circuits, not simulated: 12 qubits and 66 pair gates per layer against 24 and 144
+the best of several penalties is picked by the share of best plan shots, which uses the answer
+penalties above the bound and penalties for each repair were added after the first result at 6 repairs
