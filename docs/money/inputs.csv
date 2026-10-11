@@ -1,0 +1,24 @@
+name,value,unit,source
+outage_cost_year_low,18e9,USD of 2012 per year,S1
+outage_cost_year_high,33e9,USD of 2012 per year,S1
+sandy_cost_low,14e9,USD of 2012,S1
+sandy_cost_high,26e9,USD of 2012,S1
+sandy_customers,8.5e6,customers without power,S1
+large_outages,679,outages of 50000 customers or more,S1
+years,10,years 2003 to 2012,S1
+hours_out_2022,5.6,hours per customer,S2
+hours_out_without_major_events,2,hours per customer,S2
+household_8_hours,17.2,USD of 2013 per interruption,S3
+household_16_hours,32.4,USD of 2013 per interruption,S3
+small_business_8_hours,4690,USD of 2013 per interruption,S3
+small_business_16_hours,9055,USD of 2013 per interruption,S3
+large_business_8_hours,84083,USD of 2013 per interruption,S3
+large_business_16_hours,165482,USD of 2013 per interruption,S3
+task_price,0.30,USD per task on IonQ Forte,S4
+shot_price,0.08,USD per shot on IonQ Forte,S4
+flight_delay_cost_2007,32.9e9,USD of 2007,S5
+operating_room_minute,37.45,USD of fiscal 2014,S6
+crewcut_100_shots_above_best,0.0032,share of the best plan's cost,results/crew_assignment.txt
+random_100_plans_above_best,0.0062,share of the best plan's cost,results/crew_assignment.txt
+published_algorithm_above_best,0.0147,share of the best plan's cost,results/crew_assignment.txt
+classical_lead_at_200_plans,0.0009,share of the best plan's cost,results/budget_experiment.txt
