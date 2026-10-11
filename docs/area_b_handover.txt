@@ -88,14 +88,22 @@ Measured so far (local; 2000 shots, depth 2; share of shots on a best plan, rand
    Quick path with figures on the basic simulator: 3.6 s end to end, against the 10-minute target of section 13.
 
 Environment
-   Matplotlib 3.11.2 (figures/build.py, run_local.py with figures), qiskit-ibm-runtime and qiskit-aer (IBM fake backends in run_local.py) were installed in .venv. None is in requirements.txt yet.
+   Matplotlib 3.11.2 (figures/build.py, run_local.py with figures), qiskit-ibm-runtime and qiskit-aer (IBM fake backends in run_local.py) were installed in .venv, and qiskit-ionq 1.1.1 for the offline IonQ check. None is in requirements.txt yet.
    Action (Niko and Johnathan, who own requirements.txt): decide whether to pin them.
 
 Open for area C
-   1. The six hosted C1 runs, on the captain's project, after C2 is settled. The records go in results/qollab/.
+   1. The six hosted C1 runs, on the captain's project. The code is ready (checked 2026-10-10); see "C1 run sheet" below. The records go in results/qollab/.
    2. C2 changed to a page (index.html, main.js) with the Python behind it. Qollab runs the page when both files are at the top level, so the project then holds the page and no bare main.py run. Python is called through .callPromising on IonQ backends. Remove the template's filter that deletes outcomes under 5%. Not built. run_circuit is ready to be called from the page.
    3. C3 addition: two tables as figures with alt text, the ladder and the four backends of section 4. Not built; needs the document with section 4 and the four screenshots.
-   4. The IonQ run is untested. If compiling for IonQ fails, main.py sends the circuit as written and the record says "not compiled locally".
+   4. The IonQ run was checked offline on 2026-10-10 with qiskit-ionq 1.1.1 (the simulator backend with noise model forte-1, no job sent): the circuit compiles at keep 100 (132 rzz) and keep 50 (66 rzz), IonQ's converter accepts both, and the backend line reads "ionq_simulator, noise model forte-1". A real IonQ job has not been sent. If compiling fails on Qollab, main.py sends the circuit as written and the record says "not compiled locally".
+
+C1 run sheet (for the captain, on the project we submit)
+   Before: the Qollab project holds main.py, project_figures.py and figure_data.json at the top level and no index.html or main.js, so Qollab runs main.py. Upload the versions on main at the time of the runs.
+   Settings for every run: shots 2000, depth 2, figures off. keep is 100 for one run and 50 for the next.
+   Backends, each at keep 100 then keep 50 (six runs): Built-in simulator; IBM Fez (noise model); IonQ Forte 1 (remote simulator, one job per run).
+   After each run: the console prints the report and offers qollab_run_<backend>_keep<keep>_depth2.txt to download. Download it, and send the six files to Johnathan or commit them to results/qollab/ unchanged.
+   Check: each file starts "project file: qollab/main.py", the backend line names the backend picked, and "shots returned" is 2000. The IonQ file names forte-1 in the backend line.
+   Expected from the local checks: about 1% of shots on a best plan on the simulator and under 0.5% on IBM Fez, against 0.098% at random. IBM Fez took about 15 s per run locally; IonQ waits in IonQ's queue.
 
 Documents
    syllabus.md: entries for qollab/main.py, qollab/project_figures.py, qollab/run_local.py, qollab/figure_data.json and figures/build.py.
