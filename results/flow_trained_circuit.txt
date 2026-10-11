@@ -1,0 +1,15 @@
+command: python -m experiments.flow_trained_circuit
+code: c981f85 (modified)
+python: 3.13.5
+packages: numpy 2.5.2  scipy 1.18.1  qiskit 2.5.2
+platform: Windows-11-10.0.26200-SP0, AMD64
+threads: 1
+started: 2026-10-11T04:04:10Z
+seconds: 1
+exit: 0
+
+random_geometric_12_0, restore 6, pair cost fitted on 150 plans, seed 0
+   depth   right count   optimum, of the right count   mean regret, of the right count
+   1         49.1%        75.85%                        3.33%
+   2         49.8%        77.00%                        3.16%
+   records for depths 1 and 2 are in qollab/trained_circuits.json, scored by the value table stored in each record

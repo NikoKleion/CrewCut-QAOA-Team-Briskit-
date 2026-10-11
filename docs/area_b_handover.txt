@@ -283,7 +283,7 @@ B7 changed: count penalty in the standard form, at the bound
    - Problem found: with the feeder's penalty (strength = standard deviation of the fitted value), QAOA put only 0.4 to 0.7% of its probability on plans with the right count on random_geometric_12_0, restore 6. The cause is that restoring more links always serves more demand, so wrong counts score high.
    - Fix: the penalty keeps the standard form A(K - number chosen)^2 (Lucas, section 2.3), but A is raised to the bound when it is below it. At the bound, the best plan of the right count is a lowest state of the cost. On that instance the right-count share goes to about 50%.
    - Code: briskit/solvers.py gets cost_at_bound and qaoa(depth, at_bound=True). Niko's default qaoa(depth) is unchanged, so A2 and the feeder results don't move.
-   - Workers capped at 6, as in Niko's standard_qaoa.py. The earlier full run was stopped for low memory with 32 workers, each loading Qiskit.
+   - Workers capped at 6, as in Niko's standard_qaoa.py. A full run takes about 35 minutes on 6 workers. The earlier full run was stopped for low memory with 32 workers, each loading Qiskit.
    - If a mixer that keeps the count (A9) is built, it becomes its own rung on the flow networks.
 
 B9 experiments/flow_ladder.py: rungs 2 and 4

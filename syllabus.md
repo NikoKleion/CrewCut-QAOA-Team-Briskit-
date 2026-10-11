@@ -102,11 +102,19 @@ Many ions at once, and the mode returning to its start: Lotshaw et al., Modellin
 
 Matrix exponential: SciPy `expm`, https://docs.scipy.org/doc/scipy/reference/generated/scipy.linalg.expm.html
 
+## briskit/one_hot.py
+
+Crew assignment in the standard form: one binary variable for each repair and crew, the schedule cost as single and pair terms, and a penalty that makes each repair sit on exactly one crew. `one_hot_terms` returns the constant, the single terms and the pair terms; `penalty_bound` is a penalty above which every lowest state is an assignment; `cost_table` gives the cost of every state; `assignments` says which states are assignments and which crew each repair is on; `one_hot_circuit` is the QAOA circuit of the form. For n repairs and two crews it takes 2n qubits and n squared pair terms, where one qubit per repair takes n qubits and n(n-1)/2 pair terms.
+
+The program with one variable per job and machine: Skutella, Convex quadratic and semidefinite programming relaxations in scheduling, J. ACM 48(2), 2001, section 2.1; the same cost as a cut with one label per job, which for two crews is one qubit per repair: section 6 of the same paper, https://page.math.tu-berlin.de/~combi/coga-old/publications/techreports/2000/Report-683-2000.html
+
+The penalty for "each job on exactly one machine": Lucas, Ising formulations of many NP problems, section 6.3, https://arxiv.org/abs/1302.5843
+
 ## briskit/pair_cost.py
 
 Builds the pair coefficients of crew assignment for independent repairs: two repairs on one crew cost the weight of the later one times the hours of the earlier one. Splits those coefficients into one sum of squares per urgency level, fits a pair cost to scored plans by least squares or ridge regression, turns a pair matrix into eigenvalue blocks, expands a value table in the Walsh-Hadamard basis and reports the share of variance at each order, and gives the single and pair terms of the expected cost when lines fail independently.
 
-The pair coefficients are checked against brute force in `experiments/crew_assignment.py`. Quadratic programs for weighted completion time on parallel machines: Skutella, Convex quadratic and semidefinite programming relaxations in scheduling, J. ACM 48(2), 2001 (abstract read), https://page.math.tu-berlin.de/~combi/coga-old/publications/techreports/2000/Report-683-2000.html
+The pair coefficients are checked against brute force in `experiments/crew_assignment.py`. The cost of an assignment to identical crews as a cut on a complete graph, with weight w_j p_k on the edge between repairs j and k when k comes first: Skutella, Convex quadratic and semidefinite programming relaxations in scheduling, section 6 (page 30 of the report), https://page.math.tu-berlin.de/~combi/coga-old/publications/techreports/2000/Report-683-2000.html
 
 Walsh-Hadamard expansion and weight by degree: O'Donnell, Analysis of Boolean Functions, chapter 1, https://arxiv.org/abs/2105.10386
 
@@ -340,6 +348,12 @@ Compares the probabilities from the table-based simulator in `briskit/qaoa.py` w
 
 Qiskit `Statevector`, https://quantum.cloud.ibm.com/docs/api/qiskit/qiskit.quantum_info.Statevector
 
+## experiments/standard_qaoa.py
+
+Compares the two forms of crew assignment for two crews under QAOA with the same trainer, depths and number of starts: one qubit per repair, and one qubit per repair and crew with a penalty. The penalty is run as one number for every repair at 1, 1/2, 1/4 and 1/8 of the bound and at 2 and 4 times the bound, and as a number for each repair at its own bound and at half of it; at 8 repairs only the bound, 2 and 4 times the bound and each repair's own bound are run. For 6 and 8 repairs and 30 instances each it reports qubits, pair gates per layer, the share of shots that are an assignment, the share that are a best plan, the shots needed for a 95% chance of a best plan, and the share of the gain over random plans kept among the valid shots. The best penalty is picked for each instance by the share of best plan shots, which uses the answer and favours the standard form. Instances are spread over the worker processes the runner allows, at most 6; the output does not depend on their number.
+
+Farhi, Goldstone and Gutmann, https://arxiv.org/abs/1411.4028 ; Skutella, sections 2.1 and 6; Lucas, section 6.3, https://arxiv.org/abs/1302.5843
+
 ## experiments/trained_circuits.py
 
 Replays the random stream of the budget experiment's QAOA runs on its first instance (restore 6 of 12 lines, pair cost fitted on 150 plans, depths 1 to 3), so the fit and the angles are the ones behind the saved benchmark rows, and writes them to `qollab/trained_circuits.json`. Prints for each depth the share of probability on plans with the right count, the share of those on the optimum, and their mean regret. The file is rewritten only when one of its records changes, and records of other experiments in the file are kept.
@@ -362,6 +376,10 @@ Qiskit `DiagonalGate`, https://quantum.cloud.ibm.com/docs/api/qiskit/qiskit.circ
 
 Qiskit `Statevector`, https://quantum.cloud.ibm.com/docs/api/qiskit/qiskit.quantum_info.Statevector
 
+## RUNTHIS.py
+
+Runs `experiments/standard_qaoa.py` through `run_experiments.py` with up to 5 worker processes, prints what it needs and how long it took when measured, and says how to send back `results/standard_qaoa.txt`. Run as `python RUNTHIS.py` from any folder.
+
 ## run_experiments.py
 
 Runs every script in `experiments/` in its own process with a fixed number of numerical threads and writes what each prints to `results/<name>.txt`. With `--check` it runs them again and reports whether each output equals the saved one. `--jobs` sets how many run at once, `--threads` the thread count, and names after the command select scripts.
@@ -374,9 +392,9 @@ Every script seeds NumPy's generator with the constant `SEED` at the top of the 
 
 ## checks/
 
-`benchmark_checks.py`, `budget_checks.py`, `collective_checks.py`, `cost_circuit_checks.py`, `dispatch_checks.py`, `fit_checks.py`, `flow_trained_checks.py`, `solver_checks.py`, `summary_checks.py`, `syllabus_checks.py`, `trained_checks.py` and `tree_knapsack_checks.py` hold one named function per check, each taking the piece under test and returning what it expected, what it got and whether they agree. `record.py` runs every check twice, on the real code and on a broken version written beside it, and writes both outcomes to a `.csv` file next to the checks: a check counts only if it passes on the real code and fails on the broken one.
+`benchmark_checks.py`, `budget_checks.py`, `collective_checks.py`, `cost_circuit_checks.py`, `dispatch_checks.py`, `fit_checks.py`, `flow_trained_checks.py`, `one_hot_checks.py`, `solver_checks.py`, `summary_checks.py`, `syllabus_checks.py`, `trained_checks.py` and `tree_knapsack_checks.py` hold one named function per check, each taking the piece under test and returning what it expected, what it got and whether they agree. `record.py` runs every check twice, on the real code and on a broken version written beside it, and writes both outcomes to a `.csv` file next to the checks: a check counts only if it passes on the real code and fails on the broken one.
 
-`budget_checks.py` audits the saved rows of the budget experiment against the exact expectation for the best of a number of distinct random plans. `fit_checks.py` compares the fit with a second way of solving the same least squares problem and with the saved result of `experiments/feeder_fitted_models.py`. `dispatch_checks.py` compares the rho factors with a second listing of subtrees by bit masks, the dispatch with `priority_dispatch`, and both with Theorem 5 of Tan et al.: with rho factors as priorities the dispatch must equal the conversion algorithm on every one of 300 feeder instances. `collective_checks.py` compares a block with the matrix exponential of its definition, the block layers with the pair by pair layer by `Operator.equiv`, the whole circuit with the table simulator, and the XX form with the ZZ form. `cost_circuit_checks.py` compares the rewritten terms with the cost table of the QAOA selector, the scale with the standard deviation of that table, and the circuit's probabilities with `qaoa_probabilities` at 8 and 12 qubits and depths 1 to 3, and with the distribution `train_qaoa` returns for a fit on the feeder. `trained_checks.py` checks that a record read back from the file equals the one written, that its circuit gives the trained distribution, that the plans drawn after replaying the stream are the plans the harness's solver returns for the same seed, instance, method and budget, that scoring from the record equals the feeder model, and that the size limits are tested. `flow_trained_checks.py` does the same for the flow record of `experiments/flow_trained_circuit.py`: its circuit gives the trained distribution, the plans drawn after replaying the stream are the plans of the budget experiment's QAOA solver with the penalty at the bound, and scoring from the stored values equals the flow table. `tree_knapsack_checks.py` compares the exact tree method with enumeration on 60 feeder cases and 10 random trees of 16 lines, and with brute force over closed sets for a budget in repair hours, and checks that the plan it returns has the right number of lines when weights are zero. `syllabus_checks.py` checks that every code file in the repository has an entry in this file.
+`budget_checks.py` audits the saved rows of the budget experiment against the exact expectation for the best of a number of distinct random plans. `fit_checks.py` compares the fit with a second way of solving the same least squares problem and with the saved result of `experiments/feeder_fitted_models.py`. `dispatch_checks.py` compares the rho factors with a second listing of subtrees by bit masks, the dispatch with `priority_dispatch`, and both with Theorem 5 of Tan et al.: with rho factors as priorities the dispatch must equal the conversion algorithm on every one of 300 feeder instances. `collective_checks.py` compares a block with the matrix exponential of its definition, the block layers with the pair by pair layer by `Operator.equiv`, the whole circuit with the table simulator, and the XX form with the ZZ form. `cost_circuit_checks.py` compares the rewritten terms with the cost table of the QAOA selector, the scale with the standard deviation of that table, and the circuit's probabilities with `qaoa_probabilities` at 8 and 12 qubits and depths 1 to 3, and with the distribution `train_qaoa` returns for a fit on the feeder. `trained_checks.py` checks that a record read back from the file equals the one written, that its circuit gives the trained distribution, that the plans drawn after replaying the stream are the plans the harness's solver returns for the same seed, instance, method and budget, that scoring from the record equals the feeder model, and that the size limits are tested. `flow_trained_checks.py` does the same for the flow record of `experiments/flow_trained_circuit.py`: its circuit gives the trained distribution, the plans drawn after replaying the stream are the plans of the budget experiment's QAOA solver with the penalty at the bound, and scoring from the stored values equals the flow table. `tree_knapsack_checks.py` compares the exact tree method with enumeration on 60 feeder cases and 10 random trees of 16 lines, and with brute force over closed sets for a budget in repair hours, and checks that the plan it returns has the right number of lines when weights are zero. `one_hot_checks.py` compares the standard form on every valid state with the schedule run crew by crew for two and three crews, checks that the penalty moves only the states that are not assignments, that the lowest state at the bound is an assignment with the optimum, that the form agrees plan by plan with one qubit per repair, that its circuit gives the distribution of the table simulator, and that qubits and pair terms follow the closed form. `syllabus_checks.py` checks that every code file in the repository has an entry in this file.
 
     python -m checks.benchmark_checks
     python -m checks.budget_checks
@@ -385,6 +403,7 @@ Every script seeds NumPy's generator with the constant `SEED` at the top of the 
     python -m checks.dispatch_checks
     python -m checks.fit_checks
     python -m checks.flow_trained_checks
+    python -m checks.one_hot_checks
     python -m checks.solver_checks
     python -m checks.summary_checks
     python -m checks.syllabus_checks
