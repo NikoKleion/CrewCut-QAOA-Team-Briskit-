@@ -5,3 +5,5 @@ every_check_file_is_named,real,no check file left out,no check file left out,PAS
 every_check_file_is_named,broken: one check file not named,no check file left out,['record.py'],FAIL,FAIL,yes
 every_entry_names_a_file_that_exists,real,no entry without a file,no entry without a file,PASS,PASS,yes
 every_entry_names_a_file_that_exists,broken: an entry for a file that is not there,no entry without a file,['briskit/not_there.py'],FAIL,FAIL,yes
+nothing_is_there_twice,real,nothing twice,nothing twice,PASS,PASS,yes
+nothing_is_there_twice,broken: one paragraph there twice with a changed end,nothing twice,['`budget_checks.py` audits the saved rows of the budget experiment against the ex'],FAIL,FAIL,yes

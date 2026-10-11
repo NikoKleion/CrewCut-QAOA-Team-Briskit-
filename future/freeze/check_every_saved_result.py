@@ -1,4 +1,4 @@
-# Reruns every experiment and compares what it prints with the file saved in results/ (ready to run, about an hour, to be done before results are frozen)
+# Reruns every experiment and compares what it prints with the file saved in results/ (ready to run, not yet run; the saved results record 4.9 hours of run time in all, 3 of them the comparison at 10 repairs)
 import subprocess
 import sys
 from pathlib import Path

@@ -35,6 +35,13 @@ def every_entry_names_a_file_that_exists(text):
     return "no entry without a file", missing or "no entry without a file", not missing
 
 
+def nothing_is_there_twice(text):
+    starts = [block.strip()[:80] for block in text.split("\n\n") if len(block.strip()) > 200]
+    commands = [line.strip() for line in re.findall(r"(?m)^    python \S.*$", text)]
+    twice = sorted({start for start in starts if starts.count(start) > 1} | {line for line in commands if commands.count(line) > 1})
+    return "nothing twice", twice or "nothing twice", not twice
+
+
 def syllabus():
     return (ROOT / "syllabus.md").read_text(encoding="utf-8")
 
@@ -47,6 +54,12 @@ def without_one_check_name():
     return syllabus().replace("`record.py`", "the recorder")
 
 
+def with_a_paragraph_twice():
+    text = syllabus()
+    longest = max(text.split("\n\n"), key=len)
+    return text.replace(longest, longest + "\n\n" + longest[:300] + " and more.", 1)
+
+
 def with_an_entry_for_no_file():
     return syllabus() + "\n## briskit/not_there.py\n\nNothing.\n"
 
@@ -55,6 +68,7 @@ CASES = [
     (every_code_file_has_an_entry, syllabus(), without_one_entry(), "the entry of one library file removed"),
     (every_check_file_is_named, syllabus(), without_one_check_name(), "one check file not named"),
     (every_entry_names_a_file_that_exists, syllabus(), with_an_entry_for_no_file(), "an entry for a file that is not there"),
+    (nothing_is_there_twice, syllabus(), with_a_paragraph_twice(), "one paragraph there twice with a changed end"),
 ]
 
 

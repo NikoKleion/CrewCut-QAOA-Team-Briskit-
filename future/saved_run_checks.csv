@@ -1,0 +1,5 @@
+check,version,expected,got,verdict,required,as_required
+a_failure_keeps_what_was_printed,real,both lines and the failure in the saved file,3 of 3 found,PASS,PASS,yes
+a_failure_keeps_what_was_printed,broken: prints held in memory until the script has finished,both lines and the failure in the saved file,0 of 3 found,FAIL,FAIL,yes
+a_clean_run_saves_header_and_prints,real,4 header lines and the 2 printed lines,"4 header lines, body ['first line', 'second line']",PASS,PASS,yes
+a_clean_run_saves_header_and_prints,broken: no header written,4 header lines and the 2 printed lines,"0 header lines, body []",FAIL,FAIL,yes

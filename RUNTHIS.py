@@ -6,33 +6,26 @@ from pathlib import Path
 ROOT = Path(__file__).resolve().parent
 PROCESSES = min(5, os.cpu_count() or 1)
 OVERNIGHT = "overnight" in sys.argv[1:]
-NAMES = ["standard_qaoa"] + (["standard_qaoa_10"] if OVERNIGHT else [])
+NAME = "standard_qaoa_10" if OVERNIGHT else "standard_qaoa"
 
-print("Compares standard QAOA (one qubit per repair and crew, with a penalty) with one qubit per repair,")
-print("at 6 and 8 repairs, 30 instances each. Nothing else needs to be run.")
+print("Compares standard QAOA (one qubit per repair and crew, with a penalty) with one qubit per repair.")
+print("python RUNTHIS.py            6 and 8 repairs, 30 instances each; took 2021 s with 5 processes when it was run")
+print("python RUNTHIS.py overnight  10 repairs, 10 instances; took 10966 s and 11361 s on two machines")
 print("Needs Python 3.13 and: pip install -r requirements.txt")
-print(f"Uses {PROCESSES} worker processes at one thread each. Plug the machine in first.")
-print("Measured in one process on a laptop on battery: 6 minutes for 6 repairs, 3 minutes per instance at 8 repairs.")
-print("With 5 processes that is about 25 minutes in all. Nothing is printed until a run ends.")
-if OVERNIGHT:
-    print("Then the same at 10 repairs, 10 instances. Not timed as a whole: one circuit evaluation takes 48 times")
-    print("as long as at 8 repairs, which puts it at several hours with 5 processes.")
-else:
-    print("For the run at 10 repairs as well, which takes several hours: python RUNTHIS.py overnight")
+print(f"This run: {NAME}, {PROCESSES} worker processes at one thread each. Plug the machine in first.")
+print(f"It replaces results/{NAME}.txt; the lines below its header must come out as they were.")
+print(f"To compare without replacing the file: python run_experiments.py {NAME} --check")
+print("Nothing is printed until the run ends.")
 print("", flush=True)
 
-code = 0
-for name in NAMES:
-    done = subprocess.run([sys.executable, "run_experiments.py", name, "--processes", str(PROCESSES)], cwd=ROOT)
-    code = code or done.returncode
+done = subprocess.run([sys.executable, "run_experiments.py", NAME, "--processes", str(PROCESSES)], cwd=ROOT)
 
-results = [f"results/{name}.txt" for name in NAMES if (ROOT / "results" / f"{name}.txt").exists()]
 print("")
-if code == 0 and len(results) == len(NAMES):
+if done.returncode == 0:
     print("Done. Send the result back with:")
-    print(f"    git add {' '.join(results)}")
+    print(f"    git add results/{NAME}.txt")
     print('    git commit -m "Add standard QAOA result"')
     print("    git push")
 else:
-    print("It did not finish. Send what is printed above to Niko.")
-sys.exit(code)
+    print(f"{NAME} did not finish. Send what is printed above to Niko.")
+sys.exit(done.returncode)
