@@ -138,6 +138,39 @@ B6: FITTED PAIR COSTS (pattern to copy for B7)
     Action: copy this shape for B7.
 
 
+B7 AND B8: CHANGES TO YOUR SCRIPTS (made 2026-10-10)
+
+Both scripts crashed on a default run. budget in the instance JSON is now a list ([4, 6] for 12 links, [5, 8] for 16), but both used it as one number. I fixed that and moved both onto Niko's harness (briskit/benchmark.py, solvers.py, instances.py, summary.py), which is now on main.
+
+B7 experiments/flow_budget_experiment.py (it was briskit/flow_budget_experiment.py)
+   - Moved to experiments/. run_experiments.py only runs experiments/<name>, and the library shouldn't import from experiments.
+   - Rebuilt on Niko's experiments/budget_experiment.py, as he asked. It now writes the 11-column row (value, returned, evaluations, seconds) to results/flow/budget_experiment.csv.
+   - Every number restored in budget runs, with 30 seeds.
+   - Fitted methods are now credited with their fitting sample. The old version charged fit + budget evaluations but scored only the surrogate's picks, which made fitted, thermal and QAOA look worse than the baselines.
+   - Methods mapped across:
+       exact search -> fitted cost, best first
+       QAOA depth 1 and 2 -> Niko's qaoa(1), qaoa(2)
+       fixed-beta thermal -> Niko's thermal beta 2 and 5
+       swap annealing -> kept
+       greedy -> Niko's greedy
+       random -> random plans
+   - Fit sizes: 150 for 12 links (as in Niko's feeder run) and 400 for 16 (your middle size).
+   - Dropped:
+       thermal at the best beta, because it picks beta using the true regret, so it's an oracle;
+       the penalty-scale sweep, because Niko's penalised_cost sets the penalty;
+       matched thermal, because the harness has no way to share a trained QAOA with a second method.
+   - Swap annealing: the temperature is now a share of the current value, not of the optimum, so it no longer needs the optimum. Your 0.1 to 0.005 schedule is kept. Every plan it scores is returned, so its rows sit on the same evaluation axis as random plans.
+   - Jobs run in parallel per instance, number restored and seed, capped by FLOW_PROCESSES. It is about 2 CPU hours, most of it QAOA depth 2 on 16 links (about 12 s per seed). Each worker loads Qiskit, so use a lower FLOW_PROCESSES on a machine with little memory.
+   - These cover review findings 1 to 10. Findings 2, 3, 5, 6, 7, 9 and 10 disappeared with the harness code they were about.
+   Action: check that the method list is what you want for E8, and say if you want the dropped ones back.
+
+B8 experiments/priority_ablation.py
+   - Uses stored_value_table for both the weighted and the unweighted tables. The unweighted ones are cached as results/flow/tables/<instance>_unweighted.npz. The private cache folder and its Pool code are gone.
+   - Covers every number restored from 1 to damaged - 1 on all 18 instances in one run. Your two tagged runs (n12, n16) are replaced by results/flow/priority_ablation.csv (harness rows, method "weights on", "weights off, best tie" and "weights off, worst tie") and results/flow/priority_ablation_ties.csv (your summary columns, with budget renamed to count).
+   - Checked: all 756 tie values from your saved n12 and n16 files are reproduced exactly.
+   - It prints a summary table, so the runner saves results/priority_ablation.txt.
+
+
 DOCS
 
 19. syllabus.md has an entry for each new file, in Niko's format. SOURCES.md lists each source that was opened, what was taken from it, and every constant that has no source. The new code has short comments giving the source of each constant, or "project choice, no source".
@@ -176,13 +209,11 @@ FOR NIKO: RESULT ROWS, RUNNER, SHARED FILES
    - The first flow_value_tables run takes about 4 minutes on 32 cores, using every core.
    - --threads doesn't reach it, because it uses processes, not numerical threads.
    - FLOW_PROCESSES caps it. FLOW_PROCESSES=1 runs strictly serial, which takes roughly 30 minutes the first time.
-   Action: you might have run_experiments.py set FLOW_PROCESSES from --threads. That's a one-line change in your file, so I haven't touched it.
+   Done (commit 56a018a, with your clearance): run_experiments.py has a --processes option, defaulting to the core count divided by --jobs, and passes it to the scripts as FLOW_PROCESSES.
 
-7. Runner crash without Qiskit. run_experiments.py crashes on a machine without Qiskit: version("qiskit") raises PackageNotFoundError.
-   Action: catch that error and print "not installed", or document pip install -r requirements.txt as a required first step.
+7. Runner crash without Qiskit. Done (56a018a): a missing package is recorded as "not installed". The saved outputs should still be made after pip install -r requirements.txt; flow_fitted_pair_cost differs by 0.1 in one cell between numpy 2.1.3 and the pinned 2.5.2.
 
-8. Missing files. briskit/summary.py and experiments/budget_experiment.py aren't on GitHub. origin/main ends at "Add fitted pair cost result".
-   Action: please push them. B7 copies budget_experiment.py.
+8. Missing files. Done: summary.py and budget_experiment.py are on main, and B7 is built on them.
 
 9. B6 depends on your code. It calls selection_features and ridge_coefficients from briskit/pair_cost.py, with the default ridge strength of 1e-3.
    Action: tell us if you change either one, because the B6 numbers will change.
