@@ -1,0 +1,10 @@
+instance,family,damaged,budget,optimal_plans_weighted,optimal_plans_unweighted,shared_optimal_plan,weighted_loss_best_tie,weighted_loss_worst_tie,unweighted_loss_best_tie,unweighted_loss_worst_tie
+random_geometric_16_0,random_geometric,16,8,9752,9752,True,0.0,0.0,0.0,0.0
+random_geometric_16_1,random_geometric,16,8,382,382,True,0.0,0.0,0.0,0.0
+random_geometric_16_2,random_geometric,16,8,12705,12705,True,0.0,0.0,0.0,0.0
+ring_with_chords_16_0,ring_with_chords,16,8,8,8,True,0.0,0.0,0.0,0.0
+ring_with_chords_16_1,ring_with_chords,16,8,11,11,True,0.0,0.0,0.0,0.0
+ring_with_chords_16_2,ring_with_chords,16,8,3,6,True,0.0,0.045454545454545456,0.0,0.0
+hub_and_spoke_16_0,hub_and_spoke,16,8,270,1286,True,0.0,0.037037037037037035,0.0,0.0
+hub_and_spoke_16_1,hub_and_spoke,16,8,4916,4916,True,0.0,0.0,0.0,0.0
+hub_and_spoke_16_2,hub_and_spoke,16,8,3333,3333,True,0.0,0.0,0.0,0.0

@@ -1,0 +1,81 @@
+{
+ "name": "handmade",
+ "family": "handmade",
+ "seed": null,
+ "synthetic": true,
+ "network": {
+  "nodes": [
+   [
+    0,
+    0
+   ],
+   [
+    1,
+    1
+   ],
+   [
+    2,
+    0
+   ],
+   [
+    1,
+    -1
+   ],
+   [
+    3,
+    0
+   ]
+  ],
+  "links": [
+   [
+    0,
+    1,
+    4.0
+   ],
+   [
+    1,
+    2,
+    3.0
+   ],
+   [
+    0,
+    3,
+    2.0
+   ],
+   [
+    3,
+    2,
+    2.0
+   ],
+   [
+    2,
+    4,
+    5.0
+   ]
+  ]
+ },
+ "elements": [
+  1,
+  3
+ ],
+ "demands": [
+  {
+   "source": 0,
+   "sink": 2,
+   "demand": 4.0,
+   "tier": 0,
+   "weight": 2.0
+  },
+  {
+   "source": 0,
+   "sink": 4,
+   "demand": 3.0,
+   "tier": 1,
+   "weight": 1.0
+  }
+ ],
+ "budget": [
+  1
+ ],
+ "damage": null
+}

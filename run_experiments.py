@@ -6,7 +6,7 @@ import sys
 import time
 from concurrent.futures import ThreadPoolExecutor
 from datetime import datetime, timezone
-from importlib.metadata import version
+from importlib.metadata import PackageNotFoundError, version
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parent
@@ -32,8 +32,15 @@ def code_version():
     return f"{commit} ({'modified' if changed else 'clean'})"
 
 
+def package_version(name):
+    try:
+        return version(name)
+    except PackageNotFoundError:
+        return "not installed"
+
+
 def environment_lines(threads):
-    packages = "  ".join(f"{name} {version(name)}" for name in ("numpy", "scipy", "qiskit"))
+    packages = "  ".join(f"{name} {package_version(name)}" for name in ("numpy", "scipy", "qiskit"))
     return [f"code: {code_version()}",
             f"python: {platform.python_version()}",
             f"packages: {packages}",
@@ -41,9 +48,10 @@ def environment_lines(threads):
             f"threads: {threads}"]
 
 
-def run(name, threads):
+def run(name, threads, processes):
     command = [sys.executable, "-m", f"experiments.{name}"]
-    environment = dict(os.environ, PYTHONIOENCODING="utf-8", **{key: str(threads) for key in THREAD_VARIABLES})
+    environment = dict(os.environ, PYTHONIOENCODING="utf-8", FLOW_PROCESSES=str(processes),
+                       **{key: str(threads) for key in THREAD_VARIABLES})
     started = datetime.now(timezone.utc)
     clock = time.perf_counter()
     done = subprocess.run(command, cwd=ROOT, env=environment, stdout=subprocess.PIPE, stderr=subprocess.STDOUT,
@@ -69,12 +77,14 @@ def main():
     parser.add_argument("--check", action="store_true")
     parser.add_argument("--jobs", type=int, default=1)
     parser.add_argument("--threads", type=int, default=1)
+    parser.add_argument("--processes", type=int, default=None)
     options = parser.parse_args()
+    processes = options.processes or max(1, (os.cpu_count() or 1) // options.jobs)
 
     RESULTS.mkdir(exist_ok=True)
     different = []
     with ThreadPoolExecutor(max_workers=options.jobs) as pool:
-        runs = {name: pool.submit(run, name, options.threads) for name in options.names}
+        runs = {name: pool.submit(run, name, options.threads, processes) for name in options.names}
         for name, pending in runs.items():
             header, output = pending.result()
             if options.check:

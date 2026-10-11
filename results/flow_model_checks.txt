@@ -1,0 +1,31 @@
+command: python -m experiments.flow_model_checks
+code: 56a018a (clean)
+python: 3.13.5
+packages: numpy 2.1.3  scipy 1.15.3  qiskit not installed
+platform: Windows-11-10.0.26200-SP0, AMD64
+threads: 1
+started: 2026-10-10T22:36:18Z
+seconds: 25
+exit: 0
+
+hand-made instance: [0.0, 6.0, 4.0, 9.0] (expected [0, 6, 4, 9])
+instance                 undamaged  all restored  none restored  monotone pairs
+random_geometric_12_0        92.00         92.00          75.00             200
+random_geometric_12_1        87.00         87.00          40.00             200
+random_geometric_12_2        83.00         83.00          47.00             200
+ring_with_chords_12_0        90.00         90.00           0.00             200
+ring_with_chords_12_1        88.00         88.00          34.00             200
+ring_with_chords_12_2        44.00         44.00           8.00             200
+hub_and_spoke_12_0           71.00         71.00          16.00             200
+hub_and_spoke_12_1           87.00         87.00          58.00             200
+hub_and_spoke_12_2           92.00         92.00          64.00             200
+random_geometric_16_0        77.00         77.00          17.00             200
+random_geometric_16_1        84.00         84.00          12.00             200
+random_geometric_16_2       106.00        106.00          90.00             200
+ring_with_chords_16_0        91.00         91.00          40.00             200
+ring_with_chords_16_1        98.00         98.00          47.00             200
+ring_with_chords_16_2        70.00         70.00           0.00             200
+hub_and_spoke_16_0          108.00        108.00           0.00             200
+hub_and_spoke_16_1           53.00         53.00          24.00             200
+hub_and_spoke_16_2           76.00         76.00          37.00             200
+all checks hold; time of one program in results/flow/program_time.csv

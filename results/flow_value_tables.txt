@@ -1,0 +1,31 @@
+command: python -m experiments.flow_value_tables
+code: 56a018a (clean)
+python: 3.13.5
+packages: numpy 2.1.3  scipy 1.15.3  qiskit not installed
+platform: Windows-11-10.0.26200-SP0, AMD64
+threads: 1
+started: 2026-10-10T22:36:42Z
+seconds: 1
+exit: 0
+
+instance                  plans    none     all undamaged idle links
+handmade                      4    0.00    9.00      9.00          0
+random_geometric_12_0      4096   75.00   92.00     92.00          2
+random_geometric_12_1      4096   40.00   87.00     87.00          0
+random_geometric_12_2      4096   47.00   83.00     83.00          1
+ring_with_chords_12_0      4096    0.00   90.00     90.00          0
+ring_with_chords_12_1      4096   34.00   88.00     88.00          0
+ring_with_chords_12_2      4096    8.00   44.00     44.00          0
+hub_and_spoke_12_0         4096   16.00   71.00     71.00          5
+hub_and_spoke_12_1         4096   58.00   87.00     87.00          3
+hub_and_spoke_12_2         4096   64.00   92.00     92.00          4
+random_geometric_16_0     65536   17.00   77.00     77.00          4
+random_geometric_16_1     65536   12.00   84.00     84.00          0
+random_geometric_16_2     65536   90.00  106.00    106.00         11
+ring_with_chords_16_0     65536   40.00   91.00     91.00          0
+ring_with_chords_16_1     65536   47.00   98.00     98.00          0
+ring_with_chords_16_2     65536    0.00   70.00     70.00          1
+hub_and_spoke_16_0        65536    0.00  108.00    108.00          1
+hub_and_spoke_16_1        65536   24.00   53.00     53.00          0
+hub_and_spoke_16_2        65536   37.00   76.00     76.00         11
+monotone in every link on every table; idle links never change the value; time per table in results/flow/value_tables.csv
