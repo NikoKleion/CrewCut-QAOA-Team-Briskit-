@@ -7,7 +7,7 @@ import numpy as np
 
 from briskit import benchmark
 from briskit.baselines import greedy_marginal
-from briskit.feeder import plan_index, restoration_value, sample_instance, upstream_parents
+from briskit.feeder import plan_index, sample_instance, upstream_parents
 from briskit.instances import Instance, crew_assignment, restoration
 from briskit.qaoa import expected_best_of
 from briskit.scheduling import list_schedule, single_crew_order

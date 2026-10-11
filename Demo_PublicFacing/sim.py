@@ -17,7 +17,6 @@ This is NOT the research code behind the paper. It generates one illustrative 6-
 """
 import argparse
 import json
-import sys
 import time
 
 import numpy as np

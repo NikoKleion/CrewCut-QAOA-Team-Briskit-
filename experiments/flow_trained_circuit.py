@@ -1,5 +1,3 @@
-import numpy as np
-
 from briskit import benchmark
 from briskit.flow import restoration, stored_instance, stored_value_table
 from briskit.qaoa import train_qaoa
