@@ -1,0 +1,23 @@
+command: python future/A8_noise_study/sparse_layer_under_noise.py
+code: f158ea0 (clean)
+python: 3.13.14
+packages: numpy 2.5.2  scipy 1.18.1  qiskit 2.5.2
+platform: Windows-11-10.0.26200-SP0, AMD64
+threads: 1
+future scripts: clean
+started: 2026-10-11T05:05:40Z
+seconds: 166
+
+12 repairs, two crews, 30 instances, depth 2, angles trained without errors, 300 error patterns for each circuit, median over instances [quartiles]
+depolarisation after every gate of the circuit as written (H, one RZZ for each pair term, RX); no readout error
+   noise model            pair terms kept   pair gates   gain over random plans kept   best plan shots
+   no error                          100%          132     69.7% [ 68.4,  72.1]         0.34% [ 0.23,  0.56]
+   no error                           50%           66     68.3% [ 66.7,  69.6]         0.32% [ 0.23,  0.58]
+   no error                           25%           32     62.3% [ 59.3,  64.8]         0.26% [ 0.19,  0.50]
+   Aria 1                            100%          132     45.2% [ 43.5,  46.9]         0.19% [ 0.13,  0.31]
+   Aria 1                             50%           66     52.1% [ 50.4,  53.7]         0.22% [ 0.17,  0.41]
+   Aria 1                             25%           32     52.8% [ 50.1,  55.1]         0.22% [ 0.16,  0.41]
+   Forte 1, old model                100%          132     60.5% [ 57.8,  61.9]         0.28% [ 0.19,  0.45]
+   Forte 1, old model                 50%           66     61.9% [ 60.6,  63.5]         0.28% [ 0.20,  0.51]
+   Forte 1, old model                 25%           32     58.9% [ 56.0,  61.2]         0.25% [ 0.18,  0.46]
+the Forte 1 rates are those of the model IonQ replaced in September 2025; they do not describe the present Forte 1 backend

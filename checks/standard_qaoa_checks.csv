@@ -1,0 +1,5 @@
+check,version,expected,got,verdict,required,as_required
+saved_table_at_6_repairs_is_reproduced,real,24 of 24 printed numbers,24 of 24,PASS,PASS,yes
+saved_table_at_6_repairs_is_reproduced,broken: the standard form's circuit without its single-qubit terms,24 of 24 printed numbers,7 of 24,FAIL,FAIL,yes
+ceiling_holds_at_every_size,real,best plan shots within 0.03 points of valid shots times 2 / 2^n,largest gap 0.019 points,PASS,PASS,yes
+ceiling_holds_at_every_size,broken: one saved best plan share altered,best plan shots within 0.03 points of valid shots times 2 / 2^n,largest gap 0.098 points,FAIL,FAIL,yes

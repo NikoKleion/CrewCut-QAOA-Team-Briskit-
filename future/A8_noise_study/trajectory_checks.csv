@@ -1,0 +1,9 @@
+check,version,expected,got,verdict,required,as_required
+no_error_gives_the_table_distribution,real,difference below 1e-12,largest difference 1.4e-16,PASS,PASS,yes
+no_error_gives_the_table_distribution,broken: pair gate angle doubled,difference below 1e-12,largest difference 5.3e-02,FAIL,FAIL,yes
+two_qubit_errors_follow_the_kraus_channel,real,largest difference below 0.001,largest difference 0.0000,PASS,PASS,yes
+two_qubit_errors_follow_the_kraus_channel,broken: a two-qubit error with chance r in place of 15 r / 16,largest difference below 0.001,largest difference 0.0020,FAIL,FAIL,yes
+one_qubit_errors_follow_the_kraus_channel,real,largest difference below 0.004,largest difference 0.0001,PASS,PASS,yes
+one_qubit_errors_follow_the_kraus_channel,broken: one-qubit errors left out,largest difference below 0.004,largest difference 0.0689,FAIL,FAIL,yes
+every_average_is_a_distribution,real,sums to 1 within 1e-12,sum off by 8.9e-16,PASS,PASS,yes
+every_average_is_a_distribution,broken: average taken over one pattern too many,sums to 1 within 1e-12,sum off by 4.8e-02,FAIL,FAIL,yes
