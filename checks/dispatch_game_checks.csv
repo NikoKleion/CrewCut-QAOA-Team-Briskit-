@@ -1,0 +1,13 @@
+check,version,expected,got,verdict,required,as_required
+game_costs_equal_the_library,real,difference below 1e-9,largest difference 0.0e+00,PASS,PASS,yes
+game_costs_equal_the_library,broken: pair term with the weight of the earlier repair and the hours of the later one,difference below 1e-9,largest difference 2.2e+02,FAIL,FAIL,yes
+crewcut_circuit_gives_the_trained_distribution,real,difference below 1e-10,largest difference 5.2e-17,PASS,PASS,yes
+crewcut_circuit_gives_the_trained_distribution,broken: the angles of the mixer used for the cost layer,difference below 1e-10,largest difference 6.9e-03,FAIL,FAIL,yes
+standard_circuit_gives_the_trained_distribution,real,difference below 1e-10,largest difference 1.9e-17,PASS,PASS,yes
+standard_circuit_gives_the_trained_distribution,broken: single-qubit terms left out,difference below 1e-10,largest difference 4.1e-05,FAIL,FAIL,yes
+decoder_agrees_with_the_library,real,65536 of 65536 states,65536 of 65536,PASS,PASS,yes
+decoder_agrees_with_the_library,broken: qubits grouped by crew in the decoder,65536 of 65536 states,65042 of 65536,FAIL,FAIL,yes
+saved_shares_are_those_of_the_trained_circuits,real,difference below 1e-9,largest difference 0.0e+00,PASS,PASS,yes
+saved_shares_are_those_of_the_trained_circuits,broken: one saved share altered,difference below 1e-9,largest difference 1.0e-02,FAIL,FAIL,yes
+rule_figures_are_recomputed,real,"(16, 0.013721688)","(16, 0.013721688)",PASS,PASS,yes
+rule_figures_are_recomputed,broken: the count of instances altered,"(17, 0.013721688)","(16, 0.013721688)",FAIL,FAIL,yes

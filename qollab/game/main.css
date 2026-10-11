@@ -1,0 +1,170 @@
+main {
+  max-width: 60rem;
+  margin: 0 auto;
+  padding: 0 16px 2rem;
+  font-family: system-ui, sans-serif;
+  line-height: 1.5;
+  color: #1a1a1a;
+  background: #ffffff;
+}
+
+h2 {
+  margin-top: 2rem;
+  border-top: 2px solid #1a1a1a;
+  padding-top: 0.75rem;
+}
+
+#repairs {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(13rem, 1fr));
+  gap: 0.5rem;
+}
+
+fieldset {
+  border: 1px solid #888888;
+  padding: 0.4rem 0.6rem;
+  margin: 0;
+}
+
+legend {
+  font-weight: 700;
+  padding: 0 0.3rem;
+}
+
+.facts {
+  display: block;
+  color: #444444;
+}
+
+fieldset label {
+  display: inline-block;
+  margin-right: 1rem;
+  font-weight: 600;
+}
+
+#settings {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75rem 1.5rem;
+  align-items: end;
+}
+
+#settings label {
+  display: flex;
+  flex-direction: column;
+  font-weight: 600;
+}
+
+input, button {
+  font: inherit;
+  padding: 0.3rem 0.5rem;
+}
+
+input[type="radio"] {
+  width: 1.1rem;
+  height: 1.1rem;
+  vertical-align: -0.15rem;
+}
+
+button {
+  border: 2px solid #1a1a1a;
+  background: #1a1a1a;
+  color: #ffffff;
+  cursor: pointer;
+}
+
+button:disabled {
+  background: #ffffff;
+  color: #555555;
+  cursor: not-allowed;
+}
+
+button:focus-visible, input:focus-visible {
+  outline: 3px solid #0072b2;
+  outline-offset: 2px;
+}
+
+.lanes {
+  display: grid;
+  grid-template-columns: 4.5rem 1fr;
+  gap: 0.2rem 0.6rem;
+  align-items: center;
+  margin: 1rem 0;
+}
+
+.lane {
+  display: flex;
+  min-height: 2rem;
+  border: 1px solid #888888;
+  background: #f2f2f2;
+}
+
+.lane-name {
+  font-weight: 700;
+}
+
+.lane-text {
+  grid-column: 2;
+  color: #444444;
+  font-size: 0.9rem;
+  margin-bottom: 0.4rem;
+}
+
+.job {
+  display: grid;
+  place-items: center;
+  color: #ffffff;
+  font-weight: 700;
+  border-right: 2px solid #ffffff;
+  box-sizing: border-box;
+}
+
+.crew-a {
+  background: #005a8c;
+}
+
+.crew-b {
+  background: #a34000;
+}
+
+.score {
+  font-size: 1.15rem;
+}
+
+.found {
+  border-left: 6px solid #00664d;
+  background: #f2f2f2;
+  padding: 0.6rem 0.9rem;
+  font-weight: 600;
+}
+
+.small {
+  color: #444444;
+  font-size: 0.9rem;
+}
+
+table {
+  border-collapse: collapse;
+  font-variant-numeric: tabular-nums;
+  margin: 0.75rem 0;
+}
+
+th, td {
+  border: 1px solid #888888;
+  padding: 0.25rem 0.6rem;
+  text-align: right;
+}
+
+th[scope="row"] {
+  font-weight: normal;
+  text-align: left;
+}
+
+thead th {
+  background: #e8e8e8;
+}
+
+#standings td:nth-child(2) {
+  font-family: ui-monospace, monospace;
+  letter-spacing: 0.1rem;
+}
