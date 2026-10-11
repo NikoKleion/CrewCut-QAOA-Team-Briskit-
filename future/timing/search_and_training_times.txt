@@ -1,0 +1,23 @@
+command: python future/timing/search_and_training_times.py
+code: a278256 (clean)
+python: 3.13.14
+packages: numpy 2.5.2  scipy 1.18.1  qiskit 2.5.2
+platform: Windows-11-10.0.26200-SP0, AMD64
+threads: 1
+future scripts: clean
+started: 2026-10-11T16:11:04Z
+seconds: 5
+exit: 0
+
+12 repairs, two crews, one instance, median of 5 runs (lowest to highest); times differ from run to run
+   exhaustive search, feeder model, 4096 plans                      0.75 ms   (0.71 to 0.94)
+   dispatch order and list schedule, one plan scored                0.08 ms   (0.08 to 0.13)
+   training the angles, one layer, table simulator                 75.87 ms   (69.84 to 82.16)
+   drawing 100 plans from the trained distribution, scored          0.39 ms   (0.26 to 0.46)
+exhaustive search on independent repairs by size, median of 3 runs
+   12 repairs, 4096 plans                                           1.00 ms   (0.96 to 1.24)
+   14 repairs, 16384 plans                                          3.55 ms   (3.32 to 3.84)
+   16 repairs, 65536 plans                                         18.41 ms   (17.66 to 19.85)
+   18 repairs, 262144 plans                                       153.14 ms   (152.10 to 155.08)
+   20 repairs, 1048576 plans                                     1450.67 ms   (950.55 to 1521.36)
+simulation on a classical machine; nothing here is the clock of a quantum processor
