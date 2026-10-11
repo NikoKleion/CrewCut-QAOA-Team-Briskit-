@@ -52,7 +52,7 @@ Tan et al., section 5.4, equation 51, Algorithms 4 and 5, https://arxiv.org/abs/
 
 ## briskit/feeder.py
 
-Holds the 12 lines of the IEEE 13 node test feeder and the line upstream of each. Draws random instances (weights uniform between 0 and 1 with one weight of 5, repair times whole hours from 1 to 10), lists every plan as a row of bits, and scores a restoration plan by the total weight of the lines that are restored together with every line upstream of them.
+Holds the 12 branches between the 13 nodes of the IEEE 13 node test feeder and the branch upstream of each. Three of them are not plain lines in the OpenDSS model: 633-634 is the transformer XFM1, 671-692 is a switch, and 632-671 is the two lines 632-670 and 670-671, since node 670 is only the point load of the distributed load on that line. Draws random instances (weights between 0 and 1 with one weight of 5, repair times whole hours from 1 to 10; the paper says only "a random number between 0 and 1", so drawing it uniformly is a project choice), lists every plan as a row of bits, and scores a restoration plan by the total weight of the lines that are restored together with every line upstream of them.
 
 Line list: OpenDSS model of the feeder, https://raw.githubusercontent.com/dss-extensions/electricdss-tst/master/Version8/Distrib/IEEETestCases/13Bus/IEEE13Nodeckt.dss
 
@@ -80,7 +80,7 @@ Every constant without a source is listed in `SOURCES.md`.
 
 ## briskit/hardware.py
 
-Builds one cost layer with a rotation on every pair of qubits, counts the two-qubit gates and the two-qubit depth of a compiled circuit, and gives the fraction of shots with no two-qubit error as (1 - r) to the power of the gate count, with r = 0.00495, the two-qubit rate in IonQ's Forte 1 noise model.
+Builds one cost layer with a rotation on every pair of qubits, counts the two-qubit gates and the two-qubit depth of a compiled circuit, and gives the fraction of shots with no two-qubit error as (1 - r) to the power of the gate count, with r = 0.00495, the two-qubit rate of IonQ's Forte 1 noise model as tabled for jobs completed before mid-September 2025 (0.004949333...), when IonQ updated that model.
 
 Error rate: IonQ, Simulation with Noise Models, https://docs.ionq.com/guides/simulation-with-noise-models
 
@@ -176,7 +176,9 @@ Kumabe, Maehara and Sin'ya, Linear Pseudo-Polynomial Factor Algorithm for Automa
 
 Runs every solver through the harness on 30 instances of two feeder decisions, restoring 6 of 12 lines and assigning 12 repairs to two crews. Methods that fit a pair cost score 150 random plans and then return up to 50 more; random plans run to the same total of 200. It writes the rows to `results/feeder/budget_experiment_restoration.csv` and `results/feeder/budget_experiment_crews.csv`, keeping a row only where a run's value changes, and prints regret at fixed totals and the average runtime to regret targets of 5%, 1% and 0.
 
-Comparing methods only up to the smallest budget any of them was given, and instances as repetitions: Hansen et al., COCO: The Experimental Procedure, https://arxiv.org/abs/1603.08776
+Comparing methods only up to the smallest budget any of them was given: Hansen et al., COCO: The Experimental Procedure, https://arxiv.org/abs/1603.08776
+
+Instances as repetitions: Hansen et al., COCO: Performance Assessment, section 3.1, https://arxiv.org/abs/1605.03560
 
 Instance generator: Tan et al., section 6, https://arxiv.org/abs/1702.08382
 
@@ -224,7 +226,7 @@ Regret against the number of plans used for the fit, for restoring 4 and 6 of 12
 
 Linear solve behind the ridge fit: NumPy `linalg.solve`, https://numpy.org/doc/stable/reference/generated/numpy.linalg.solve.html
 
-Second route used to check it: NumPy `lstsq`, https://numpy.org/doc/stable/reference/generated/numpy.linalg.lstsq.html
+Second route used to check it, in `checks/fit_checks.py`: NumPy `lstsq`, https://numpy.org/doc/stable/reference/generated/numpy.linalg.lstsq.html
 
 ## experiments/fitted_pair_cost.py
 
@@ -286,7 +288,7 @@ Qiskit transpiler, https://quantum.cloud.ibm.com/docs/api/qiskit/transpiler
 
 Qiskit `CouplingMap`, https://quantum.cloud.ibm.com/docs/api/qiskit/qiskit.transpiler.CouplingMap
 
-IonQ native gates, https://docs.ionq.com/guides/getting-started-with-native-gates
+IonQ native gates (ZZ is the two-qubit native gate of Forte systems; the page does not state that every pair of qubits can interact, so that is an assumption here), https://docs.ionq.com/guides/getting-started-with-native-gates
 
 ## experiments/independent_repairs.py
 
@@ -356,7 +358,7 @@ Farhi, Goldstone and Gutmann, https://arxiv.org/abs/1411.4028 ; Skutella, sectio
 
 ## experiments/standard_qaoa_10.py
 
-The comparison of `experiments/standard_qaoa.py` at 10 repairs, where the standard form takes 20 qubits, on 10 instances with the penalties run at 8 repairs. Ten instances and not 30 because one circuit evaluation takes 48 times as long as at 8 repairs.
+The comparison of `experiments/standard_qaoa.py` at 10 repairs, where the standard form takes 20 qubits, on 10 instances with the penalties run at 8 repairs. Ten instances and not 30 because the state of the standard form has 2^20 amplitudes against 2^16 at 8 repairs: the 10 instances already took 10966 seconds (the header of `results/standard_qaoa_10.txt`).
 
 Farhi, Goldstone and Gutmann, https://arxiv.org/abs/1411.4028 ; Skutella, sections 2.1 and 6; Lucas, section 6.3, https://arxiv.org/abs/1302.5843
 
@@ -390,13 +392,13 @@ Runs every script in `experiments/` in its own process with a fixed number of nu
     python run_experiments.py --check
     python run_experiments.py --check dispatch_rules level_merging
 
-Every script seeds NumPy's generator with the constant `SEED` at the top of the file, so a rerun draws the same instances: https://numpy.org/doc/stable/reference/random/generator.html
+Every script that draws random numbers seeds NumPy's generator from fixed integers, so a rerun draws the same instances: the constant `SEED` at the top of the file, or for the flow scripts the seeds of `briskit/flow.py` and of the harness rows (`standard_qaoa_10.py` uses the `SEED` of `standard_qaoa.py`): https://numpy.org/doc/stable/reference/random/generator.html
 
 ## checks/
 
 `benchmark_checks.py`, `budget_checks.py`, `collective_checks.py`, `cost_circuit_checks.py`, `dispatch_checks.py`, `fit_checks.py`, `flow_trained_checks.py`, `one_hot_checks.py`, `solver_checks.py`, `standard_qaoa_checks.py`, `summary_checks.py`, `syllabus_checks.py`, `trained_checks.py` and `tree_knapsack_checks.py` hold one named function per check, each taking the piece under test and returning what it expected, what it got and whether they agree. `record.py` runs every check twice, on the real code and on a broken version written beside it, and writes both outcomes to a `.csv` file next to the checks: a check counts only if it passes on the real code and fails on the broken one.
 
-`budget_checks.py` audits the saved rows of the budget experiment against the exact expectation for the best of a number of distinct random plans. `fit_checks.py` compares the fit with a second way of solving the same least squares problem and with the saved result of `experiments/feeder_fitted_models.py`. `dispatch_checks.py` compares the rho factors with a second listing of subtrees by bit masks, the dispatch with `priority_dispatch`, and both with Theorem 5 of Tan et al.: with rho factors as priorities the dispatch must equal the conversion algorithm on every one of 300 feeder instances. `collective_checks.py` compares a block with the matrix exponential of its definition, the block layers with the pair by pair layer by `Operator.equiv`, the whole circuit with the table simulator, and the XX form with the ZZ form. `cost_circuit_checks.py` compares the rewritten terms with the cost table of the QAOA selector, the scale with the standard deviation of that table, and the circuit's probabilities with `qaoa_probabilities` at 8 and 12 qubits and depths 1 to 3, and with the distribution `train_qaoa` returns for a fit on the feeder. `trained_checks.py` checks that a record read back from the file equals the one written, that its circuit gives the trained distribution, that the plans drawn after replaying the stream are the plans the harness's solver returns for the same seed, instance, method and budget, that scoring from the record equals the feeder model, and that the size limits are tested. `flow_trained_checks.py` does the same for the flow record of `experiments/flow_trained_circuit.py`: its circuit gives the trained distribution, the plans drawn after replaying the stream are the plans of the budget experiment's QAOA solver with the penalty at the bound, and scoring from the stored values equals the flow table. `tree_knapsack_checks.py` compares the exact tree method with enumeration on 60 feeder cases and 10 random trees of 16 lines, and with brute force over closed sets for a budget in repair hours, and checks that the plan it returns has the right number of lines when weights are zero. `one_hot_checks.py` compares the standard form on every valid state with the schedule run crew by crew for two and three crews, checks that the penalty moves only the states that are not assignments, that the lowest state at the bound is an assignment with the optimum, that the form agrees plan by plan with one qubit per repair, that its circuit gives the distribution of the table simulator, and that qubits and pair terms follow the closed form. `standard_qaoa_checks.py` audits the saved result of `experiments/standard_qaoa.py` at 6 repairs by a second route: the same trained angles, but the distribution from the Qiskit state vector of the circuit, validity and crews read from each bit string, and the cost of a plan from the schedule of each crew; it also checks on the saved results at 6, 8 and 10 repairs that the standard form at 4 times the bound returns best plans at the rate of random valid plans. `syllabus_checks.py` checks that every code file in the repository has an entry in this file, and that no paragraph and no command of it is there twice.
+`budget_checks.py` audits the saved rows of the budget experiment against the exact expectation for the best of a number of distinct random plans. `fit_checks.py` compares the fit with a second way of solving the same least squares problem and with the saved result of `experiments/feeder_fitted_models.py`. `dispatch_checks.py` compares the rho factors with a second listing of subtrees by bit masks, the dispatch with `priority_dispatch`, and both with Theorem 5 of Tan et al.: with rho factors as priorities the dispatch must equal the conversion algorithm on every one of 300 feeder instances. `collective_checks.py` compares a block with the matrix exponential of its definition, the block layers with the pair by pair layer by `Operator.equiv`, the whole circuit with the table simulator, and the XX form with the ZZ form. `cost_circuit_checks.py` compares the rewritten terms with the cost table of the QAOA selector, the scale with the standard deviation of that table, and the circuit's probabilities with `qaoa_probabilities` at 8 and 12 qubits and depths 1 to 3, and with the distribution `train_qaoa` returns for a fit on the feeder. `trained_checks.py` checks that a record read back from the file equals the one written, that its circuit gives the trained distribution, that the plans drawn after replaying the stream are the plans the harness's solver returns for the same seed, instance, method and budget, that scoring from the record equals the feeder model, and that the size limits are tested. `flow_trained_checks.py` does the same for the flow record of `experiments/flow_trained_circuit.py`: its circuit gives the trained distribution, the plans drawn after replaying the stream are the plans of the budget experiment's QAOA solver with the penalty at the bound, and scoring from the stored values equals the flow table. `tree_knapsack_checks.py` compares the exact tree method with enumeration on 60 feeder cases and 10 random trees of 16 lines, and with brute force over closed sets for a budget in repair hours, and checks that the plan it returns has the right number of lines when weights are zero. `one_hot_checks.py` compares the standard form on every valid state with the schedule run crew by crew for two and three crews, checks that the penalty moves only the states that are not assignments, that the lowest state at the bound is an assignment with the optimum, that the form agrees plan by plan with one qubit per repair, that its circuit gives the distribution of the table simulator, and that qubits and pair terms follow the closed form. `standard_qaoa_checks.py` audits the saved result of `experiments/standard_qaoa.py` at 6 repairs by a second route: the same trained angles, but the distribution from the Qiskit state vector of the circuit, validity and crews read from each bit string, and the cost of a plan from the schedule of each crew; it also checks on the saved results at 6, 8 and 10 repairs that the standard form at 4 times the bound returns best plans at the rate of random valid plans. `syllabus_checks.py` checks that every code file of `briskit/`, `experiments/` and `qollab/` and `run_experiments.py` has an entry in this file, that every check file is named here, that every entry names a file that exists, and that no paragraph and no command of it is there twice.
 
     python -m checks.benchmark_checks
     python -m checks.budget_checks
