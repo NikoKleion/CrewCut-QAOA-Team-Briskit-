@@ -471,6 +471,10 @@ The full path for the figures, run after `run_experiments.py` as `python -m figu
 
 The flow instances as JSON, one file per instance: the hand-made one and 18 generated ones (three families, 12 and 16 damaged links, seeds 0 to 2). `experiments/flow_instances.py` writes them and `briskit/flow.py` gives the format.
 
+## future/
+
+Simulations that are built and not yet run, one folder for each task, each script named for what it measures. A script with (WIP) in its first line has run on a few instances only. `saved_run.py` runs a script and saves what it prints beside it as a `.txt` with the code version; `crew_pairs.py` holds the pair cost of crew assignment the scripts share. `A8_noise_study/` puts a random two-qubit Pauli error after each pair gate and averages over error trajectories (`pauli_trajectories.py`, checked by `trajectory_checks.py`), then scores the sparse cost layer at the Forte 1 and Aria 1 error rates; the error model is a project choice and single-qubit and readout errors are left out. `A10_standard_qaoa/` runs the comparison of `experiments/standard_qaoa_10.py`. `A11_ladder/` scores the sparse cost layer without errors over 30 instances and counts the two-qubit gates of both forms of crew assignment on a heavy hex layout. `C1_hosted_runs/` lists the six runs to make on Qollab. `freeze/` reruns every experiment against its saved result. Run as `python future/<folder>/<script>.py` from any folder and commit the `.txt` it saves.
+
 ## results/
 
 `results/<name>.txt` is what `experiments/<name>.py` printed, one file per script. The lines before the first blank line record how the output was made: the command, the commit of the code and whether the code had uncommitted changes, the Python and package versions, the platform, the thread count, the start time in UTC, the run time in seconds and the exit code. The rest is the output. Row files are grouped by network: `results/feeder/` for the feeder experiments and `results/flow/` for the flow networks.

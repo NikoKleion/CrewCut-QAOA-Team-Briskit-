@@ -1,0 +1,7 @@
+check,version,expected,got,verdict,required,as_required
+no_error_gives_the_table_distribution,real,difference below 1e-12,largest difference 1.4e-16,PASS,PASS,yes
+no_error_gives_the_table_distribution,broken: pair gate angle doubled,difference below 1e-12,largest difference 5.3e-02,FAIL,FAIL,yes
+errors_pull_the_cost_toward_random_plans,real,between 0.03 and 0.9 of the gain over random plans kept,0.314 kept,PASS,PASS,yes
+errors_pull_the_cost_toward_random_plans,broken: errors ignored,between 0.03 and 0.9 of the gain over random plans kept,1.000 kept,FAIL,FAIL,yes
+every_trajectory_is_a_distribution,real,sums to 1 within 1e-12,sum off by 8.9e-16,PASS,PASS,yes
+every_trajectory_is_a_distribution,broken: average taken over one trajectory too many,sums to 1 within 1e-12,sum off by 4.8e-02,FAIL,FAIL,yes
