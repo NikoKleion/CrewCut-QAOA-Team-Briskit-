@@ -1,0 +1,15 @@
+check,version,expected,got,verdict,required,as_required
+valid_states_have_the_schedule_cost,real,difference below 1e-9,largest difference 1.4e-14 over 565 states,PASS,PASS,yes
+valid_states_have_the_schedule_cost,broken: pair term with the weight of the earlier repair and the hours of the later one,difference below 1e-9,largest difference 1.5e+02 over 565 states,FAIL,FAIL,yes
+penalty_moves_only_invalid_states,real,"valid states unmoved, the others up by the penalty times the squared miscount","largest deviation 4.3e-14, largest move of a valid state 0.0e+00",PASS,PASS,yes
+penalty_moves_only_invalid_states,"broken: penalty on the squared count, without the 1","valid states unmoved, the others up by the penalty times the squared miscount","largest deviation 5.5e+01, largest move of a valid state 1.1e+01",FAIL,FAIL,yes
+minimum_is_a_plan_at_the_bound,real,30 of 30,30 of 30,PASS,PASS,yes
+minimum_is_a_plan_at_the_bound,broken: the mean pair coefficient as the bound,30 of 30,0 of 30,FAIL,FAIL,yes
+minimum_is_a_plan_at_each_repairs_own_bound,real,30 of 30,30 of 30,PASS,PASS,yes
+minimum_is_a_plan_at_each_repairs_own_bound,broken: each repair given the bound of the repair at its place in the schedule order,30 of 30,0 of 30,FAIL,FAIL,yes
+two_crews_agree_with_one_qubit_per_repair,real,320 of 320,320 of 320,PASS,PASS,yes
+two_crews_agree_with_one_qubit_per_repair,broken: qubits grouped by crew in the decoder,320 of 320,0 of 320,FAIL,FAIL,yes
+circuit_gives_the_table_distribution,real,difference below 1e-12,largest difference 2.1e-17,PASS,PASS,yes
+circuit_gives_the_table_distribution,broken: single-qubit terms left out,difference below 1e-12,largest difference 2.9e-02,FAIL,FAIL,yes
+counts_follow_the_formula,real,5 of 5,5 of 5,PASS,PASS,yes
+counts_follow_the_formula,broken: penalty pairs left out,5 of 5,0 of 5,FAIL,FAIL,yes
