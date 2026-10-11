@@ -1,0 +1,21 @@
+name,low,high,unit,formula
+one_percent_of_a_year,180000000.00,330000000.00,USD per year,0.01 * outage_cost_year
+one_tenth_percent_of_a_year,18000000.00,33000000.00,USD per year,0.001 * outage_cost_year
+one_percent_of_sandy,140000000.00,260000000.00,USD,0.01 * sandy_cost
+sandy_per_customer_out,1647.06,3058.82,USD per customer,sandy_cost / sandy_customers
+mean_large_outage,265095729.01,486008836.52,USD,years * outage_cost_year / large_outages
+one_percent_of_mean_large_outage,2650957.29,4860088.37,USD,0.01 * mean_large_outage
+run_of_100_shots,8.30,8.30,USD,task_price + 100 * shot_price
+run_of_2000_shots,160.30,160.30,USD,task_price + 2000 * shot_price
+hour_more_household,1.90,1.90,USD per hour,(household_16_hours - household_8_hours) / 8
+hour_more_small_business,545.62,545.62,USD per hour,(small_business_16_hours - small_business_8_hours) / 8
+hour_more_large_business,10174.88,10174.88,USD per hour,(large_business_16_hours - large_business_8_hours) / 8
+major_event_share_of_outage_time_2022,64.29,64.29,percent,100 * (hours_out_2022 - hours_out_without_major_events) / hours_out_2022
+crewcut_against_published_algorithm,207000000.00,379500000.00,USD per year,(published_algorithm_above_best - crewcut_100_shots_above_best) * outage_cost_year
+crewcut_share_of_gap_to_best,78.23,78.23,percent,100 * (1 - crewcut_100_shots_above_best / published_algorithm_above_best)
+crewcut_against_random_plans,54000000.00,99000000.00,USD per year,(random_100_plans_above_best - crewcut_100_shots_above_best) * outage_cost_year
+crewcut_to_best_plan,57600000.00,105600000.00,USD per year,crewcut_100_shots_above_best * outage_cost_year
+classical_lead_over_crewcut,16200000.00,29700000.00,USD per year,classical_lead_at_200_plans * outage_cost_year
+one_percent_of_flight_delays,329000000.00,329000000.00,USD per year,0.01 * flight_delay_cost_2007
+operating_room_day,17976.00,17976.00,USD,480 * operating_room_minute
+one_percent_of_operating_room_day,179.76,179.76,USD,0.01 * operating_room_day
