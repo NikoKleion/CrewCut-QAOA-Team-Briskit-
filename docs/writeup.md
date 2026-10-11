@@ -49,7 +49,7 @@ The one qubit form comes from scheduling theory (Skutella, 2000). We added its u
 
 On Qollab, open the Code tab and click Run Project. Choose the built-in simulator in the Select QPU window and press Run. Every simulator in that window is free. The entries marked "Credits apply" are real quantum computers.
 
-When the page has loaded, click each site to give it to crew A or crew B, then press Send the crews. Press Search every plan to score all 256 plans. Press Run the circuits to sample plans with both circuits. The last section of the page runs a 12 repair circuit and gives you the record of the run as a file.
+When the page has loaded, press Play the demo and the page plays itself in three minutes in the order of the pamphlet. Or click each site to give it to crew A or crew B, then press Send the crews. Press Search every plan to score all 256 plans. Press Run the circuits to sample plans with both circuits. The last section of the page runs a 12 repair circuit and gives you the record of the run as a file.
 
 On a laptop you need Python 3.13. Clone the repository at github.com/NikoKleion/CrewCut-QAOA-Team-Briskit- and run these commands from its root folder.
 
@@ -65,6 +65,10 @@ The file syllabus.md lists every experiment with the source behind it. Any of th
 ## Limits
 
 The method handles two crews. It leaves out travel time between sites. All results come from simulators and noise models. At 12 repairs a classical search of every plan takes about a millisecond, and classical best first search is 0.09 points ahead of CrewCut when both score 200 plans. We do not claim a quantum advantage.
+
+## What we built and what we used
+
+We built everything in this project during the hackathon. The first commit of the repository is from 10 October. Our projects on Qollab were started from Qollab templates to see how the site runs code, and no code here comes from those templates. The code uses NumPy, SciPy and Qiskit. The one qubit form is from Skutella (2000). The published algorithm and the two utility rules are from Tan et al. (2017). QAOA is from Farhi, Goldstone and Gutmann (2014). The penalty form of standard QAOA follows Lucas (2014). The full references are in docs/crewcut_vs_standard_qaoa.md.
 
 ## Links
 

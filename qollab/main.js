@@ -287,7 +287,8 @@ element('send').addEventListener('click', async () => {
   element('hint').textContent = off < 1e-9
     ? `The meter stopped at ${reading.toFixed(2)}: exactly this plan's score. Lower is better. Is it the best you could have done?`
     : `Check FAILED: the meter stopped at ${reading} but the plan's score is ${costs[locked]}.`;
-  element('s-search').hidden = false;
+  element('scan').disabled = false;
+  element('scan-count').textContent = '';
 });
 
 // ---------------------------------------------------------------- brute force
@@ -308,7 +309,7 @@ function flag(picture, place, text, level, className) {
 }
 
 element('scan').addEventListener('click', async () => {
-  if (locked === null) return;
+  if (locked === null || element('scan').disabled) return;
   element('scan').disabled = true;
   const picture = board(element('landscape'), 150);
   const started = performance.now();
@@ -349,13 +350,11 @@ element('scan').addEventListener('click', async () => {
   verdict.textContent = ahead === 0
     ? `You found a best plan: ${mine.toFixed(2)}. No plan scores better.`
     : `Your night cost ${mine.toFixed(2)}, ${percent(gap(mine))} more than the best possible (${best.toFixed(2)}). ${ahead} of the ${plans} plans beat yours.`;
-  element('search-time').textContent = elapsed < 1 ? 'under 1' : elapsed.toFixed(1);
+  element('search-time').textContent = elapsed < 1 ? 'under a' : `${elapsed.toFixed(1)}`;
   element('rule-note').textContent = `On this night the simple dispatch rule ends ${percent(gap(costs[rule]))} above the best plan. On ${data.rule_best_on} of the ${data.instances} test nights of this size it is already a best plan; this is the first of the ${data.instances}.`;
-  element('growth').hidden = false;
   element('replay').hidden = false;
-  element('s-links').hidden = false;
-  element('s-qubits').hidden = false;
-  element('s-circuits').hidden = false;
+  for (const id of ['links-mine', 'links-best', 'layer', 'game-run']) element(id).disabled = false;
+  element('game-status').textContent = 'Simulators and noise models are free. This page needs no quantum computer.';
   buildLinks();
   drawLinks(locked);
   registers();
@@ -423,11 +422,11 @@ function drawLinks(plan) {
   element('graph').setAttribute('aria-label', `The eight sites and the ${links.length} links between them. ${note}`);
 }
 
-element('links-mine').addEventListener('click', () => lines.length && drawLinks(locked));
-element('links-best').addEventListener('click', () => lines.length && drawLinks(bestPlan));
+element('links-mine').addEventListener('click', () => lines.length && !element('links-mine').disabled && drawLinks(locked));
+element('links-best').addEventListener('click', () => lines.length && !element('links-best').disabled && drawLinks(bestPlan));
 
 element('layer').addEventListener('click', async () => {
-  if (!lines.length) return;
+  if (!lines.length || element('layer').disabled) return;
   const buttons = [element('layer'), element('links-mine'), element('links-best')];
   for (const button of buttons) button.disabled = true;
   for (const line of lines) line.setAttribute('class', 'link all');
@@ -617,7 +616,7 @@ function show(result) {
 const runButton = element('game-run');
 const runStatus = element('game-status');
 runButton.addEventListener('click', async () => {
-  if (locked === null) return;
+  if (locked === null || runButton.disabled) return;
   if (jobs.used) {
     runStatus.textContent = 'IonQ backends take one job per run: press Stop, then Run, for another.';
     return;
@@ -637,6 +636,49 @@ runButton.addEventListener('click', async () => {
     console.log(String(error));
   }
   runButton.disabled = jobs.used;
+});
+
+// ---------------------------------------------------------------- the demo
+// seconds from the start, the section to show, what to press there; the times are those of the video script
+const SCHEDULE = [
+  [0, 's-top', null],
+  [10, 's-night', async () => { element('lucky').click(); await sleep(600); element('send').click(); }],
+  [27, 's-worth', null],
+  [37, 's-search', () => element('scan').click()],
+  [52, 's-links', async () => { element('links-best').click(); await sleep(2500); element('layer').click(); }],
+  [71, 's-qubits', () => registers()],
+  [93, 's-helps', null],
+  [108, 'tile-best', null],
+  [118, 's-circuits', () => element('game-run').click()],
+  [128, 's-noise', () => element('run').click()],
+  [138, 's-beyond', null],
+  [153, 's-advantage', null],
+  [166, 's-method', null],
+  [176, 's-top', null],
+];
+const pace = Number(new URLSearchParams(location.search).get('pace')) || 1;
+
+async function until(test) {
+  while (!test()) await sleep(100);
+}
+
+element('demo').addEventListener('click', async () => {
+  const button = element('demo');
+  if (button.disabled || locked !== null) return;
+  button.disabled = true;
+  element('demo-note').textContent = 'Playing: 2 minutes 56 seconds, in the order of the pamphlet.';
+  await until(() => !busy);
+  const started = performance.now();
+  for (const [second, id, action] of SCHEDULE) {
+    await sleep(Math.max(0, started + 1000 * second / pace - performance.now()));
+    element(id).scrollIntoView({ behavior: 'smooth', block: 'start' });
+    if (action) {
+      if (id === 's-search') await until(() => !element('scan').disabled);
+      if (id === 's-links') await until(() => !element('layer').disabled);
+      await action();
+    }
+  }
+  element('demo-note').textContent = 'The demo has played. Every button above still works.';
 });
 
 // ---------------------------------------------------------------- start
