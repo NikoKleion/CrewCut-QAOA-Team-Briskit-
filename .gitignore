@@ -5,3 +5,4 @@ __pycache__/
 .idea/
 results/flow/tables/
 figures/quick_path/
+results/qollab/local/

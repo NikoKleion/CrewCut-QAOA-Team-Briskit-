@@ -382,10 +382,6 @@ Qiskit `DiagonalGate`, https://quantum.cloud.ibm.com/docs/api/qiskit/qiskit.circ
 
 Qiskit `Statevector`, https://quantum.cloud.ibm.com/docs/api/qiskit/qiskit.quantum_info.Statevector
 
-## RUNTHIS.py
-
-Runs one comparison through `run_experiments.py` with up to 5 worker processes and says how to send back its result file: `python RUNTHIS.py` runs `experiments/standard_qaoa.py`, `python RUNTHIS.py overnight` runs `experiments/standard_qaoa_10.py`. It prints the time each took when it was run. A run replaces the saved result file; `python run_experiments.py <name> --check` compares without replacing.
-
 ## run_experiments.py
 
 Runs every script in `experiments/` in its own process with a fixed number of numerical threads and writes what each prints to `results/<name>.txt`. With `--check` it runs them again and reports whether each output equals the saved one. `--jobs` sets how many run at once, `--threads` the thread count, and names after the command select scripts.
@@ -461,7 +457,7 @@ Pyodide JavaScript API (`toJs` turns a dict into a `Map` unless `dict_converter`
 
 ## qollab/run_local.py
 
-Runs `main.py` on a laptop the way Qollab does. It supplies Qiskit's `BasicSimulator`, or an IBM fake backend, as `backend`, works from the `qollab/` folder so `figure_data.json` is found by the same plain path, and writes the figures to `figures/quick_path/`, which git ignores. Options: `--shots` (2000), `--depth` (2), `--keep` with one or more shares of pair terms (100), `--devices` with `basic` and any IBM fake backend names such as `fez` (`basic`), `--no-figures`, and `--save`, which writes each run's record to `results/qollab/local/`. These local records check the code before the hosted runs and are not the outputs of task C1. The figures are drawn on the first run only. It prints the wall time of each run including backend setup.
+Runs `main.py` on a laptop the way Qollab does. It supplies Qiskit's `BasicSimulator`, or an IBM fake backend, as `backend`, works from the `qollab/` folder so `figure_data.json` is found by the same plain path, and writes the figures to `figures/quick_path/`, which git ignores. Options: `--shots` (2000), `--depth` (2), `--keep` with one or more shares of pair terms (100), `--devices` with `basic` and any IBM fake backend names such as `fez` (`basic`), `--no-figures`, and `--save`, which writes each run's record to `results/qollab/local/` (ignored by git). These local records check the code before the hosted runs and are not the outputs of task C1. The figures are drawn on the first run only. It prints the wall time of each run including backend setup.
 
     python qollab/run_local.py --devices basic fez --keep 100 50 --no-figures --save
 
@@ -485,7 +481,7 @@ The flow instances as JSON, one file per instance: the hand-made one and 18 gene
 
 ## future/
 
-Simulations run outside `run_experiments.py`, one folder for each task, each script named for what it measures. A script with (WIP) in its first line has run on a few instances only. `saved_run.py` runs a script and saves what it prints beside it as a `.txt` with the code version, also when the script fails partway (`saved_run_checks.py`); `crew_pairs.py` holds the pair cost of crew assignment the scripts share. `A8_noise_study/` applies the depolarisation channels of IonQ's noise model after every gate of the circuit as written, by sampling error patterns and averaging the outcome distribution (`pauli_trajectories.py`); `trajectory_checks.py` compares it with the table simulator at zero error and with the channel's Kraus operators applied to the density matrix of 3 qubits; `sparse_layer_under_noise.py` then scores the sparse cost layer at the Aria 1 rates and at the Forte 1 rates of the model IonQ replaced in September 2025. Noise model and rates: IonQ, Simulation with Noise Models, https://docs.ionq.com/guides/simulation-with-noise-models. `A10_standard_qaoa/` runs the comparison of `experiments/standard_qaoa_10.py`. `A11_ladder/` scores the sparse cost layer without errors over 30 instances and counts the two-qubit gates of both forms of crew assignment on a heavy hex layout. `C1_hosted_runs/` lists the six runs to make on Qollab. `freeze/` reruns every experiment against its saved result. `timing/` measures wall clock time on one machine for exhaustive search, one dispatch plan and the training of the circuit's angles at 12 repairs, and for exhaustive search at 12 to 20 repairs; its numbers differ from run to run. Run as `python future/<folder>/<script>.py` from any folder and commit the `.txt` it saves.
+Simulations run outside `run_experiments.py`, one folder for each task, each script named for what it measures. A script with (WIP) in its first line has run on a few instances only. `saved_run.py` runs a script and saves what it prints beside it as a `.txt` with the code version, also when the script fails partway (`saved_run_checks.py`); `crew_pairs.py` holds the pair cost of crew assignment the scripts share. `A8_noise_study/` applies the depolarisation channels of IonQ's noise model after every gate of the circuit as written, by sampling error patterns and averaging the outcome distribution (`pauli_trajectories.py`); `trajectory_checks.py` compares it with the table simulator at zero error and with the channel's Kraus operators applied to the density matrix of 3 qubits; `sparse_layer_under_noise.py` then scores the sparse cost layer at the Aria 1 rates and at the Forte 1 rates of the model IonQ replaced in September 2025. Noise model and rates: IonQ, Simulation with Noise Models, https://docs.ionq.com/guides/simulation-with-noise-models. `A11_ladder/` scores the sparse cost layer without errors over 30 instances and counts the two-qubit gates of both forms of crew assignment on a heavy hex layout. `timing/` measures wall clock time on one machine for exhaustive search, one dispatch plan and the training of the circuit's angles at 12 repairs, and for exhaustive search at 12 to 20 repairs; its numbers differ from run to run. Run as `python future/<folder>/<script>.py` from any folder and commit the `.txt` it saves.
 
 ## results/
 
@@ -496,10 +492,6 @@ Package versions are pinned in `requirements.txt`. The saved results were made w
 ## SOURCES.md
 
 Sources for the flow networks, with what was read in each and the constants that have no source.
-
-## docs/area_b_handover.txt
-
-Handover notes for the flow networks: how to run the four flow scripts, the instance format, the generator, the scoring model, the value tables and the fits, with the open points of each.
 
 ## docs/crewcut_vs_standard_qaoa.md
 

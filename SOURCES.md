@@ -54,7 +54,7 @@ Python runpy, https://docs.python.org/3/library/runpy.html. run_path's init_glob
 
 Matplotlib backends, https://matplotlib.org/stable/users/explain/figure/backends.html. The MPLBACKEND environment variable selects the backend and matplotlib.use() overrides it; Agg is non-interactive and writes files only. Used in qollab/run_local.py and figures/build.py.
 
-Project choices with no source (task C1). Runs at 100% and 50% of the pair terms, as task C1 of the division of work asks; 2000 shots and depth 2, the defaults of qollab/main.py. Record file name qollab_run_<backend>_keep<keep>_depth<depth>.txt. Local check records in results/qollab/local/, hosted records in results/qollab/. In qollab/main.py and qollab/run_local.py.
+Project choices with no source (task C1). Runs at 100% and 50% of the pair terms, as task C1 of the division of work asks; 2000 shots and depth 2, the defaults of qollab/main.py. Record file name qollab_run_<backend>_keep<keep>_depth<depth>.txt. Local check records written by qollab/run_local.py --save to results/qollab/local/, not kept in the repo, hosted records in results/qollab/. In qollab/main.py and qollab/run_local.py.
 
 Qollab, JS Qiskit projects, https://qollab.xyz/learn/docs/js-qiskit-projects. Read 2026-10-11. A Python module is imported in main.js by dotted name with import * as (a default import gives undefined); call its functions through .callPromising, as a plain call fails with a ConnectionError on IonQ backends; return values are proxies converted with .toJs(); backend is supplied, not created; the code runs in an async context, so top-level await works. Used in qollab/main.js.
 
