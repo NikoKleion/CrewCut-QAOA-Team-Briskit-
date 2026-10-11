@@ -497,6 +497,10 @@ Sources for the flow networks, with what was read in each and the constants that
 
 The write-up comparing one qubit per repair with standard QAOA, the dispatch rules and the classical methods; its Section 8 maps each claim to the result file it is read from. `crewcut_vs_standard_qaoa.pdf` is the same text as a PDF.
 
+## docs/CrewCut-QAOA-pamphlet.pdf
+
+The pamphlet: the project in 17 pages for a reader who has ten minutes. The problem, what a percent is worth, the classical baseline, QAOA in one page, how a plan becomes qubits, what CrewCut does differently, the results with the setup behind each number, what could matter beyond the hackathon, what a quantum advantage would take, and the limits. Its numbers are those of the result files named in `docs/crewcut_vs_standard_qaoa.md`; the dollar figures are those of `docs/money/`.
+
 ## docs/money/
 
 The business figures: what weather outages cost and what one percent of that is worth. `inputs.csv` holds each number taken from a source or from a result file, with its unit and where it comes from. `value.py` does the arithmetic, run as `python docs/money/value.py`, and writes `value.csv`: name, low, high, unit and formula. `sources.md` lists the six sources with the sentence used from each and the assumptions under which percentage points of the test feeder are read as dollars. The dollar figures show scale and are not a forecast.
