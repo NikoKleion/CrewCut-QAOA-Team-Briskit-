@@ -106,7 +106,7 @@ Matrix exponential: SciPy `expm`, https://docs.scipy.org/doc/scipy/reference/gen
 
 Builds the pair coefficients of crew assignment for independent repairs: two repairs on one crew cost the weight of the later one times the hours of the earlier one. Splits those coefficients into one sum of squares per urgency level, fits a pair cost to scored plans by least squares or ridge regression, turns a pair matrix into eigenvalue blocks, expands a value table in the Walsh-Hadamard basis and reports the share of variance at each order, and gives the single and pair terms of the expected cost when lines fail independently.
 
-The pair coefficients are checked against brute force in `experiments/crew_assignment.py`. Quadratic programs for weighted completion time on parallel machines: Skutella, Convex quadratic and semidefinite programming relaxations in scheduling, J. ACM 48(2), 2001 (abstract read), https://page.math.tu-berlin.de/~combi/coga-old/publications/techreports/2000/Report-683-2000.html
+The pair coefficients are checked against brute force in `experiments/crew_assignment.py`. The cost of an assignment to identical crews as a cut on a complete graph, with weight w_j p_k on the edge between repairs j and k when k comes first: Skutella, Convex quadratic and semidefinite programming relaxations in scheduling, section 6 (page 30 of the report), https://page.math.tu-berlin.de/~combi/coga-old/publications/techreports/2000/Report-683-2000.html
 
 Walsh-Hadamard expansion and weight by degree: O'Donnell, Analysis of Boolean Functions, chapter 1, https://arxiv.org/abs/2105.10386
 
