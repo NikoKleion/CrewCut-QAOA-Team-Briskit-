@@ -2,7 +2,7 @@
 
 Team Briskit. Qollab x IonQ hackathon, October 2026. This effort is supported by Qollab & IonQ.
 
-## What it is
+## What is it?
 
 CrewCut-QAOA is a quantum circuit that assigns storm repairs to two repair crews. It uses one qubit for each repair, and the value of that qubit says which crew takes the repair.
 
@@ -12,7 +12,7 @@ The project page is a small game with eight repairs. You assign the repairs to t
 
 All circuits ran on simulators. We did not run anything on a quantum computer.
 
-## Why it matters and who it is for
+## Why does it matter, and who is it for?
 
 After a storm a utility has more broken lines than crews. The crew that each repair goes to decides how long customers stay without power. Weather outages cost the United States $18 to $33 billion a year, so one percent of that cost is $180 to $330 million. On our test feeder, two utility dispatch rules end 19.4% and 14.2% from the best plan.
 
@@ -24,7 +24,7 @@ Engineers who build quantum compilers and machines can use it as a small test jo
 
 Classical methods still do better than the circuit at this size, so we do not suggest using QAOA for real power restoration today.
 
-## How the quantum part works
+## How does the quantum part work?
 
 Each repair gets one qubit. A measured 0 gives the repair to crew A and a measured 1 gives it to crew B. Each crew does its repairs in a fixed order, with the highest priority per hour first, so the order needs no extra qubits.
 
@@ -45,7 +45,7 @@ The one qubit form comes from scheduling theory (Skutella, 2000). We added its u
 | 3 to 5 times fewer shots than standard QAOA to return a best plan | 6 to 10 independent repairs, two layers, median, ahead on every instance |
 | 52% of the gain kept with half of the two qubit gates removed, and 45% with all of them | noise model with 1.33% error per two qubit gate, 12 independent repairs, two layers, 30 instances, median |
 
-## How to run it
+## How do I run it?
 
 On Qollab, open the Code tab and click Run Project. Choose the built-in simulator in the Select QPU window and press Run. Every simulator in that window is free. The entries marked "Credits apply" are real quantum computers.
 
